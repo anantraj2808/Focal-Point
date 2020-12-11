@@ -4,7 +4,7 @@ class Users with ChangeNotifier{
   String _city = "";
   String _state = "";
   String _language = "";
-  String _profession = "";
+  List<String> _professions = [];
 
   Users();
 
@@ -19,14 +19,15 @@ class Users with ChangeNotifier{
     notifyListeners();
   }
 
-  void setProfession(String profession){
-    _profession = profession;
+  void addProfession(String profession){
+    _professions.add(profession);
+    _professions.toSet().toList();
     notifyListeners();
   }
 
   String get city => _city;
   String get state => _state;
   String get language => _language;
-  String get profession => _profession;
+  List<String> get profession => _professions;
 
 }

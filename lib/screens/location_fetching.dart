@@ -1,6 +1,8 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
+import 'package:focal_point/constants/colors.dart';
+import 'package:focal_point/constants/strings.dart';
 import 'package:focal_point/models/Users.dart';
 import 'package:geolocator/geolocator.dart';
 import 'package:provider/provider.dart';
@@ -45,7 +47,6 @@ class _LocationFetchingScreenState extends State<LocationFetchingScreen> {
       Placemark place = p[0];
 
       setState(() {
-        print(place.locality + place.administrativeArea);
         user.setLocation(place.locality, place.administrativeArea);
       });
     } catch (e) {
@@ -65,27 +66,27 @@ class _LocationFetchingScreenState extends State<LocationFetchingScreen> {
                   height: height,
                   width: width,
                   child: Image(
-                    image: AssetImage("assets/images/location_image.jpg"),
+                    image: AssetImage(LOCATION_BG_IMAGE),
                     fit: BoxFit.fill,
                   ),
                 ),
                 Container(
                   height: height,
                   width: width,
-                  color: Colors.black26,
+                  color: BLACK_26,
                   child: Center(
                     child: Column(
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: [
                         Text(
                           "Getting Location...",
-                          style: TextStyle(color: Colors.white, fontSize: 17.5),
+                          style: TextStyle(color: WHITE, fontSize: 17.5),
                         ),
                         SizedBox(
                           height: 15.0,
                         ),
                         CircularProgressIndicator(
-                          backgroundColor: Colors.white,
+                          backgroundColor: WHITE,
                         )
                       ],
                     ),
@@ -94,6 +95,6 @@ class _LocationFetchingScreenState extends State<LocationFetchingScreen> {
               ],
             )),
           )
-        : LanguageSelectionScreen(user);
+        : LanguageSelectionScreen(user: user);
   }
 }
