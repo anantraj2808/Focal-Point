@@ -31,6 +31,8 @@ dependencies:
   provider: ^4.3.2+3
   geolocator: ^5.3.1
   gscarousel: ^0.0.1
+  android_intent: ^0.3.7+7
+  shared_preferences: ^0.5.12+4
 
 dev_dependencies:
   flutter_test:
@@ -67,10 +69,10 @@ flutter:
   # "family" key with the font family name, and a "fonts" key with a
   # list giving the asset and other descriptors for the font. For
   # example:
-  # fonts:
-  #   - family: Schyler
-  #     fonts:
-  #       - asset: fonts/Schyler-Regular.ttf
+  fonts:
+    - family: CustomIconFont
+      fonts:
+        - asset: assets/fonts/CustomIconFont.ttf
   #       - asset: fonts/Schyler-Italic.ttf
   #         style: italic
   #   - family: Trajan Pro

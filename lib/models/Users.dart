@@ -19,9 +19,20 @@ class Users with ChangeNotifier{
     notifyListeners();
   }
 
+  void setProfessions(List<String> professions){
+    _professions = professions;
+    notifyListeners();
+  }
+
   void addProfession(String profession){
     _professions.add(profession);
     _professions.toSet().toList();
+    notifyListeners();
+  }
+
+  void removeProfession(String profession){
+    _professions.toSet().toList();
+    _professions.remove(profession);
     notifyListeners();
   }
 

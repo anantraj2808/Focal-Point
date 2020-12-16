@@ -1,3 +1,4 @@
+import 'package:android_intent/android_intent.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
@@ -23,6 +24,14 @@ class _LocationFetchingScreenState extends State<LocationFetchingScreen> {
   void initState() {
     super.initState();
     _fetchLocation();
+    openLocationService();
+  }
+
+  void openLocationService() async {
+    final AndroidIntent intent = new AndroidIntent(
+      action: 'android.settings.LOCATION_SOURCE_SETTINGS',
+    );
+    await intent.launch();
   }
 
   _fetchLocation() {

@@ -5,8 +5,9 @@ import 'package:flutter/widgets.dart';
 import 'package:focal_point/constants/colors.dart';
 import 'package:focal_point/constants/strings.dart';
 import 'package:focal_point/models/Users.dart';
-import 'package:focal_point/screens/profession_selection.dart';
 import 'package:provider/provider.dart';
+
+import 'ProfessionSelection/View/profession_selection.dart';
 
 class LanguageSelectionScreen extends StatefulWidget {
 
@@ -19,6 +20,9 @@ class LanguageSelectionScreen extends StatefulWidget {
 
 class _LanguageSelectionScreenState extends State<LanguageSelectionScreen> {
 
+  String city = "";
+  String state = "";
+
   @override
   void initState() {
     super.initState();
@@ -30,6 +34,11 @@ class _LanguageSelectionScreenState extends State<LanguageSelectionScreen> {
     var width = MediaQuery.of(context).size.width;
     Users userProvider = Provider.of<Users>(context);
     return Scaffold(
+      appBar: AppBar(
+        backgroundColor: WHITE,
+        centerTitle: true,
+        title: Text("Select Language",style: TextStyle(color: BLACK),),
+      ),
           body: Builder(
             builder: (scaffoldContext) {
               return SafeArea(
@@ -38,15 +47,7 @@ class _LanguageSelectionScreenState extends State<LanguageSelectionScreen> {
                     Container(
                       height: height,
                       width: width,
-                      child: Image(
-                        image: AssetImage(LANGUAGE_BG_IMAGES[0]),
-                        fit: BoxFit.fill,
-                      ),
-                    ),
-                    Container(
-                      height: height,
-                      width: width,
-                      color: BLACK_26,
+                      color: WHITE,
                     ),
                     Column(
                       mainAxisAlignment: MainAxisAlignment.end,
@@ -58,24 +59,32 @@ class _LanguageSelectionScreenState extends State<LanguageSelectionScreen> {
                             child: ListView.builder(
                               itemCount: LANGUAGE_LIST.length,
                               itemBuilder: (context,index){
-                                return InkWell(
-                                  onTap: (){
-                                    userProvider.setLanguage(LANGUAGE_LIST[index]);
-                                  },
-                                  child: Container(
-                                    margin: EdgeInsets.symmetric(vertical: 5.0),
-                                    decoration: BoxDecoration(
-                                      borderRadius: BorderRadius.circular(10.0),
+                                return Container(
+                                  margin: EdgeInsets.symmetric(vertical: 5.0),
+                                  child: InkWell(
+                                    onTap: (){
+                                      userProvider.setLanguage(LANGUAGE_LIST[index]);
+                                    },
+                                    child: Card(
                                       color: userProvider.language == LANGUAGE_LIST[index] ? BLUE_GREY : WHITE,
+                                      elevation: 5.0,
+                                      shadowColor: GREY,
+                                      child: Container(
+                                        margin: EdgeInsets.symmetric(vertical: 7.5),
+                                        decoration: BoxDecoration(
+                                          borderRadius: BorderRadius.circular(10.0),
+                                          //color: userProvider.language == LANGUAGE_LIST[index] ? BLUE_GREY : WHITE,
+                                        ),
+                                        alignment: Alignment.center,
+                                        height: 50.0,
+                                        child: Text(LANGUAGE_LIST[index],
+                                          style: TextStyle(
+                                              fontSize: userProvider.language == LANGUAGE_LIST[index] ? 20.0 : 16.0,
+                                              color: userProvider.language == LANGUAGE_LIST[index] ? WHITE : BLACK,
+                                              fontWeight: userProvider.language == LANGUAGE_LIST[index] ? FontWeight.bold : FontWeight.normal
+                                          ),),
+                                      ),
                                     ),
-                                    alignment: Alignment.center,
-                                    height: 75.0,
-                                    child: Text(LANGUAGE_LIST[index],
-                                      style: TextStyle(
-                                          fontSize: userProvider.language == LANGUAGE_LIST[index] ? 20.0 : 16.0,
-                                          color: userProvider.language == LANGUAGE_LIST[index] ? WHITE : BLACK,
-                                          fontWeight: userProvider.language == LANGUAGE_LIST[index] ? FontWeight.bold : FontWeight.normal
-                                      ),),
                                   ),
                                 );
                               },
@@ -102,14 +111,14 @@ class _LanguageSelectionScreenState extends State<LanguageSelectionScreen> {
                             }
                           },
                           child: Container(
-                            height: 50.0,
                             alignment: Alignment.center,
                             margin: EdgeInsets.all(20.0),
                             decoration: BoxDecoration(
+                              color: userProvider.language.isEmpty ? Colors.black12 : BLUE_GREY,
                               borderRadius: BorderRadius.circular(10.0),
-                              color: WHITE
                             ),
-                            child: Text("Continue",style: TextStyle(fontSize: 16.0),),
+                            height: 50.0,
+                            child: Text("Continue",style: TextStyle(fontSize: 16.0,color: userProvider.language.isEmpty ? BLACK : WHITE),),
                           ),
                         )
                       ],
