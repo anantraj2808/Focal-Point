@@ -2,8 +2,9 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:focal_point/constants/colors.dart';
 import 'package:focal_point/models/Users.dart';
-import 'package:focal_point/presentation/language_selection.dart';
 import 'package:provider/provider.dart';
+
+import 'LanguageSelection/View/language_selection.dart';
 
 class ProfilePage extends StatefulWidget {
   @override

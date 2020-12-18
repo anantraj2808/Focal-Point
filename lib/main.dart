@@ -2,8 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:focal_point/models/Users.dart';
 import 'package:focal_point/presentation/SpalshScreen/View/splash_screen.dart';
 import 'package:focal_point/presentation/home.dart';
-import 'package:focal_point/presentation/home_screen.dart';
-import 'package:focal_point/presentation/language_selection.dart';
 import 'package:focal_point/presentation/location_fetching.dart';
 import 'package:focal_point/presentation/phone_number_screen.dart';
 import 'package:focal_point/services/shared_prefs_ready_state.dart';
@@ -36,7 +34,6 @@ class _MyAppState extends State<MyApp> {
             home: FutureBuilder(
                 future: _sharedPrefsReadyState.getAllDetails(userProvider),
                 builder: (context, snapshot) {
-                  print(_sharedPrefsReadyState.getAllDetails(userProvider).toString());
                   if(snapshot.data == null)
                     return SplashScreen();
                   return (snapshot.hasData && snapshot.data) ? Home() : LocationFetchingScreen();

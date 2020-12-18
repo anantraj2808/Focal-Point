@@ -73,6 +73,12 @@ flutter:
     - family: CustomIconFont
       fonts:
         - asset: assets/fonts/CustomIconFont.ttf
+    - family: googlesansmed
+      fonts:
+        - asset: assets/fonts/googlesansmedium.ttf
+    - family: googlesansreg
+      fonts:
+        - asset: assets/fonts/googlesansregular.ttf
   #       - asset: fonts/Schyler-Italic.ttf
   #         style: italic
   #   - family: Trajan Pro

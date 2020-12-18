@@ -49,7 +49,8 @@ class _ProfessionSelectionScreenState extends State<ProfessionSelectionScreen> {
                       Container(
                         height: height-235.0,
                           width: width-30,
-                          child: GridView.count(crossAxisCount: 2,
+                          child: GridView.count(
+                            crossAxisCount: 2,
                           children: List.generate(PROFESSION_LIST.length, (index){
                             return Container(
                               margin: EdgeInsets.symmetric(horizontal: 7.5),

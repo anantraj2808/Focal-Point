@@ -4,7 +4,7 @@ import 'package:focal_point/constants/colors.dart';
 import 'package:focal_point/presentation/profile_page.dart';
 import 'package:focal_point/presentation/search_page.dart';
 
-import 'home_screen.dart';
+import 'HomePage/View/home_screen.dart';
 
 class Home extends StatefulWidget {
   @override
@@ -54,9 +54,9 @@ class _HomeState extends State<Home> {
               icon: Icon(Icons.search,color: _selectedIndex == 1 ? BLUE_GREY : Colors.grey)),
           BottomNavigationBarItem(
               title: Text("Profile", style: TextStyle(
-                  color: _selectedIndex == 4 ? BLUE_GREY : Colors.grey
+                  color: _selectedIndex == 2 ? BLUE_GREY : Colors.grey
               ),),
-              icon: Icon(Icons.person,color: _selectedIndex == 4 ? BLUE_GREY : Colors.grey)),
+              icon: Icon(Icons.person,color: _selectedIndex == 2 ? BLUE_GREY : Colors.grey)),
         ],
         onTap: _onItemTapped,
         type: BottomNavigationBarType.fixed,

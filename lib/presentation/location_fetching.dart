@@ -8,7 +8,7 @@ import 'package:focal_point/models/Users.dart';
 import 'package:geolocator/geolocator.dart';
 import 'package:provider/provider.dart';
 
-import 'language_selection.dart';
+import 'LanguageSelection/View/language_selection.dart';
 
 class LocationFetchingScreen extends StatefulWidget {
   @override
