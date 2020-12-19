@@ -7,7 +7,7 @@ import 'package:focal_point/models/job.dart';
 
 import 'job_list_tile.dart';
 
-Widget jobsListView(String title, List<Job> jobList, BuildContext context){
+Widget jobsListView(int globalIndex, List<Job> jobList, int colorIndex, BuildContext context){
   return Container(
     child:Column(
       mainAxisSize: MainAxisSize.min,
@@ -15,7 +15,7 @@ Widget jobsListView(String title, List<Job> jobList, BuildContext context){
         Container(
           padding: EdgeInsets.only(left: 10.0),
           alignment: Alignment.centerLeft,
-            child: Text(title,style: TextStyle(fontSize: 25.0,fontFamily: GOOGLE_SANS_MED),)),
+            child: Text(PROFESSION_LIST[globalIndex],style: TextStyle(fontSize: 25.0,fontFamily: GOOGLE_SANS_MED),)),
         //SizedBox(height: 8.0,),
         Container(
           child: GridView.count(
@@ -25,12 +25,12 @@ Widget jobsListView(String title, List<Job> jobList, BuildContext context){
             childAspectRatio: 1,
             crossAxisCount: 2,
             children: List.generate(jobList.length, (index){
-              return jobListTile(jobList[index],context);
+              return jobListTile(jobList[index],globalIndex,colorIndex,context);
             }),
           ),
         ),
         SizedBox(height: 5.0,),
-        Divider(color: GREY,endIndent: 5.0,indent: 5.0,),
+        Divider(color: DARK_GREY,endIndent: 5.0,indent: 5.0,),
         SizedBox(height: 5.0,),
       ],
     )

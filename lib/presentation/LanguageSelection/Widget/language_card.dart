@@ -5,7 +5,7 @@ import 'package:focal_point/constants/strings.dart';
 
 Widget languageCard(userProvider,index){
   return Card(
-    color: userProvider.language == LANGUAGE_LIST[index] ? BLUE_GREY : WHITE,
+    color: userProvider.language == LANGUAGE_LIST[index] ? DARK_BLUE : WHITE,
     elevation: 5.0,
     shadowColor: GREY,
     child: Container(

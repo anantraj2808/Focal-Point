@@ -96,7 +96,7 @@ class _LanguageSelectionScreenState extends State<LanguageSelectionScreen> {
                             alignment: Alignment.center,
                             margin: EdgeInsets.all(20.0),
                             decoration: BoxDecoration(
-                              color: userProvider.language.isEmpty ? Colors.black12 : BLUE_GREY,
+                              color: userProvider.language.isEmpty ? Colors.black12 : DARK_BLUE,
                               borderRadius: BorderRadius.circular(10.0),
                             ),
                             height: 50.0,

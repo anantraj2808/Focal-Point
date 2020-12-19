@@ -44,19 +44,19 @@ class _HomeState extends State<Home> {
         items: [
           BottomNavigationBarItem(
               title: Text("Home", style: TextStyle(
-                  color: _selectedIndex == 0 ? BLUE_GREY : Colors.grey
+                  color: _selectedIndex == 0 ? DARK_BLUE : Colors.grey
               ),),
-              icon: Icon(Icons.home,color: _selectedIndex == 0 ? BLUE_GREY : Colors.grey,)),
+              icon: Icon(Icons.home,color: _selectedIndex == 0 ? DARK_BLUE : Colors.grey,)),
           BottomNavigationBarItem(
               title: Text("Search", style: TextStyle(
-                  color: _selectedIndex == 1 ? BLUE_GREY : Colors.grey
+                  color: _selectedIndex == 1 ? DARK_BLUE : Colors.grey
               ),),
-              icon: Icon(Icons.search,color: _selectedIndex == 1 ? BLUE_GREY : Colors.grey)),
+              icon: Icon(Icons.search,color: _selectedIndex == 1 ? DARK_BLUE : Colors.grey)),
           BottomNavigationBarItem(
               title: Text("Profile", style: TextStyle(
-                  color: _selectedIndex == 2 ? BLUE_GREY : Colors.grey
+                  color: _selectedIndex == 2 ? DARK_BLUE : Colors.grey
               ),),
-              icon: Icon(Icons.person,color: _selectedIndex == 2 ? BLUE_GREY : Colors.grey)),
+              icon: Icon(Icons.person,color: _selectedIndex == 2 ? DARK_BLUE : Colors.grey)),
         ],
         onTap: _onItemTapped,
         type: BottomNavigationBarType.fixed,

@@ -55,7 +55,7 @@ class _ProfessionSelectionScreenState extends State<ProfessionSelectionScreen> {
                             return Container(
                               margin: EdgeInsets.symmetric(horizontal: 7.5),
                               child: Card(
-                                color: userProvider.profession.contains(PROFESSION_LIST[index]) ? BLUE_GREY : WHITE,
+                                color: userProvider.profession.contains(PROFESSION_LIST[index]) ? DARK_BLUE : WHITE,
                                 elevation: 5.0,
                                 shadowColor: GREY,
                                 child: InkWell(
@@ -110,7 +110,7 @@ class _ProfessionSelectionScreenState extends State<ProfessionSelectionScreen> {
                           margin: EdgeInsets.all(20.0),
                           decoration: BoxDecoration(
                               borderRadius: BorderRadius.circular(10.0),
-                              color: userProvider.profession.isEmpty ? Colors.black12 : BLUE_GREY
+                              color: userProvider.profession.isEmpty ? Colors.black12 : DARK_BLUE
                           ),
                           child: Text("Continue",style: TextStyle(fontSize: 16.0,
                           color: userProvider.profession.isEmpty ? BLACK : WHITE),),
