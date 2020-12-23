@@ -5,6 +5,7 @@ import 'package:flutter/widgets.dart';
 import 'package:focal_point/constants/colors.dart';
 import 'package:focal_point/constants/strings.dart';
 import 'package:focal_point/models/Users.dart';
+import 'package:focal_point/presentation/LanguageSelection/Widget/gender_box.dart';
 import 'package:focal_point/presentation/LanguageSelection/Widget/language_card.dart';
 import 'package:provider/provider.dart';
 
@@ -53,30 +54,38 @@ class _LanguageSelectionScreenState extends State<LanguageSelectionScreen> {
                     Column(
                       mainAxisAlignment: MainAxisAlignment.end,
                       children: [
-                        Center(
-                          child: Container(
-                            height: 300.0,
-                            width: 250.0,
-                            child: ListView.builder(
-                              itemCount: LANGUAGE_LIST.length,
-                              itemBuilder: (context,index){
-                                return Container(
-                                  margin: EdgeInsets.symmetric(vertical: 5.0),
-                                  child: InkWell(
-                                    onTap: (){
-                                      userProvider.setLanguage(LANGUAGE_LIST[index]);
-                                    },
-                                    child: languageCard(userProvider,index)
-                                  ),
-                                );
-                              },
-                            ),
+                        Container(
+                          height: 300.0,
+                          width: 250.0,
+                          child: ListView.builder(
+                            itemCount: LANGUAGE_LIST.length,
+                            itemBuilder: (context,index){
+                              return Container(
+                                margin: EdgeInsets.symmetric(vertical: 5.0),
+                                child: InkWell(
+                                  onTap: (){
+                                    userProvider.setLanguage(LANGUAGE_LIST[index]);
+                                  },
+                                  child: languageCard(userProvider,index)
+                                ),
+                              );
+                            },
+                          ),
+                        ),
+                        Container(
+                          child: Row(
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            children: [
+                              genderBox("Male","assets/images/male.png",userProvider),
+                              SizedBox(width: 20.0,),
+                              genderBox("Female","assets/images/female.png",userProvider)
+                            ],
                           ),
                         ),
                         SizedBox(height: 100.0,),
                         InkWell(
                           onTap: (){
-                            if (userProvider.language.isNotEmpty){
+                            if (userProvider.language.isNotEmpty && userProvider.gender.isNotEmpty){
                               userProvider.setLocation(widget.user.city, widget.user.state);
                               Navigator.push(context, MaterialPageRoute(
                                   builder: (context) => ProfessionSelectionScreen()

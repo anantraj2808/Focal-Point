@@ -4,6 +4,10 @@ class Users with ChangeNotifier{
   String _city = "";
   String _state = "";
   String _language = "";
+  String _gender = "";
+  String _fullName = "";
+  String _phoneNumber = "";
+  bool _isUserVerified = false;
   List<String> _professions = [];
 
   Users();
@@ -36,9 +40,33 @@ class Users with ChangeNotifier{
     notifyListeners();
   }
 
+  void setGender(String gender){
+    _gender = gender;
+    notifyListeners();
+  }
+
+  void setFullName(String name){
+    _fullName = name;
+    notifyListeners();
+  }
+
+  void setPhoneNumber(String number){
+    _phoneNumber = number;
+    notifyListeners();
+  }
+
+  void setIsUserVerifiedStatus(bool isUserVerified){
+    _isUserVerified = isUserVerified;
+    notifyListeners();
+  }
+
   String get city => _city;
   String get state => _state;
   String get language => _language;
+  String get gender => _gender;
+  String get name => _fullName;
+  String get phoneNumber => _phoneNumber;
+  bool get isUserVerified => _isUserVerified;
   List<String> get profession => _professions;
 
 }

@@ -23,6 +23,12 @@ class _ProfessionSelectionScreenState extends State<ProfessionSelectionScreen> {
   List<String> selectedItems = [];
 
   @override
+  void initState() {
+    super.initState();
+    selectedItems.clear();
+  }
+
+  @override
   Widget build(BuildContext context) {
     Users userProvider = Provider.of<Users>(context);
     var height = MediaQuery.of(context).size.height;
@@ -92,7 +98,9 @@ class _ProfessionSelectionScreenState extends State<ProfessionSelectionScreen> {
                             SharedPrefs.setStateSharedPrefs(userProvider.state);
                             SharedPrefs.setLanguageSharedPrefs(userProvider.language);
                             SharedPrefs.setProfessionsSharedPrefs(userProvider.profession);
-                            Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) => Home()));
+                            SharedPrefs.setGenderSharedPrefs(userProvider.gender);
+                            Navigator.of(context).pushAndRemoveUntil(MaterialPageRoute(builder: (context) =>
+                                Home()), (Route<dynamic> route) => false);
                           }
                           else {
                             Scaffold.of(scaffoldContext).showSnackBar(SnackBar(

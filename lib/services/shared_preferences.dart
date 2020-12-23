@@ -4,9 +4,11 @@ class SharedPrefs{
 
   static final String languageKeySharedPrefs = "LANGUAGE";
   static final String professionKeySharedPrefs = "PROFESSIONS";
-  static final String userLoggedInKeySharedPrefs = "ISUSERLOGGEDIN";
+  static final String userLoggedInKeySharedPrefs = "IS_USER_LOGGED_IN";
   static final String cityKeySharedPrefs = "CITY";
+  static final String genderKeySharedPrefs = "GENDER";
   static final String stateKeySharedPrefs = "STATE";
+  static final String isUserVerifiedSharedPrefs = "IS_USER_VERIFIED";
 
   //Setter methods
 
@@ -35,12 +37,22 @@ class SharedPrefs{
     return await prefs.setStringList(professionKeySharedPrefs, professionsList);
   }
 
+  static Future setGenderSharedPrefs(String gender) async {
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    return await prefs.setString(genderKeySharedPrefs, gender);
+  }
+
+  static setUserVerifiedStatus(bool isUserVerified) async {
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    return await prefs.setBool(isUserVerifiedSharedPrefs, isUserVerified);
+  }
+
 
 
 
   //Getter methods
 
-  static Future isUserLoggedInSharedPrefs() async {
+  static Future getIsUserLoggedInSharedPrefs() async {
     SharedPreferences prefs = await SharedPreferences.getInstance();
     return prefs.getBool(userLoggedInKeySharedPrefs);
   }
@@ -63,5 +75,15 @@ class SharedPrefs{
   static Future getStateSharedPrefs() async {
     SharedPreferences prefs = await SharedPreferences.getInstance();
     return prefs.getString(stateKeySharedPrefs);
+  }
+
+  static Future getGenderSharedPrefs() async {
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    return prefs.getString(genderKeySharedPrefs);
+  }
+
+  static Future getIsUserVerifiedSharedPrefs() async {
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    return prefs.getBool(isUserVerifiedSharedPrefs);
   }
 }

@@ -8,6 +8,7 @@ import 'package:focal_point/constants/strings.dart';
 import 'package:focal_point/models/job.dart';
 import 'package:focal_point/presentation/JobDescription/Widget/description_items.dart';
 import 'package:focal_point/presentation/JobDescription/Widget/openings_box.dart';
+import 'package:focal_point/presentation/PersonalDetailsForm/View/personal_details_form.dart';
 import 'package:focal_point/styles/text_styles.dart';
 
 class JobDescription extends StatefulWidget {
@@ -133,15 +134,19 @@ class _JobDescriptionState extends State<JobDescription> {
                 ),
               ),
             ),
-            InkWell(
-              onTap: (){},
-              child: Container(
-                height: 75,
-                decoration: BoxDecoration(
-                  color: WHITE,
-                  border: Border(top: BorderSide(color: DARK_BLUE, width: 2.0)),
-                ),
-                child: Center(
+            Container(
+              height: 75,
+              decoration: BoxDecoration(
+                color: WHITE,
+                border: Border(top: BorderSide(color: DARK_BLUE, width: 2.0)),
+              ),
+              child: Center(
+                child: InkWell(
+                  onTap: (){
+                    Navigator.push(context, MaterialPageRoute(
+                        builder: (context) => PersonalDetailsForm()
+                    ));
+                  },
                   child: Container(
                     decoration: BoxDecoration(
                       borderRadius: BorderRadius.circular(10.0),
