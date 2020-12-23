@@ -3,6 +3,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:focal_point/constants/colors.dart';
 import 'package:focal_point/models/Users.dart';
+import 'package:focal_point/presentation/HomePage/View/home_screen.dart';
+import 'package:focal_point/services/shared_preferences.dart';
 import 'package:focal_point/styles/text_styles.dart';
 import 'package:provider/provider.dart';
 
@@ -14,6 +16,16 @@ class OTPDialog extends StatefulWidget {
 class _OTPDialogState extends State<OTPDialog> {
 
   TextEditingController otpTEC = TextEditingController();
+
+  confirmOTP(BuildContext context, Users userProvider) async {
+    if (otpTEC.text == "1111"){
+      await SharedPrefs.setUserVerifiedStatus(true);
+      userProvider.setIsUserVerifiedStatus(true);
+      Navigator.pushAndRemoveUntil(context,
+          MaterialPageRoute(builder: (context) => HomePage())
+          , (route) => false);
+    }
+  }
 
   contentBox(BuildContext context, Users userProvider){
     return Container(
@@ -69,15 +81,18 @@ class _OTPDialogState extends State<OTPDialog> {
           SizedBox(height: 10.0,),
           RegularTextReg("Resend Code", 14.0, BLUE),
           SizedBox(height: 15.0,),
-          Container(
-            decoration: BoxDecoration(
-              borderRadius: BorderRadius.circular(10.0),
-              color: DARK_BLUE,
-            ),
-            height: 40.0,
-            width: 200.0,
-            child: Center(
-              child: RegularTextReg("Confirm OTP", 18.0, WHITE),
+          GestureDetector(
+            onTap: () => confirmOTP(context,userProvider),
+            child: Container(
+              decoration: BoxDecoration(
+                borderRadius: BorderRadius.circular(10.0),
+                color: DARK_BLUE,
+              ),
+              height: 40.0,
+              width: 200.0,
+              child: Center(
+                child: RegularTextReg("Confirm OTP", 18.0, WHITE),
+              ),
             ),
           )
         ],

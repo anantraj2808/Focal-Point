@@ -26,6 +26,7 @@ class SharedPrefsReadyState with ChangeNotifier{
     userProvider.setLocation(_city,_state);
     userProvider.setProfessions(_professionsList);
     userProvider.setGender(_gender);
+    userProvider.setIsUserVerifiedStatus(_isUserVerified);
     notifyListeners();
     return true;
   }

@@ -90,6 +90,20 @@ class _HomePageState extends State<HomePage> {
                   color: WHITE,
                   child: carouselContainer(),
                 ),
+                userProvider.isUserVerified ?
+                Container(
+                  height: 50.0,
+                  width: width,
+                  margin: EdgeInsets.only(left: 10.0,right: 10.0,bottom: 10.0),
+                  decoration: BoxDecoration(
+                    color: DARK_BLUE,
+                    borderRadius: BorderRadius.circular(10.0)
+                  ),
+                  child: Container(
+                    alignment: Alignment.center,
+                    child: RegularTextReg("Applied Jobs (1)",20.0,WHITE)),
+                )
+                    : Container(),
                 userProvider.profession.contains("Plumber") && plumberJobList.isNotEmpty ? jobsListView(0,plumberJobList,++colorIndex,context) : Container(),
                 userProvider.profession.contains("Carpenter") && carpenterJobList.isNotEmpty ? jobsListView(1,carpenterJobList,++colorIndex,context) : Container(),
                 userProvider.profession.contains("Electrician") && electricianJobList.isNotEmpty ? jobsListView(2,electricianJobList,++colorIndex,context) : Container(),

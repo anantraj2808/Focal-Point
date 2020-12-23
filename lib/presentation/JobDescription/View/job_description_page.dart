@@ -5,11 +5,14 @@ import 'package:flutter/rendering.dart';
 import 'package:flutter/widgets.dart';
 import 'package:focal_point/constants/colors.dart';
 import 'package:focal_point/constants/strings.dart';
+import 'package:focal_point/models/Users.dart';
 import 'package:focal_point/models/job.dart';
 import 'package:focal_point/presentation/JobDescription/Widget/description_items.dart';
 import 'package:focal_point/presentation/JobDescription/Widget/openings_box.dart';
 import 'package:focal_point/presentation/PersonalDetailsForm/View/personal_details_form.dart';
+import 'package:focal_point/presentation/ThankYouPage/View/thank_you_page.dart';
 import 'package:focal_point/styles/text_styles.dart';
+import 'package:provider/provider.dart';
 
 class JobDescription extends StatefulWidget {
   final Job job;
@@ -32,6 +35,7 @@ class _JobDescriptionState extends State<JobDescription> {
 
   @override
   Widget build(BuildContext context) {
+    Users userProvider = Provider.of<Users>(context);
     var height = MediaQuery.of(context).size.height;
     var width = MediaQuery.of(context).size.width;
     return Scaffold(
@@ -143,9 +147,15 @@ class _JobDescriptionState extends State<JobDescription> {
               child: Center(
                 child: InkWell(
                   onTap: (){
-                    Navigator.push(context, MaterialPageRoute(
-                        builder: (context) => PersonalDetailsForm()
-                    ));
+                    if (userProvider.isUserVerified) {
+                      Navigator.pushReplacement(context, MaterialPageRoute(
+                          builder: (context) => ThankYouPage()
+                      ));
+                    } else {
+                      Navigator.push(context, MaterialPageRoute(
+                          builder: (context) => PersonalDetailsForm()
+                      ));
+                    }
                   },
                   child: Container(
                     decoration: BoxDecoration(
