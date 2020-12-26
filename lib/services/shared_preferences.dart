@@ -8,6 +8,9 @@ class SharedPrefs{
   static final String cityKeySharedPrefs = "CITY";
   static final String genderKeySharedPrefs = "GENDER";
   static final String stateKeySharedPrefs = "STATE";
+  static final String ageSharedPrefs = "AGE";
+  static final String fullNameSharedPrefs = "FULL_NAME";
+  static final String phoneNumberSharedPrefs = "PHONE_NUMBER";
   static final String isUserVerifiedSharedPrefs = "IS_USER_VERIFIED";
 
   //Setter methods
@@ -40,6 +43,20 @@ class SharedPrefs{
   static Future setGenderSharedPrefs(String gender) async {
     SharedPreferences prefs = await SharedPreferences.getInstance();
     return await prefs.setString(genderKeySharedPrefs, gender);
+  }
+
+  static Future setAgeSharedPrefs(String age) async {
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    return await prefs.setString(ageSharedPrefs, age);
+  }
+  static Future setFullNameSharedPrefs(String name) async {
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    return await prefs.setString(fullNameSharedPrefs, name);
+  }
+
+  static Future setPhoneNumberSharedPrefs(String number) async {
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    return await prefs.setString(phoneNumberSharedPrefs, number);
   }
 
   static setUserVerifiedStatus(bool isUserVerified) async {
@@ -80,6 +97,21 @@ class SharedPrefs{
   static Future getGenderSharedPrefs() async {
     SharedPreferences prefs = await SharedPreferences.getInstance();
     return prefs.getString(genderKeySharedPrefs);
+  }
+
+  static Future getAgeSharedPrefs() async {
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    return prefs.getString(ageSharedPrefs);
+  }
+
+  static Future getFullNameSharedPrefs() async {
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    return prefs.getString(fullNameSharedPrefs);
+  }
+
+  static Future getPhoneNumberSharedPrefs() async {
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    return prefs.getString(phoneNumberSharedPrefs);
   }
 
   static Future getIsUserVerifiedSharedPrefs() async {

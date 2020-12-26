@@ -10,6 +10,9 @@ class SharedPrefsReadyState with ChangeNotifier{
   static String _state = "";
   static String _language = "";
   static String _gender = "";
+  static String _age = "";
+  static String _fullName = "";
+  static String _phoneNumber = "";
   static List<String> _professionsList = [];
 
   Future<bool> getAllDetails(Users userProvider) async {
@@ -21,11 +24,15 @@ class SharedPrefsReadyState with ChangeNotifier{
     _state = await SharedPrefs.getStateSharedPrefs();
     _language = await SharedPrefs.getLanguageSharedPrefs();
     _gender = await SharedPrefs.getGenderSharedPrefs();
+    _age = await SharedPrefs.getAgeSharedPrefs();
+    _fullName = await SharedPrefs.getFullNameSharedPrefs();
+    _phoneNumber = await SharedPrefs.getPhoneNumberSharedPrefs();
     _professionsList = await SharedPrefs.getProfessionsListSharedPrefs();
     userProvider.setLanguage(_language);
     userProvider.setLocation(_city,_state);
     userProvider.setProfessions(_professionsList);
     userProvider.setGender(_gender);
+    userProvider.setAge(_age);
     userProvider.setIsUserVerifiedStatus(_isUserVerified);
     notifyListeners();
     return true;

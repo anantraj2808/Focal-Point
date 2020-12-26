@@ -1,6 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:focal_point/constants/colors.dart';
+import 'package:focal_point/constants/strings.dart';
 import 'package:focal_point/models/job.dart';
 import 'package:focal_point/presentation/HomePage/Widget/banner_carousel.dart';
 import 'package:focal_point/presentation/HomePage/Widget/jobs_list_view.dart';
@@ -31,10 +32,10 @@ class _HomePageState extends State<HomePage> {
   List<Job> sweeperJobList = [];
   bool isLoading = false;
 
-  Job plumberJob = Job(companyName: "XYZ Pvt. Ltd.",salary: "₹ 700" ,payBasis: "per Day",city: "Bareilly",state: "UP",professionType: "Plumber",dutyType: "Full-time",numberOfOpenings: 2,minimumQualification: "No education qualifications required",languageRequired: "English or Hindi",description: "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.",experienceRequired: "Minimum 2 years of experience",workTimings: "9AM - 4PM",completeAddress: "14, Model Town, Near City Heart, Bareilly");
-  Job electricianJob = Job(companyName: "XYZ Pvt. Ltd.",salary: "₹ 800",payBasis: "per Day",city: "Bareilly",state: "UP",professionType: "Electrician",dutyType: "Full-time",numberOfOpenings: 1,minimumQualification: "B.Tech preferred",languageRequired: "English or Hindi",description: "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.",experienceRequired: "Minimum 2 years of experience",workTimings: "9AM - 4PM",completeAddress: "14, Model Town, Near City Heart, Bareilly");
-  Job driverJob = Job(companyName: "XYZ Pvt. Ltd.",salary: "₹ 500",payBasis: "per Day",city: "Bareilly",state: "UP",professionType: "Driver",dutyType: "Full-time",numberOfOpenings: 3,minimumQualification: "B.Tech preferred",languageRequired: "English or Hindi",description: "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.",experienceRequired: "Minimum 2 years of experience",workTimings: "9AM - 4PM",completeAddress: "14, Model Town, Near City Heart, Bareilly");
-  Job carpenterJob = Job(companyName: "XYZ Pvt. Ltd.",salary: "₹ 900",payBasis: "per Day",city: "Bareilly",state: "UP",professionType: "Carpenter",dutyType: "Full-time",numberOfOpenings: 1,minimumQualification: "B.Tech preferred",languageRequired: "English or Hindi",description: "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.",experienceRequired: "Minimum 2 years of experience",workTimings: "9AM - 4PM",completeAddress: "14, Model Town, Near City Heart, Bareilly");
+  Job plumberJob = Job(companyName: "XYZ Pvt. Ltd.",salary: "₹ 700" ,payBasis: "per Day",city: "Bareilly",state: "UP",professionType: "Plumber",dutyType: "Full-time",numberOfOpenings: 2,minimumQualification: "No education qualifications required",languageRequired: "English or Hindi",description: LOREM_IPSUM,experienceRequired: "Minimum 2 years of experience",workTimings: "9AM - 4PM",completeAddress: "14, Model Town, Near City Heart, Bareilly");
+  Job electricianJob = Job(companyName: "XYZ Pvt. Ltd.",salary: "₹ 800",payBasis: "per Day",city: "Bareilly",state: "UP",professionType: "Electrician",dutyType: "Full-time",numberOfOpenings: 1,minimumQualification: "B.Tech preferred",languageRequired: "English or Hindi",description: LOREM_IPSUM,experienceRequired: "Minimum 2 years of experience",workTimings: "9AM - 4PM",completeAddress: "14, Model Town, Near City Heart, Bareilly");
+  Job driverJob = Job(companyName: "XYZ Pvt. Ltd.",salary: "₹ 500",payBasis: "per Day",city: "Bareilly",state: "UP",professionType: "Driver",dutyType: "Full-time",numberOfOpenings: 3,minimumQualification: "B.Tech preferred",languageRequired: "English or Hindi",description: LOREM_IPSUM,experienceRequired: "Minimum 2 years of experience",workTimings: "9AM - 4PM",completeAddress: "14, Model Town, Near City Heart, Bareilly");
+  Job carpenterJob = Job(companyName: "XYZ Pvt. Ltd.",salary: "₹ 900",payBasis: "per Day",city: "Bareilly",state: "UP",professionType: "Carpenter",dutyType: "Full-time",numberOfOpenings: 1,minimumQualification: "B.Tech preferred",languageRequired: "English or Hindi",description: LOREM_IPSUM,experienceRequired: "Minimum 2 years of experience",workTimings: "9AM - 4PM",completeAddress: "14, Model Town, Near City Heart, Bareilly");
 
 
   @override
@@ -90,7 +91,7 @@ class _HomePageState extends State<HomePage> {
                   color: WHITE,
                   child: carouselContainer(),
                 ),
-                userProvider.isUserVerified ?
+                userProvider.isUserVerified != null && userProvider.isUserVerified ?
                 Container(
                   height: 50.0,
                   width: width,

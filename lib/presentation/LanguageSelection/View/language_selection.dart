@@ -7,9 +7,8 @@ import 'package:focal_point/constants/strings.dart';
 import 'package:focal_point/models/Users.dart';
 import 'package:focal_point/presentation/LanguageSelection/Widget/gender_box.dart';
 import 'package:focal_point/presentation/LanguageSelection/Widget/language_card.dart';
+import 'package:focal_point/presentation/ProfessionSelection/View/profession_selection.dart';
 import 'package:provider/provider.dart';
-
-import '../../ProfessionSelection/View/profession_selection.dart';
 
 class LanguageSelectionScreen extends StatefulWidget {
 

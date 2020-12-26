@@ -14,7 +14,7 @@ class _SearchPageState extends State<SearchPage> {
       appBar: AppBar(
         backgroundColor: WHITE,
         centerTitle: true,
-        title: Text("Search for Jobs",style: TextStyle(color: BLACK),),
+        title: Text("Search for Job",style: TextStyle(color: BLACK),),
       ),
     );
   }

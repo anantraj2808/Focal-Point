@@ -1,7 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:focal_point/ProfilePage/View/profile_page.dart';
 import 'package:focal_point/constants/colors.dart';
-import 'package:focal_point/presentation/profile_page.dart';
 import 'package:focal_point/presentation/search_page.dart';
 
 import 'HomePage/View/home_screen.dart';

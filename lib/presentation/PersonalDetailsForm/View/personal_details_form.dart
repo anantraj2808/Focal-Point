@@ -2,6 +2,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:focal_point/constants/colors.dart';
+import 'package:focal_point/constants/strings.dart';
 import 'package:focal_point/presentation/PersonalDetailsForm/Widget/custom_dialog_otp.dart';
 import 'package:focal_point/styles/text_styles.dart';
 import 'package:focal_point/models/Users.dart';
@@ -17,9 +18,10 @@ class _PersonalDetailsFormState extends State<PersonalDetailsForm> {
   final _formKey = GlobalKey<FormState>();
   TextEditingController phoneNumberTEC = TextEditingController();
   TextEditingController fullNameTEC = TextEditingController();
+  TextEditingController ageTEC = TextEditingController();
   bool checkedStatus = false;
   bool buttonClicked = false;
-  String termsAndConditionsText = "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.";
+  String termsAndConditionsText = LOREM_IPSUM;
 
   @override
   void initState() {
@@ -30,8 +32,8 @@ class _PersonalDetailsFormState extends State<PersonalDetailsForm> {
   sendOTP(BuildContext context){
     //TODO
     showDialog(context: context,
-        builder: (BuildContext context){
-          return OTPDialog();
+        builder: (context){
+          return OTPDialog(fullNameTEC.text,ageTEC.text,phoneNumberTEC.text);
         }
     );
   }
@@ -70,10 +72,10 @@ class _PersonalDetailsFormState extends State<PersonalDetailsForm> {
                         ),
                         child: Image.asset("assets/images/${userProvider.gender.toLowerCase()}.png"),
                       ),
-                      SizedBox(height: 30.0,),
+                      SizedBox(height: 20.0,),
                       TextFormField(
                         validator: (String value){
-                          if (value.length <= 2) return "Enter valid name";
+                          if (value.length <= 2) return "Enter a valid name";
                           else return null;
                         },
                         controller: fullNameTEC,
@@ -100,7 +102,37 @@ class _PersonalDetailsFormState extends State<PersonalDetailsForm> {
                               fontSize: 16),
                         ),
                       ),
-                      SizedBox(height: 30.0,),
+                      SizedBox(height: 20.0,),
+                      TextFormField(
+                        validator: (String value){
+                          if (value.length != 2) return "Enter a valid age";
+                          else return null;
+                        },
+                        controller: ageTEC,
+                        textCapitalization: TextCapitalization.words,
+                        keyboardType: TextInputType.number,
+                        style: TextStyle(
+                            color: Colors.black54,
+                            fontFamily: 'googlesansmed'
+                        ),
+                        cursorColor: Colors.black,
+                        decoration: InputDecoration(
+                          border: OutlineInputBorder(
+                            borderRadius:
+                            new BorderRadius.circular(
+                                7.0),
+                            borderSide: new BorderSide(),
+                          ),
+                          fillColor: Colors.black54,
+                          labelText: "Age",
+                          hintText: "Age",
+                          hintStyle: TextStyle(
+                              color: Colors.grey,
+                              fontFamily: 'googlesansreg',
+                              fontSize: 16),
+                        ),
+                      ),
+                      SizedBox(height: 20.0,),
                       TextFormField(
                         validator: (String value){
                           if (value.length != 10) return "Enter valid phone number";

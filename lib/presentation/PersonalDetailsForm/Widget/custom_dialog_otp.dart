@@ -4,11 +4,21 @@ import 'package:flutter/services.dart';
 import 'package:focal_point/constants/colors.dart';
 import 'package:focal_point/models/Users.dart';
 import 'package:focal_point/presentation/HomePage/View/home_screen.dart';
+import 'package:focal_point/services/create_profile.dart';
 import 'package:focal_point/services/shared_preferences.dart';
 import 'package:focal_point/styles/text_styles.dart';
 import 'package:provider/provider.dart';
 
+import '../../home.dart';
+
 class OTPDialog extends StatefulWidget {
+
+  final String fullName;
+  final String age;
+  final String phoneNumber;
+
+  OTPDialog(this.fullName,this.age,this.phoneNumber);
+
   @override
   _OTPDialogState createState() => _OTPDialogState();
 }
@@ -20,9 +30,13 @@ class _OTPDialogState extends State<OTPDialog> {
   confirmOTP(BuildContext context, Users userProvider) async {
     if (otpTEC.text == "1111"){
       await SharedPrefs.setUserVerifiedStatus(true);
+      await SharedPrefs.setFullNameSharedPrefs(widget.fullName);
+      await SharedPrefs.setPhoneNumberSharedPrefs(widget.phoneNumber);
+      await SharedPrefs.setAgeSharedPrefs(widget.age);
       userProvider.setIsUserVerifiedStatus(true);
+      createProfile(userProvider);
       Navigator.pushAndRemoveUntil(context,
-          MaterialPageRoute(builder: (context) => HomePage())
+          MaterialPageRoute(builder: (context) => Home())
           , (route) => false);
     }
   }
