@@ -4,6 +4,7 @@ import 'package:flutter/services.dart';
 import 'package:focal_point/constants/colors.dart';
 import 'package:focal_point/models/Users.dart';
 import 'package:focal_point/presentation/location_fetching.dart';
+import 'package:focal_point/services/shared_preferences.dart';
 import 'package:focal_point/styles/text_styles.dart';
 import 'package:provider/provider.dart';
 
@@ -15,6 +16,7 @@ class ProfilePage extends StatefulWidget {
 class _ProfilePageState extends State<ProfilePage> {
 
   final _formKey = GlobalKey<FormState>();
+  bool isUserLoggedInBool = false;
 
   @override
   void initState() {
@@ -86,8 +88,10 @@ class _ProfilePageState extends State<ProfilePage> {
                         userProvider.gender != null ? Text("Gender : "+userProvider.gender) : Container(),
                         userProvider.age != null ? Text("Age : "+userProvider.age) : Container(),
                         userProvider.language != null ? Text("Language : "+userProvider.language) : Container(),
-                        userProvider.isUserVerified != null ? Text("Is Verified : "+userProvider.isUserVerified.toString()) : Container(),
+                        //userProvider.isUserVerified != null ? Text("Is Verified : "+userProvider.isUserVerified.toString()) : Container(),
                         userProvider.profession.isNotEmpty ? Text("Professions : "+userProvider.profession.toString()) : Container(),
+                        userProvider.uid != null ? Text("UID : "+userProvider.uid) : Container(),
+                        userProvider.userJWT != null ? Text("JWT : "+userProvider.userJWT) : Container(),
                       ],
                     ),
                   ),

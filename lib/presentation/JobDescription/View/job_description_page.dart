@@ -147,15 +147,15 @@ class _JobDescriptionState extends State<JobDescription> {
               child: Center(
                 child: InkWell(
                   onTap: (){
-                    if (userProvider.isUserVerified) {
-                      Navigator.pushReplacement(context, MaterialPageRoute(
-                          builder: (context) => ThankYouPage()
-                      ));
-                    } else {
-                      Navigator.push(context, MaterialPageRoute(
-                          builder: (context) => PersonalDetailsForm()
-                      ));
-                    }
+//                    if (userProvider.isUserVerified) {
+//                      Navigator.pushReplacement(context, MaterialPageRoute(
+//                          builder: (context) => ThankYouPage()
+//                      ));
+//                    } else {
+//                      Navigator.push(context, MaterialPageRoute(
+//                          builder: (context) => PersonalDetailsForm()
+//                      ));
+//                    }
                   },
                   child: Container(
                     decoration: BoxDecoration(

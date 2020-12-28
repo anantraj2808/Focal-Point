@@ -11,7 +11,9 @@ class SharedPrefs{
   static final String ageSharedPrefs = "AGE";
   static final String fullNameSharedPrefs = "FULL_NAME";
   static final String phoneNumberSharedPrefs = "PHONE_NUMBER";
-  static final String isUserVerifiedSharedPrefs = "IS_USER_VERIFIED";
+  //static final String isUserVerifiedSharedPrefs = "IS_USER_VERIFIED";
+  static final String userJWTSharedPrefs = "JWT";
+  static final String uidSharedPrefs = "UID";
 
   //Setter methods
 
@@ -59,9 +61,19 @@ class SharedPrefs{
     return await prefs.setString(phoneNumberSharedPrefs, number);
   }
 
-  static setUserVerifiedStatus(bool isUserVerified) async {
+//  static setUserVerifiedStatusSharedPrefs(bool isUserVerified) async {
+//    SharedPreferences prefs = await SharedPreferences.getInstance();
+//    return await prefs.setBool(isUserVerifiedSharedPrefs, isUserVerified);
+//  }
+
+  static setUserJWTSharedPrefs(String userJWT) async {
     SharedPreferences prefs = await SharedPreferences.getInstance();
-    return await prefs.setBool(isUserVerifiedSharedPrefs, isUserVerified);
+    return await prefs.setString(userJWTSharedPrefs, userJWT);
+  }
+
+  static setUidSharedPrefs(String uid) async {
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    return await prefs.setString(uidSharedPrefs, uid);
   }
 
 
@@ -114,8 +126,18 @@ class SharedPrefs{
     return prefs.getString(phoneNumberSharedPrefs);
   }
 
-  static Future getIsUserVerifiedSharedPrefs() async {
+//  static Future getIsUserVerifiedSharedPrefs() async {
+//    SharedPreferences prefs = await SharedPreferences.getInstance();
+//    return prefs.getBool(isUserVerifiedSharedPrefs);
+//  }
+
+  static Future getUserJWTSharedPrefs() async {
     SharedPreferences prefs = await SharedPreferences.getInstance();
-    return prefs.getBool(isUserVerifiedSharedPrefs);
+    return prefs.getString(userJWTSharedPrefs);
+  }
+
+  static Future getUidSharedPrefs() async {
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    return prefs.getString(uidSharedPrefs);
   }
 }

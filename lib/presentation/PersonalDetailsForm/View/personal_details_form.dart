@@ -8,6 +8,8 @@ import 'package:focal_point/styles/text_styles.dart';
 import 'package:focal_point/models/Users.dart';
 import 'package:provider/provider.dart';
 
+import '../../location_fetching.dart';
+
 class PersonalDetailsForm extends StatefulWidget {
   @override
   _PersonalDetailsFormState createState() => _PersonalDetailsFormState();
@@ -29,14 +31,14 @@ class _PersonalDetailsFormState extends State<PersonalDetailsForm> {
     buttonClicked = false;
   }
 
-  sendOTP(BuildContext context){
-    //TODO
-    showDialog(context: context,
-        builder: (context){
-          return OTPDialog(fullNameTEC.text,ageTEC.text,phoneNumberTEC.text);
-        }
-    );
-  }
+//  sendOTP(BuildContext context){
+//    //TODO
+//    showDialog(context: context,
+//        builder: (context){
+//          return OTPDialog(fullNameTEC.text,ageTEC.text,phoneNumberTEC.text);
+//        }
+//    );
+//  }
 
   @override
   Widget build(BuildContext context) {
@@ -56,7 +58,7 @@ class _PersonalDetailsFormState extends State<PersonalDetailsForm> {
             child: Container(
               padding: EdgeInsets.symmetric(horizontal: 20.0),
               width: width,
-              margin: EdgeInsets.only(top: 30.0),
+              margin: EdgeInsets.only(top: 50.0),
               child: Form(
                 key: _formKey,
                 child: SingleChildScrollView(
@@ -67,12 +69,12 @@ class _PersonalDetailsFormState extends State<PersonalDetailsForm> {
                         height: 150.0,
                         width: 150.0,
                         decoration: BoxDecoration(
-                          color: userProvider.gender == "Male" ? LIGHT_BLUE : LIGHT_PINK,
+                          color: WHITE,
                           shape: BoxShape.circle
                         ),
-                        child: Image.asset("assets/images/${userProvider.gender.toLowerCase()}.png"),
+                        child: Image.asset("assets/images/circular_logo.png"),
                       ),
-                      SizedBox(height: 20.0,),
+                      SizedBox(height: 30.0,),
                       TextFormField(
                         validator: (String value){
                           if (value.length <= 2) return "Enter a valid name";
@@ -132,115 +134,15 @@ class _PersonalDetailsFormState extends State<PersonalDetailsForm> {
                               fontSize: 16),
                         ),
                       ),
-                      SizedBox(height: 20.0,),
-                      TextFormField(
-                        validator: (String value){
-                          if (value.length != 10) return "Enter valid phone number";
-                          return null;
-                        },
-                        controller: phoneNumberTEC,
-                        inputFormatters: [
-                          new FilteringTextInputFormatter
-                              .allow(RegExp("[0-9]")),
-                        ],
-                        onChanged: (value) {
-                          setState(() {
-
-                          });
-                        },
-                        maxLength: 10,
-                        maxLengthEnforced: true,
-                        textInputAction: TextInputAction.next,
-                        keyboardType: TextInputType.number,
-                        style: TextStyle(
-                            color: Colors.black54,
-                            fontFamily: 'googlesansmed'),
-                        cursorColor: Colors.black,
-                        decoration: InputDecoration(
-                          prefixIcon: Padding(
-                              padding: EdgeInsets.all(15.0),
-                              child: RegularTextReg("+91", 18.0, BLACK)
-                          ),
-                          border: OutlineInputBorder(
-                            borderRadius:
-                            new BorderRadius.circular(
-                                7.0),
-                            borderSide: new BorderSide(),
-                          ),
-                          fillColor: Colors.black54,
-                          labelText: "Phone Number",
-                          hintText: "Phone Number",
-                          hintStyle: TextStyle(
-                              color: Colors.grey,
-                              fontFamily: 'googlesansreg',
-                              fontSize: 16),
-                        ),
-                      ),
-                      SizedBox(height: 15.0,),
-                      RegularTextReg("An OTP will be sent to the given Contact Number.", 16.0, DARK_BLUE),
-                      SizedBox(height: 15.0),
-                      Row(
-                        children: [
-                          Checkbox(
-                            value: checkedStatus,
-                            onChanged: (newValue){
-                              setState(() {
-                                checkedStatus = newValue;
-                              });
-                            },
-                          ),
-                          RegularTextReg("I agree to given ", 16.0, DARK_BLUE),
-                          GestureDetector(
-                            onTap: (){
-                              showDialog<void>(
-                                context: context,
-                                // false = user must tap button, true = tap outside dialog
-                                builder: (BuildContext dialogContext) {
-                                  return AlertDialog(
-                                    title: RegularTextReg("Terms & Conditions", 16.0, DARK_BLUE),
-                                    content: Text(termsAndConditionsText),
-                                    actions: <Widget>[
-                                      FlatButton(
-                                        child: RegularTextReg("OK", 16.0, DARK_BLUE),
-                                        onPressed: () {
-                                          Navigator.of(dialogContext)
-                                              .pop(); // Dismiss alert dialog
-                                        },
-                                      ),
-                                    ],
-                                  );
-                                },
-                              );
-                            },
-                            child: RegularTextReg("terms & conditions", 16.0, BLUE)),
-                        ],
-                      ),
-                      SizedBox(height: 30.0,),
+                      SizedBox(height: 60.0,),
                       InkWell(
                         onTap: (){
-                          if (!checkedStatus){
-                            Scaffold.of(context).showSnackBar(
-                                SnackBar(
-                                  content: Text("Agree to given terms and conditions"),
-                                  action: SnackBarAction(
-                                  onPressed: (){},
-                                  label: "OK",
-                              ),
-                            ));
-                          }
-                          if(_formKey.currentState.validate() && checkedStatus){
-                            setState(() {
-                              buttonClicked = true;
-                            });
-                            userProvider.setFullName(fullNameTEC.text);
-                            userProvider.setPhoneNumber(phoneNumberTEC.text);
-                            sendOTP(context);
-                            setState(() {
-                              buttonClicked = false;
-                            });
-                          }
+                          userProvider.setFullName(fullNameTEC.text);
+                          userProvider.setAge(ageTEC.text);
+                          Navigator.push(context, MaterialPageRoute(
+                              builder: (context) => LocationFetchingScreen()));
                         },
-                        child: !buttonClicked ? Container(
+                        child: Container(
                           decoration: BoxDecoration(
                             borderRadius: BorderRadius.circular(10.0),
                             color: DARK_BLUE,
@@ -248,9 +150,9 @@ class _PersonalDetailsFormState extends State<PersonalDetailsForm> {
                           height: 45.0,
                           width: 200.0,
                           child: Center(
-                            child: RegularTextReg("Send OTP", 18.0, WHITE),
+                            child: RegularTextReg("Continue", 18.0, WHITE),
                           ),
-                        ) : CircularProgressIndicator(backgroundColor: WHITE),
+                        ),
                       )
                     ],
                   ),

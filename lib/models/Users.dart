@@ -9,6 +9,8 @@ class Users with ChangeNotifier{
   String _phoneNumber = "";
   String _age = "";
   bool _isUserVerified = false;
+  String _userJWT = "";
+  String _uid = "";
   List<String> _professions = [];
 
   Users();
@@ -61,8 +63,31 @@ class Users with ChangeNotifier{
     notifyListeners();
   }
 
+  void setUid(String uid){
+    _uid = uid;
+    notifyListeners();
+  }
+
+  void setAllUserDetails(city,state,language,gender,fullName,phoneNumber,age,List<String> professions,uid){
+    _city = city;
+    _state = state;
+    _language = language;
+    _gender = gender;
+    _fullName = fullName;
+    _phoneNumber = phoneNumber;
+    _age = age;
+    _uid = uid;
+    _professions = professions;
+    notifyListeners();
+  }
+
   void setIsUserVerifiedStatus(bool isUserVerified){
     _isUserVerified = isUserVerified;
+    notifyListeners();
+  }
+
+  void setJWT(String jwt){
+    _userJWT = jwt;
     notifyListeners();
   }
 
@@ -73,6 +98,8 @@ class Users with ChangeNotifier{
   String get fullName => _fullName;
   String get phoneNumber => _phoneNumber;
   String get age => _age;
+  String get userJWT => _userJWT;
+  String get uid => _uid;
   bool get isUserVerified => _isUserVerified;
   List<String> get profession => _professions;
 

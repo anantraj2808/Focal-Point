@@ -9,6 +9,7 @@ import 'package:focal_point/icons/custom_icons.dart';
 import 'package:focal_point/models/Users.dart';
 import 'package:focal_point/presentation/ProfessionSelection/Widget/profession_tile.dart';
 import 'package:focal_point/presentation/home.dart';
+import 'package:focal_point/services/create_profile.dart';
 import 'package:focal_point/services/shared_preferences.dart';
 import 'package:provider/provider.dart';
 import 'package:shared_preferences/shared_preferences.dart';
@@ -91,7 +92,7 @@ class _ProfessionSelectionScreenState extends State<ProfessionSelectionScreen> {
                           }),)),
                       SizedBox(height: 20.0,),
                       InkWell(
-                        onTap: (){
+                        onTap: () async {
                           if (selectedItems.isNotEmpty){
                             SharedPrefs.setLoggedInStatusSharedPrefs(true);
                             SharedPrefs.setCitySharedPrefs(userProvider.city);
@@ -99,6 +100,7 @@ class _ProfessionSelectionScreenState extends State<ProfessionSelectionScreen> {
                             SharedPrefs.setLanguageSharedPrefs(userProvider.language);
                             SharedPrefs.setProfessionsSharedPrefs(userProvider.profession);
                             SharedPrefs.setGenderSharedPrefs(userProvider.gender);
+                            await createProfile(context);
                             Navigator.of(context).pushAndRemoveUntil(MaterialPageRoute(builder: (context) =>
                                 Home()), (Route<dynamic> route) => false);
                           }

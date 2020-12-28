@@ -5,6 +5,7 @@ import 'package:focal_point/constants/strings.dart';
 import 'package:focal_point/models/job.dart';
 import 'package:focal_point/presentation/HomePage/Widget/banner_carousel.dart';
 import 'package:focal_point/presentation/HomePage/Widget/jobs_list_view.dart';
+import 'package:focal_point/services/create_profile.dart';
 import 'package:focal_point/services/shared_prefs_ready_state.dart';
 import 'package:focal_point/styles/text_styles.dart';
 import 'package:provider/provider.dart';
@@ -91,20 +92,23 @@ class _HomePageState extends State<HomePage> {
                   color: WHITE,
                   child: carouselContainer(),
                 ),
-                userProvider.isUserVerified != null && userProvider.isUserVerified ?
-                Container(
-                  height: 50.0,
-                  width: width,
-                  margin: EdgeInsets.only(left: 10.0,right: 10.0,bottom: 10.0),
-                  decoration: BoxDecoration(
-                    color: DARK_BLUE,
-                    borderRadius: BorderRadius.circular(10.0)
-                  ),
+                GestureDetector(
+                  onTap: (){
+                    //TODO
+                  },
                   child: Container(
-                    alignment: Alignment.center,
-                    child: RegularTextReg("Applied Jobs (1)",20.0,WHITE)),
-                )
-                    : Container(),
+                    height: 50.0,
+                    width: width,
+                    margin: EdgeInsets.only(left: 10.0,right: 10.0,bottom: 10.0),
+                    decoration: BoxDecoration(
+                      color: DARK_BLUE,
+                      borderRadius: BorderRadius.circular(10.0)
+                    ),
+                    child: Container(
+                      alignment: Alignment.center,
+                      child: RegularTextReg("Applied Jobs (1)",20.0,WHITE)),
+                  ),
+                ),
                 userProvider.profession.contains("Plumber") && plumberJobList.isNotEmpty ? jobsListView(0,plumberJobList,++colorIndex,context) : Container(),
                 userProvider.profession.contains("Carpenter") && carpenterJobList.isNotEmpty ? jobsListView(1,carpenterJobList,++colorIndex,context) : Container(),
                 userProvider.profession.contains("Electrician") && electricianJobList.isNotEmpty ? jobsListView(2,electricianJobList,++colorIndex,context) : Container(),

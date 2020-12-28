@@ -1,10 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:focal_point/models/Users.dart';
+import 'package:focal_point/presentation/OTPVerificationScreen/View/otp_verification_screen.dart';
 import 'package:focal_point/presentation/SpalshScreen/View/splash_screen.dart';
 import 'package:focal_point/presentation/home.dart';
 import 'package:focal_point/presentation/location_fetching.dart';
 import 'package:focal_point/presentation/phone_number_screen.dart';
+import 'package:focal_point/services/shared_preferences.dart';
 import 'package:focal_point/services/shared_prefs_ready_state.dart';
+import 'package:focal_point/services/user_authentication.dart';
 import 'package:provider/provider.dart';
 
 void main() {
@@ -31,12 +34,14 @@ class _MyAppState extends State<MyApp> {
           return MaterialApp(
             debugShowCheckedModeBanner: false,
             title: 'Focal Point',
-            home: FutureBuilder(
-                future: _sharedPrefsReadyState.getAllDetails(userProvider),
+            home:
+//            OTPVerificationScreen(),
+            FutureBuilder(
+                future: SharedPrefs.getIsUserLoggedInSharedPrefs(),
                 builder: (context, snapshot) {
                   if(snapshot.data == null)
-                    return SplashScreen();
-                  return (snapshot.hasData && snapshot.data) ? Home() : LocationFetchingScreen();
+                    return OTPVerificationScreen();
+                  return (snapshot.hasData && snapshot.data) ? Home() : OTPVerificationScreen();
                 }
             ),
           );
@@ -44,20 +49,3 @@ class _MyAppState extends State<MyApp> {
     );
   }
 }
-
-
-/*
-MaterialApp(
-          debugShowCheckedModeBanner: false,
-          title: 'Flutter Demo',
-          home: FutureBuilder(
-              future: SharedPrefsReadyState.getAllDetails(userProvider),
-              builder: (context, snapshot) {
-                if(snapshot.connectionState == ConnectionState.waiting)
-                  return SplashScreen();
-                return (snapshot.hasData && snapshot.data) ? Home() : LocationFetchingScreen();
-              }
-          ),
-        ),
- */
-

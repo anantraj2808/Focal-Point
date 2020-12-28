@@ -2,6 +2,8 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:focal_point/constants/colors.dart';
 import 'package:focal_point/presentation/search_page.dart';
+import 'package:focal_point/services/shared_preferences.dart';
+import 'package:focal_point/services/user_authentication.dart';
 
 import 'HomePage/View/home_screen.dart';
 import 'ProfilePage/View/profile_page.dart';
@@ -29,6 +31,16 @@ class _HomeState extends State<Home> {
     setState(() {
       _selectedIndex = index;
     });
+  }
+
+  @override
+  void initState() {
+    super.initState();
+    setDetails();
+  }
+
+  void setDetails() async {
+    await setUserDetails(context, await SharedPrefs.getUserJWTSharedPrefs());
   }
 
   @override

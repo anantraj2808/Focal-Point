@@ -4,20 +4,21 @@ import 'package:flutter/services.dart';
 import 'package:focal_point/constants/colors.dart';
 import 'package:focal_point/models/Users.dart';
 import 'package:focal_point/presentation/HomePage/View/home_screen.dart';
+import 'package:focal_point/presentation/PersonalDetailsForm/View/personal_details_form.dart';
 import 'package:focal_point/services/create_profile.dart';
 import 'package:focal_point/services/shared_preferences.dart';
+import 'package:focal_point/services/user_authentication.dart';
 import 'package:focal_point/styles/text_styles.dart';
 import 'package:provider/provider.dart';
 
 import '../../home.dart';
+import '../../location_fetching.dart';
 
 class OTPDialog extends StatefulWidget {
 
-  final String fullName;
-  final String age;
   final String phoneNumber;
 
-  OTPDialog(this.fullName,this.age,this.phoneNumber);
+  OTPDialog(this.phoneNumber);
 
   @override
   _OTPDialogState createState() => _OTPDialogState();
@@ -29,15 +30,23 @@ class _OTPDialogState extends State<OTPDialog> {
 
   confirmOTP(BuildContext context, Users userProvider) async {
     if (otpTEC.text == "1111"){
-      await SharedPrefs.setUserVerifiedStatus(true);
-      await SharedPrefs.setFullNameSharedPrefs(widget.fullName);
+      bool existingUser = false;
+      existingUser = await getUser(context);
       await SharedPrefs.setPhoneNumberSharedPrefs(widget.phoneNumber);
-      await SharedPrefs.setAgeSharedPrefs(widget.age);
-      userProvider.setIsUserVerifiedStatus(true);
-      createProfile(userProvider);
-      Navigator.pushAndRemoveUntil(context,
-          MaterialPageRoute(builder: (context) => Home())
-          , (route) => false);
+      print(existingUser);
+      if (existingUser) {
+        await SharedPrefs.setLoggedInStatusSharedPrefs(true);
+        await SharedPrefs.setUidSharedPrefs(userProvider.uid);
+        await SharedPrefs.setUserJWTSharedPrefs(userProvider.userJWT);
+        Navigator.pushAndRemoveUntil(context,
+            MaterialPageRoute(builder: (context) => Home()),
+                (route) => false);
+      }
+      else {
+        Navigator.pushAndRemoveUntil(context,
+            MaterialPageRoute(builder: (context) => PersonalDetailsForm()),
+                (route) => false);
+      }
     }
   }
 
