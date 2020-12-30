@@ -20,7 +20,7 @@ class _HomePageState extends State<HomePage> {
 
   int colorIndex = -1;
 
-  SharedPrefsReadyState sharedPrefsReadyState = SharedPrefsReadyState();
+  SharedPrefsReadyState _sharedPrefsReadyState = SharedPrefsReadyState();
   List<String> professionsList = [];
   List<Job> plumberJobList = [];
   List<Job> carpenterJobList = [];

@@ -24,6 +24,11 @@ class _MyAppState extends State<MyApp> {
   SharedPrefsReadyState _sharedPrefsReadyState = SharedPrefsReadyState();
 
   @override
+  void initState() {
+    super.initState();
+  }
+
+  @override
   Widget build(BuildContext context) {
     return MultiProvider(
         providers: [
@@ -39,9 +44,11 @@ class _MyAppState extends State<MyApp> {
             FutureBuilder(
                 future: SharedPrefs.getIsUserLoggedInSharedPrefs(),
                 builder: (context, snapshot) {
-                  if(snapshot.data == null)
-                    return OTPVerificationScreen();
-                  return (snapshot.hasData && snapshot.data) ? Home() : OTPVerificationScreen();
+                  if(snapshot.connectionState == ConnectionState.waiting)
+                    return SplashScreen();
+//                  if(snapshot.data == null)
+//                    return OTPVerificationScreen();
+                  return (snapshot.hasData && snapshot.data) ? Home(isNewUser: false,) : OTPVerificationScreen();
                 }
             ),
           );

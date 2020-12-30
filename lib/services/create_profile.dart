@@ -18,7 +18,8 @@ Future createProfile(BuildContext context) async {
     "name" : userProvider.fullName,
     "city" : userProvider.city,
     "state" : userProvider.state,
-    "occupations" : professionsToJson(userProvider.profession),
+    "occupations" : ["Plumber","Carpenter","Driver"]
+    //professionsToJson(userProvider.profession),
   };
 
   final http.Response response = await http.post(

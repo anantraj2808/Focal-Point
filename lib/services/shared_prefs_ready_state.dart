@@ -1,6 +1,7 @@
 import 'package:flutter/widgets.dart';
 import 'package:focal_point/models/Users.dart';
 import 'package:focal_point/services/shared_preferences.dart';
+import 'package:provider/provider.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 class SharedPrefsReadyState with ChangeNotifier{
@@ -14,9 +15,11 @@ class SharedPrefsReadyState with ChangeNotifier{
   static String _fullName = "";
   static String _phoneNumber = "";
   static String _uid = "";
+  static String _jwt = "";
   static List<String> _professionsList = [];
 
-  Future<bool> getAllDetails(Users userProvider) async {
+  Future<bool> getAllDetails(BuildContext context) async {
+    Users userProvider = Provider.of<Users>(context,listen: false);
     _isUserLoggedIn = await SharedPrefs.getIsUserLoggedInSharedPrefs();
     if (_isUserLoggedIn == null) return false;
     if (!_isUserLoggedIn) return false;
@@ -30,6 +33,7 @@ class SharedPrefsReadyState with ChangeNotifier{
     _phoneNumber = await SharedPrefs.getPhoneNumberSharedPrefs();
     _uid = await SharedPrefs.getUidSharedPrefs();
     _professionsList = await SharedPrefs.getProfessionsListSharedPrefs();
+    _jwt = await SharedPrefs.getUserJWTSharedPrefs();
     userProvider.setLanguage(_language);
     userProvider.setLocation(_city,_state);
     userProvider.setProfessions(_professionsList);
@@ -38,6 +42,7 @@ class SharedPrefsReadyState with ChangeNotifier{
     userProvider.setPhoneNumber(_phoneNumber);
     userProvider.setFullName(_fullName);
     userProvider.setUid(_uid);
+    userProvider.setJWT(_jwt);
     //userProvider.setIsUserVerifiedStatus(_isUserVerified);
     notifyListeners();
     return true;

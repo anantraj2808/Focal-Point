@@ -27,8 +27,12 @@ class OTPDialog extends StatefulWidget {
 class _OTPDialogState extends State<OTPDialog> {
 
   TextEditingController otpTEC = TextEditingController();
+  bool buttonClicked = false;
 
   confirmOTP(BuildContext context, Users userProvider) async {
+    setState(() {
+      buttonClicked = true;
+    });
     if (otpTEC.text == "1111"){
       bool existingUser = false;
       existingUser = await getUser(context);
@@ -39,7 +43,7 @@ class _OTPDialogState extends State<OTPDialog> {
         await SharedPrefs.setUidSharedPrefs(userProvider.uid);
         await SharedPrefs.setUserJWTSharedPrefs(userProvider.userJWT);
         Navigator.pushAndRemoveUntil(context,
-            MaterialPageRoute(builder: (context) => Home()),
+            MaterialPageRoute(builder: (context) => Home(isNewUser: false,)),
                 (route) => false);
       }
       else {
@@ -104,7 +108,7 @@ class _OTPDialogState extends State<OTPDialog> {
           SizedBox(height: 10.0,),
           RegularTextReg("Resend Code", 14.0, BLUE),
           SizedBox(height: 15.0,),
-          GestureDetector(
+          !buttonClicked ? GestureDetector(
             onTap: () => confirmOTP(context,userProvider),
             child: Container(
               decoration: BoxDecoration(
@@ -117,7 +121,7 @@ class _OTPDialogState extends State<OTPDialog> {
                 child: RegularTextReg("Confirm OTP", 18.0, WHITE),
               ),
             ),
-          )
+          ) : Center(child: CircularProgressIndicator(),)
         ],
       ),
     );

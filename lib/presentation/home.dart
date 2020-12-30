@@ -3,12 +3,18 @@ import 'package:flutter/material.dart';
 import 'package:focal_point/constants/colors.dart';
 import 'package:focal_point/presentation/search_page.dart';
 import 'package:focal_point/services/shared_preferences.dart';
+import 'package:focal_point/services/shared_prefs_ready_state.dart';
 import 'package:focal_point/services/user_authentication.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 import 'HomePage/View/home_screen.dart';
 import 'ProfilePage/View/profile_page.dart';
 
 class Home extends StatefulWidget {
+
+  final bool isNewUser;
+  Home({@required this.isNewUser});
+
   @override
   _HomeState createState() => _HomeState();
 }
@@ -40,7 +46,9 @@ class _HomeState extends State<Home> {
   }
 
   void setDetails() async {
-    await setUserDetails(context, await SharedPrefs.getUserJWTSharedPrefs());
+    if(!widget.isNewUser){
+      await setUserDetails(context, await SharedPrefs.getUserJWTSharedPrefs());
+    }
   }
 
   @override

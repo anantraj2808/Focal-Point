@@ -102,7 +102,7 @@ class _ProfessionSelectionScreenState extends State<ProfessionSelectionScreen> {
                             SharedPrefs.setGenderSharedPrefs(userProvider.gender);
                             await createProfile(context);
                             Navigator.of(context).pushAndRemoveUntil(MaterialPageRoute(builder: (context) =>
-                                Home()), (Route<dynamic> route) => false);
+                                Home(isNewUser: true,)), (Route<dynamic> route) => false);
                           }
                           else {
                             Scaffold.of(scaffoldContext).showSnackBar(SnackBar(

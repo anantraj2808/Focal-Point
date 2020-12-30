@@ -92,6 +92,11 @@ class _ProfilePageState extends State<ProfilePage> {
                         userProvider.profession.isNotEmpty ? Text("Professions : "+userProvider.profession.toString()) : Container(),
                         userProvider.uid != null ? Text("UID : "+userProvider.uid) : Container(),
                         userProvider.userJWT != null ? Text("JWT : "+userProvider.userJWT) : Container(),
+                        GestureDetector(
+                          onTap: (){
+                            print("Mohit________________"+userProvider.userJWT);
+                          },
+                          child: Container(color: RED,height: 100.0,width: 100.0,))
                       ],
                     ),
                   ),
