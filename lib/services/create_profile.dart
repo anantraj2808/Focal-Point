@@ -1,6 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:focal_point/constants/apis.dart';
 import 'package:focal_point/models/Users.dart';
+import 'package:focal_point/services/shared_preferences.dart';
 import 'package:http/http.dart' as http;
 import 'dart:async';
 import 'dart:convert';
@@ -30,13 +31,11 @@ Future createProfile(BuildContext context) async {
     }
   );
 
-  print(response.statusCode.toString());             //(Successful => 200)
-
   var responseBody = jsonDecode(response.body);
   print(responseBody.toString());
   if (responseBody['sucess']){
-    print(responseBody['token']);
     userProvider.setJWT(responseBody['token']);
+    await SharedPrefs.setUserJWTSharedPrefs(responseBody['token']);
     userProvider.setUid(responseBody['data']['id']);
   }
 }

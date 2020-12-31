@@ -13,7 +13,7 @@ class ProfilePage extends StatefulWidget {
   _ProfilePageState createState() => _ProfilePageState();
 }
 
-class _ProfilePageState extends State<ProfilePage> {
+class _ProfilePageState extends State<ProfilePage>{
 
   final _formKey = GlobalKey<FormState>();
   bool isUserLoggedInBool = false;
@@ -78,25 +78,81 @@ class _ProfilePageState extends State<ProfilePage> {
                           mainAxisSize: MainAxisSize.max,
                           children: [
                             RegularTextReg("Name : ", 18.0, BLUE_GREY),
+                            SizedBox(width: 15.0,),
                             RegularTextMed(userProvider.fullName, 20.0, DARK_BLUE)
                           ],
                         ),
-                        userProvider.city != null ? Text("City : "+userProvider.city) : Container(),
-                        userProvider.state != null ? Text("State : "+userProvider.state) : Container(),
-                        userProvider.fullName != null ? Text("Name : "+userProvider.fullName) : Container(),
-                        userProvider.phoneNumber != null ? Text("Phone No : "+userProvider.phoneNumber) : Container(),
-                        userProvider.gender != null ? Text("Gender : "+userProvider.gender) : Container(),
-                        userProvider.age != null ? Text("Age : "+userProvider.age) : Container(),
-                        userProvider.language != null ? Text("Language : "+userProvider.language) : Container(),
-                        //userProvider.isUserVerified != null ? Text("Is Verified : "+userProvider.isUserVerified.toString()) : Container(),
-                        userProvider.profession.isNotEmpty ? Text("Professions : "+userProvider.profession.toString()) : Container(),
-                        userProvider.uid != null ? Text("UID : "+userProvider.uid) : Container(),
-                        userProvider.userJWT != null ? Text("JWT : "+userProvider.userJWT) : Container(),
-                        GestureDetector(
-                          onTap: (){
-                            print("Mohit________________"+userProvider.userJWT);
-                          },
-                          child: Container(color: RED,height: 100.0,width: 100.0,))
+                        SizedBox(height: 15.0,),
+                        Row(
+                          mainAxisAlignment: MainAxisAlignment.start,
+                          mainAxisSize: MainAxisSize.max,
+                          children: [
+                            RegularTextReg("Phone No. : ", 18.0, BLUE_GREY),
+                            SizedBox(width: 15.0,),
+                            RegularTextMed(userProvider.phoneNumber, 20.0, DARK_BLUE)
+                          ],
+                        ),
+                        SizedBox(height: 15.0,),
+                        Row(
+                          mainAxisAlignment: MainAxisAlignment.start,
+                          mainAxisSize: MainAxisSize.max,
+                          children: [
+                            RegularTextReg("City : ", 18.0, BLUE_GREY),
+                            SizedBox(width: 15.0,),
+                            RegularTextMed(userProvider.city, 20.0, DARK_BLUE)
+                          ],
+                        ),
+                        SizedBox(height: 15.0,),
+                        Row(
+                          mainAxisAlignment: MainAxisAlignment.start,
+                          mainAxisSize: MainAxisSize.max,
+                          children: [
+                            RegularTextReg("State : ", 18.0, BLUE_GREY),
+                            SizedBox(width: 15.0,),
+                            RegularTextMed(userProvider.state, 20.0, DARK_BLUE)
+                          ],
+                        ),
+                        SizedBox(height: 15.0,),
+                        Row(
+                          mainAxisAlignment: MainAxisAlignment.start,
+                          mainAxisSize: MainAxisSize.max,
+                          children: [
+                            RegularTextReg("Age : ", 18.0, BLUE_GREY),
+                            SizedBox(width: 15.0,),
+                            RegularTextMed(userProvider.age, 20.0, DARK_BLUE)
+                          ],
+                        ),
+                        SizedBox(height: 15.0,),
+                        Row(
+                          mainAxisAlignment: MainAxisAlignment.start,
+                          mainAxisSize: MainAxisSize.max,
+                          children: [
+                            RegularTextReg("Gender : ", 18.0, BLUE_GREY),
+                            SizedBox(width: 15.0,),
+                            RegularTextMed(userProvider.gender, 20.0, DARK_BLUE)
+                          ],
+                        ),
+                        SizedBox(height: 15.0,),
+//                        Row(
+//                          mainAxisAlignment: MainAxisAlignment.start,
+//                          mainAxisSize: MainAxisSize.max,
+//                          children: [
+//                            RegularTextReg("Language : ", 18.0, BLUE_GREY),
+//                            SizedBox(width: 15.0,),
+//                            RegularTextMed(userProvider.language, 20.0, DARK_BLUE)
+//                          ],
+//                        ),
+//                        userProvider.city != null ? Text("City : "+userProvider.city) : Container(),
+//                        userProvider.state != null ? Text("State : "+userProvider.state) : Container(),
+//                        userProvider.fullName != null ? Text("Name : "+userProvider.fullName) : Container(),
+//                        userProvider.phoneNumber != null ? Text("Phone No : "+userProvider.phoneNumber) : Container(),
+//                        userProvider.gender != null ? Text("Gender : "+userProvider.gender) : Container(),
+//                        userProvider.age != null ? Text("Age : "+userProvider.age) : Container(),
+//                        userProvider.language != null ? Text("Language : "+userProvider.language) : Container(),
+//                        //userProvider.isUserVerified != null ? Text("Is Verified : "+userProvider.isUserVerified.toString()) : Container(),
+//                        userProvider.profession.isNotEmpty ? Text("Professions : "+userProvider.profession.toString()) : Container(),
+//                        userProvider.uid != null ? Text("UID : "+userProvider.uid) : Container(),
+//                        userProvider.userJWT != null ? Text("JWT : "+userProvider.userJWT) : Container(),
                       ],
                     ),
                   ),

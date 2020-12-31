@@ -15,7 +15,6 @@ Future<bool> getUser(BuildContext context) async {
 
   final http.Response response = await http.get(api);
   var responseData = jsonDecode(response.body);
-  print(response.statusCode);
 
   if (responseData['sucess']){
     userProvider.setJWT(responseData['token']);
@@ -40,7 +39,6 @@ Future setUserDetails(BuildContext context, String jwt) async {
   );
   var responseBody = jsonDecode(response.body);
   var responseData = responseBody['data'];
-  print(response.statusCode);
 
   userProvider.setAllUserDetails(
       responseData['city'],

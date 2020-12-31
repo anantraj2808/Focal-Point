@@ -23,7 +23,6 @@ class SharedPrefsReadyState with ChangeNotifier{
     _isUserLoggedIn = await SharedPrefs.getIsUserLoggedInSharedPrefs();
     if (_isUserLoggedIn == null) return false;
     if (!_isUserLoggedIn) return false;
-    //_isUserVerified = await SharedPrefs.getIsUserVerifiedSharedPrefs();
     _city = await SharedPrefs.getCitySharedPrefs();
     _state = await SharedPrefs.getStateSharedPrefs();
     _language = await SharedPrefs.getLanguageSharedPrefs();
@@ -43,7 +42,6 @@ class SharedPrefsReadyState with ChangeNotifier{
     userProvider.setFullName(_fullName);
     userProvider.setUid(_uid);
     userProvider.setJWT(_jwt);
-    //userProvider.setIsUserVerifiedStatus(_isUserVerified);
     notifyListeners();
     return true;
   }

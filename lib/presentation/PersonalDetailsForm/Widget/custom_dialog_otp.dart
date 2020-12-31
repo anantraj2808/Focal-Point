@@ -28,16 +28,17 @@ class _OTPDialogState extends State<OTPDialog> {
 
   TextEditingController otpTEC = TextEditingController();
   bool buttonClicked = false;
+  bool isOTPFieldEnabled = true;
 
   confirmOTP(BuildContext context, Users userProvider) async {
     setState(() {
+      isOTPFieldEnabled = false;
       buttonClicked = true;
     });
     if (otpTEC.text == "1111"){
       bool existingUser = false;
       existingUser = await getUser(context);
       await SharedPrefs.setPhoneNumberSharedPrefs(widget.phoneNumber);
-      print(existingUser);
       if (existingUser) {
         await SharedPrefs.setLoggedInStatusSharedPrefs(true);
         await SharedPrefs.setUidSharedPrefs(userProvider.uid);
@@ -67,6 +68,7 @@ class _OTPDialogState extends State<OTPDialog> {
           RegularTextReg("An OTP has been sent to \"+91-${userProvider.phoneNumber}\". Enter the code below.", 14.0, DARK_BLUE),
           SizedBox(height: 10.0,),
           TextFormField(
+            enabled: isOTPFieldEnabled,
             validator: (String value){
               if (value.length != 4) return "Enter valid OTP";
               return null;

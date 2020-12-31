@@ -4,7 +4,6 @@ import 'package:focal_point/presentation/OTPVerificationScreen/View/otp_verifica
 import 'package:focal_point/presentation/SpalshScreen/View/splash_screen.dart';
 import 'package:focal_point/presentation/home.dart';
 import 'package:focal_point/presentation/location_fetching.dart';
-import 'package:focal_point/presentation/phone_number_screen.dart';
 import 'package:focal_point/services/shared_preferences.dart';
 import 'package:focal_point/services/shared_prefs_ready_state.dart';
 import 'package:focal_point/services/user_authentication.dart';
@@ -40,14 +39,11 @@ class _MyAppState extends State<MyApp> {
             debugShowCheckedModeBanner: false,
             title: 'Focal Point',
             home:
-//            OTPVerificationScreen(),
             FutureBuilder(
                 future: SharedPrefs.getIsUserLoggedInSharedPrefs(),
                 builder: (context, snapshot) {
                   if(snapshot.connectionState == ConnectionState.waiting)
                     return SplashScreen();
-//                  if(snapshot.data == null)
-//                    return OTPVerificationScreen();
                   return (snapshot.hasData && snapshot.data) ? Home(isNewUser: false,) : OTPVerificationScreen();
                 }
             ),
