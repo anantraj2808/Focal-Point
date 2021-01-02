@@ -31,6 +31,14 @@ class _ProfilePageState extends State<ProfilePage>{
     super.initState();
   }
 
+  saveDetailsToProvider(Users userProvider){
+    userProvider.setFullName(nameTEC.text);
+    userProvider.setPhoneNumber(phoneNoTEC.text);
+    userProvider.setLocation(cityTEC.text,stateTEC.text);
+    userProvider.setAge(ageTEC.text);
+    userProvider.setGender(genderTEC.text);
+  }
+
   @override
   Widget build(BuildContext context) {
     Users userProvider = Provider.of<Users>(context);
@@ -103,9 +111,6 @@ class _ProfilePageState extends State<ProfilePage>{
                                 )
                             ) :
                             TextFormField(
-                              onChanged: (String val){
-                                userProvider.setFullName(val);
-                              },
                               controller: nameTEC,
                               validator: (String value){
                                 if (value.isEmpty) return "Enter valid name";
@@ -209,9 +214,6 @@ class _ProfilePageState extends State<ProfilePage>{
                                 if (value.isEmpty) return "Enter valid city";
                                 return null;
                               },
-                              onChanged: (String val){
-                                userProvider.setLocation(val, userProvider.state);
-                              },
                               textInputAction: TextInputAction.next,
                               keyboardType: TextInputType.text,
                               style: TextStyle(
@@ -260,9 +262,6 @@ class _ProfilePageState extends State<ProfilePage>{
                               validator: (String value){
                                 if (value.isEmpty) return "Enter valid state";
                                 return null;
-                              },
-                              onChanged: (String val){
-                                userProvider.setLocation(userProvider.city, val);
                               },
                               textInputAction: TextInputAction.next,
                               keyboardType: TextInputType.text,
@@ -313,9 +312,6 @@ class _ProfilePageState extends State<ProfilePage>{
                                 if (value.isEmpty) return "Enter valid gender";
                                 return null;
                               },
-                              onChanged: (String val){
-                                userProvider.setGender(val);
-                              },
                               textInputAction: TextInputAction.next,
                               keyboardType: TextInputType.text,
                               style: TextStyle(
@@ -365,9 +361,6 @@ class _ProfilePageState extends State<ProfilePage>{
                                 if (value.isEmpty) return "Enter valid age";
                                 return null;
                               },
-                              onChanged: (String val){
-                                userProvider.setAge(val);
-                              },
                               textInputAction: TextInputAction.next,
                               keyboardType: TextInputType.text,
                               style: TextStyle(
@@ -399,6 +392,10 @@ class _ProfilePageState extends State<ProfilePage>{
                           onTap: () async {
                             if(_formKey.currentState.validate() && isEditable){
                               bool returnBool;
+                              saveDetailsToProvider(userProvider);
+                              setState(() {
+                                isEditable = false;
+                              });
                               returnBool = await editDetails(context);
                               print("Return Bool : "+returnBool.toString());
                             }

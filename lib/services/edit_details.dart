@@ -1,3 +1,5 @@
+import 'dart:convert';
+
 import 'package:flutter/cupertino.dart';
 import 'package:focal_point/constants/apis.dart';
 import 'package:focal_point/models/Users.dart';
@@ -5,7 +7,6 @@ import 'package:focal_point/services/shared_preferences.dart';
 import 'package:focal_point/services/user_authentication.dart';
 import 'package:http/http.dart' as http;
 import 'dart:async';
-import 'dart:convert';
 
 import 'package:provider/provider.dart';
 
@@ -16,22 +17,22 @@ editDetails(BuildContext context) async {
   String jwt = await SharedPrefs.getUserJWTSharedPrefs();
   String url = BASE_API + EDIT;
 
-  Map <String,dynamic> map = {
-    "city" : "Bareilly",
-    "state" : "UP",
-    "occupations" : ["Carpenter"],
-    "age" : "19",
-    "gender" : "Male",
-    "name" : "Anant Raj"
-    //professionsToJson(userProvider.profession),
+  Map <dynamic,dynamic> mapMap = {
+    "city" : userProvider.city,
+    "state" : userProvider.state,
+    "occupations" : ['Carpenter'],
+    "age" : userProvider.age,
+    "gender" : userProvider.gender,
+    "name" : userProvider.fullName
   };
 
-  print(json.encode(map));
+  print(json.encode(mapMap));
 
   final http.Response response = await http.post(
       url,
-      body: json.encode(map),
+      body: json.encode(mapMap),
       headers: <String,String>{
+        "Content-Type" : "application/json",
         "auth-token" : jwt
       }
   );
