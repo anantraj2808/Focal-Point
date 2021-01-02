@@ -40,6 +40,8 @@ Future setUserDetails(BuildContext context, String jwt) async {
   var responseBody = jsonDecode(response.body);
   var responseData = responseBody['data'];
 
+  print("Set Details response code : " + response.statusCode.toString());
+
   userProvider.setAllUserDetails(
       responseData['city'],
       responseData['state'],
