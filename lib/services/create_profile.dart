@@ -5,7 +5,6 @@ import 'package:focal_point/services/shared_preferences.dart';
 import 'package:http/http.dart' as http;
 import 'dart:async';
 import 'dart:convert';
-
 import 'package:provider/provider.dart';
 
 Future createProfile(BuildContext context) async {

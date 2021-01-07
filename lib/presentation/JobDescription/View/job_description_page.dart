@@ -11,6 +11,8 @@ import 'package:focal_point/presentation/JobDescription/Widget/description_items
 import 'package:focal_point/presentation/JobDescription/Widget/openings_box.dart';
 import 'package:focal_point/presentation/PersonalDetailsForm/View/personal_details_form.dart';
 import 'package:focal_point/presentation/ThankYouPage/View/thank_you_page.dart';
+import 'package:focal_point/services/apply_to_jobs.dart';
+import 'package:focal_point/services/shared_preferences.dart';
 import 'package:focal_point/styles/text_styles.dart';
 import 'package:provider/provider.dart';
 
@@ -146,16 +148,17 @@ class _JobDescriptionState extends State<JobDescription> {
               ),
               child: Center(
                 child: InkWell(
-                  onTap: (){
-//                    if (userProvider.isUserVerified) {
-//                      Navigator.pushReplacement(context, MaterialPageRoute(
-//                          builder: (context) => ThankYouPage()
-//                      ));
-//                    } else {
-//                      Navigator.push(context, MaterialPageRoute(
-//                          builder: (context) => PersonalDetailsForm()
-//                      ));
-//                    }
+                  onTap: () async {
+                    bool isApplicationSuccessful = false;
+                    isApplicationSuccessful = await applyToJob(job.jobId, await SharedPrefs.getUserJWTSharedPrefs());
+                    if (isApplicationSuccessful){
+                      Navigator.pushReplacement(
+                          context,
+                          MaterialPageRoute(
+                            builder: (context) => ThankYouPage()
+                          )
+                      );
+                    }
                   },
                   child: Container(
                     decoration: BoxDecoration(

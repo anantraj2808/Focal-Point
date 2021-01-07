@@ -17,7 +17,7 @@ editDetails(BuildContext context) async {
   String jwt = await SharedPrefs.getUserJWTSharedPrefs();
   String url = BASE_API + EDIT;
 
-  Map <dynamic,dynamic> mapMap = {
+  Map <dynamic,dynamic> map = {
     "city" : userProvider.city,
     "state" : userProvider.state,
     "occupations" : ['Carpenter'],
@@ -26,11 +26,11 @@ editDetails(BuildContext context) async {
     "name" : userProvider.fullName
   };
 
-  print(json.encode(mapMap));
+  print(json.encode(map));
 
   final http.Response response = await http.post(
       url,
-      body: json.encode(mapMap),
+      body: json.encode(map),
       headers: <String,String>{
         "Content-Type" : "application/json",
         "auth-token" : jwt

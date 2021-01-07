@@ -7,7 +7,7 @@ class Job{
   String state;
   String professionType;
   String dutyType;
-  int numberOfOpenings;
+  String numberOfOpenings;
   String minimumQualification;
   String languageRequired;
   String description;
@@ -21,19 +21,19 @@ class Job{
 
   factory Job.fromJson(Map<String,dynamic> json){
     return Job(
-      jobId: json['jobId'],
+      jobId: json['_id'],
       companyName: json['companyName'],
       salary: json['salary'],
       payBasis: json['payBasis'],
       city: json['city'],
       state: json['state'],
       professionType: json['professionType'],
-      dutyType: json['dutyType'],
-      numberOfOpenings: json['numberOfOpenings'],
+      dutyType: json['type'],
+      numberOfOpenings: json['openings'],
       minimumQualification: json['minimumQualification'],
-      languageRequired: json['languageRequired'],
+      languageRequired: json['language'],
       description: json['description'],
-      experienceRequired: json['experienceRequired'],
+      experienceRequired: json['minExperience'],
       workTimings: json['workTimings'],
       completeAddress: json['completeAddress'],
     );
