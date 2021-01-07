@@ -2,6 +2,7 @@ import 'dart:convert';
 
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:focal_point/services/shared_preferences.dart';
 
 class AppLocalizations{
   final Locale locale;
@@ -17,7 +18,9 @@ class AppLocalizations{
   Map<String,String> _localizedStrings;
 
   Future<bool> load() async{
-    String jsonString = await rootBundle.loadString('assets/languages/en-US.json');
+    String languageCode = await getLanguageCode();
+    print("App Localisation Language : " + languageCode);
+    String jsonString = await rootBundle.loadString('assets/languages/' + languageCode + '.json');
     Map<String,dynamic> jsonMap = json.decode(jsonString);
 
     _localizedStrings = jsonMap.map((key, value){
@@ -30,24 +33,28 @@ class AppLocalizations{
     return _localizedStrings[key];
   }
 
-
+  getLanguageCode() async {
+    String language = await SharedPrefs.getLanguageSharedPrefs();
+    switch(language){
+      case "English" : return "en-US";
+      case "हिन्दी" : return "hi-IN";
+      case "मराठी" : return "mr-IN";
+      default : return "en-US";
+    }
+  }
 }
 
 class _AppLocalizationsDelegate
     extends LocalizationsDelegate<AppLocalizations> {
-  // This delegate instance will never change (it doesn't even have fields!)
-  // It can provide a constant constructor.
   const _AppLocalizationsDelegate();
 
   @override
   bool isSupported(Locale locale) {
-    // Include all of your supported language codes here
     return ['en', 'it'].contains(locale.languageCode);
   }
 
   @override
   Future<AppLocalizations> load(Locale locale) async {
-    // AppLocalizations class is where the JSON loading actually runs
     AppLocalizations localizations = new AppLocalizations(locale);
     await localizations.load();
     return localizations;

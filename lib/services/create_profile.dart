@@ -19,9 +19,13 @@ Future createProfile(BuildContext context) async {
     "name" : userProvider.fullName,
     "city" : userProvider.city,
     "state" : userProvider.state,
-    "occupations" : ["Plumber","Carpenter","Driver"]
+    "occupations" :
+    ["Carpenter","Plumber"]
+    //jsonEncode(userProvider.profession)
     //professionsToJson(userProvider.profession),
   };
+
+  print(jsonEncode(userProvider.profession));
 
   final http.Response response = await http.post(
     url,
@@ -30,13 +34,16 @@ Future createProfile(BuildContext context) async {
       "Content-Type" : "application/json"
     }
   );
-
+  print("Create Profile Response Code : " + response.statusCode.toString());
   var responseBody = jsonDecode(response.body);
+  print("Create Profile Response Bodu : " + responseBody.toString());
   if (responseBody['sucess']){
     userProvider.setJWT(responseBody['token']);
     await SharedPrefs.setUserJWTSharedPrefs(responseBody['token']);
     userProvider.setUid(responseBody['data']['id']);
+    return true;
   }
+  return false;
 }
 
 professionsToJson(List<String> professionsList){

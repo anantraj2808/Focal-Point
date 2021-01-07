@@ -4,10 +4,11 @@ import 'package:flutter/painting.dart';
 import 'package:focal_point/constants/colors.dart';
 import 'package:focal_point/constants/strings.dart';
 import 'package:focal_point/models/job.dart';
-
+import 'package:translator/translator.dart';
 import 'job_list_tile.dart';
 
 Widget jobsListView(int globalIndex, List<Job> jobList, int colorIndex, BuildContext context){
+
   return Container(
     child:Column(
       mainAxisSize: MainAxisSize.min,
@@ -35,4 +36,13 @@ Widget jobsListView(int globalIndex, List<Job> jobList, int colorIndex, BuildCon
       ],
     )
   );
+}
+
+getTranslatedString(String text) async {
+
+  final translator = GoogleTranslator();
+
+  String convertedString = "";
+  convertedString = await translator.translate(text,to: 'mr').toString();
+  return convertedString;
 }

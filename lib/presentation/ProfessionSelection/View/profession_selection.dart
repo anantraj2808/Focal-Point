@@ -94,15 +94,18 @@ class _ProfessionSelectionScreenState extends State<ProfessionSelectionScreen> {
                       InkWell(
                         onTap: () async {
                           if (selectedItems.isNotEmpty){
-                            SharedPrefs.setLoggedInStatusSharedPrefs(true);
-                            SharedPrefs.setCitySharedPrefs(userProvider.city);
-                            SharedPrefs.setStateSharedPrefs(userProvider.state);
-                            SharedPrefs.setLanguageSharedPrefs(userProvider.language);
-                            SharedPrefs.setProfessionsSharedPrefs(userProvider.profession);
-                            SharedPrefs.setGenderSharedPrefs(userProvider.gender);
-                            await createProfile(context);
-                            Navigator.of(context).pushAndRemoveUntil(MaterialPageRoute(builder: (context) =>
-                                Home(isNewUser: true,)), (Route<dynamic> route) => false);
+                            bool isUserCreated = false;
+                            isUserCreated = await createProfile(context);
+                            if(isUserCreated){
+                              SharedPrefs.setLoggedInStatusSharedPrefs(true);
+                              SharedPrefs.setCitySharedPrefs(userProvider.city);
+                              SharedPrefs.setStateSharedPrefs(userProvider.state);
+                              SharedPrefs.setLanguageSharedPrefs(userProvider.language);
+                              SharedPrefs.setProfessionsSharedPrefs(userProvider.profession);
+                              SharedPrefs.setGenderSharedPrefs(userProvider.gender);
+                              Navigator.of(context).pushAndRemoveUntil(MaterialPageRoute(builder: (context) =>
+                                  Home(isNewUser: true,)), (Route<dynamic> route) => false);
+                            }
                           }
                           else {
                             Scaffold.of(scaffoldContext).showSnackBar(SnackBar(

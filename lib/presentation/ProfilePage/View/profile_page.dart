@@ -29,6 +29,7 @@ class _ProfilePageState extends State<ProfilePage>{
   TextEditingController stateTEC = TextEditingController();
   TextEditingController ageTEC = TextEditingController();
   TextEditingController genderTEC = TextEditingController();
+  SharedPrefs _sharedPrefs = SharedPrefs();
 
   @override
   void initState() {
@@ -68,7 +69,8 @@ class _ProfilePageState extends State<ProfilePage>{
               DARK_BLUE),
           actions: [
             GestureDetector(
-              onTap: (){
+              onTap: () async {
+                print(await SharedPrefs.getLanguageSharedPrefs());
                 setState(() {
                   print(isEditable.toString());
                   isEditable = true;
@@ -114,7 +116,7 @@ class _ProfilePageState extends State<ProfilePage>{
                                     mainAxisAlignment: MainAxisAlignment.start,
                                     mainAxisSize: MainAxisSize.max,
                                     children: [
-                                      RegularTextReg("Name : ", 18.0, BLUE_GREY),
+                                      RegularTextReg(getTranslatedText("Name",context) + " \: ", 18.0, BLUE_GREY),
                                       Spacer(),
                                       RegularTextMed(userProvider.fullName, 20.0, DARK_BLUE),
                                     ],
@@ -163,13 +165,14 @@ class _ProfilePageState extends State<ProfilePage>{
                                     mainAxisAlignment: MainAxisAlignment.start,
                                     mainAxisSize: MainAxisSize.max,
                                     children: [
-                                      RegularTextReg("Phone No. : ", 18.0, BLUE_GREY),
+                                      RegularTextReg(getTranslatedText("PhoneNumber",context) + " \: ", 18.0, BLUE_GREY),
                                       Spacer(),
                                       RegularTextMed(userProvider.phoneNumber, 20.0, DARK_BLUE),
                                     ],
                                   )
                               ) :
                               TextFormField(
+                                enabled: false,
                                 controller: phoneNoTEC,
                                 validator: (String value){
                                   if (value.isEmpty) return "Enter valid Phone number";
@@ -212,7 +215,7 @@ class _ProfilePageState extends State<ProfilePage>{
                                     mainAxisAlignment: MainAxisAlignment.start,
                                     mainAxisSize: MainAxisSize.max,
                                     children: [
-                                      RegularTextReg("City : ", 18.0, BLUE_GREY),
+                                      RegularTextReg(getTranslatedText("City",context) + " \: ", 18.0, BLUE_GREY),
                                       Spacer(),
                                       RegularTextMed(userProvider.city, 20.0, DARK_BLUE),
                                     ],
@@ -261,7 +264,7 @@ class _ProfilePageState extends State<ProfilePage>{
                                     mainAxisAlignment: MainAxisAlignment.start,
                                     mainAxisSize: MainAxisSize.max,
                                     children: [
-                                      RegularTextReg("State : ", 18.0, BLUE_GREY),
+                                      RegularTextReg(getTranslatedText("State",context) + " \: ", 18.0, BLUE_GREY),
                                       Spacer(),
                                       RegularTextMed(userProvider.state, 20.0, DARK_BLUE),
                                     ],
@@ -310,7 +313,7 @@ class _ProfilePageState extends State<ProfilePage>{
                                     mainAxisAlignment: MainAxisAlignment.start,
                                     mainAxisSize: MainAxisSize.max,
                                     children: [
-                                      RegularTextReg("Gender : ", 18.0, BLUE_GREY),
+                                      RegularTextReg(getTranslatedText("Gender",context) + " \: ", 18.0, BLUE_GREY),
                                       Spacer(),
                                       RegularTextMed(userProvider.gender, 20.0, DARK_BLUE),
                                     ],
@@ -359,7 +362,7 @@ class _ProfilePageState extends State<ProfilePage>{
                                     mainAxisAlignment: MainAxisAlignment.start,
                                     mainAxisSize: MainAxisSize.max,
                                     children: [
-                                      RegularTextReg("Age : ", 18.0, BLUE_GREY),
+                                      RegularTextReg(getTranslatedText("Age",context) + " \: ", 18.0, BLUE_GREY),
                                       Spacer(),
                                       RegularTextMed(userProvider.age, 20.0, DARK_BLUE),
                                     ],
@@ -419,7 +422,7 @@ class _ProfilePageState extends State<ProfilePage>{
                               ),
                               child: Container(
                                 alignment: Alignment.center,
-                                child: RegularTextReg("Save Details", 18.0, WHITE),
+                                child: RegularTextReg(getTranslatedText("SaveDetails",context) + " \: ", 18.0, WHITE),
                               ),
                             ),
                           )

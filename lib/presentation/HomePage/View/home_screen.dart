@@ -7,6 +7,7 @@ import 'package:focal_point/presentation/HomePage/Widget/banner_carousel.dart';
 import 'package:focal_point/presentation/HomePage/Widget/jobs_list_view.dart';
 import 'package:focal_point/services/create_profile.dart';
 import 'package:focal_point/services/shared_prefs_ready_state.dart';
+import 'package:focal_point/styles/get_translated_text.dart';
 import 'package:focal_point/styles/text_styles.dart';
 import 'package:provider/provider.dart';
 import 'package:focal_point/models/Users.dart';
@@ -77,7 +78,7 @@ class _HomePageState extends State<HomePage> {
       appBar: AppBar(
         backgroundColor: WHITE,
         centerTitle: true,
-        title: RegularTextReg("Your Opportunities", 22.0, BLACK),
+        title: RegularTextReg(getTranslatedText("YourOpportunities",context), 22.0, BLACK),
       ),
       body: SafeArea(
         child: SingleChildScrollView(
@@ -106,7 +107,7 @@ class _HomePageState extends State<HomePage> {
                     ),
                     child: Container(
                       alignment: Alignment.center,
-                      child: RegularTextReg("Applied Jobs (1)",20.0,WHITE)),
+                      child: RegularTextReg(getTranslatedText("AppliedJobs",context),20.0,WHITE)),
                   ),
                 ),
                 userProvider.profession.contains("Plumber") && plumberJobList.isNotEmpty ? jobsListView(0,plumberJobList,++colorIndex,context) : Container(),

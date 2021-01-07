@@ -1,4 +1,5 @@
 class Job{
+  String jobId;
   String companyName;
   String salary;
   String payBasis;
@@ -14,12 +15,13 @@ class Job{
   String workTimings;
   String completeAddress;
 
-  Job({this.companyName,this.salary,this.payBasis,this.city,this.state,this.professionType,this.dutyType,
+  Job({this.jobId,this.companyName,this.salary,this.payBasis,this.city,this.state,this.professionType,this.dutyType,
         this.numberOfOpenings,this.minimumQualification,this.languageRequired,this.description,
         this.experienceRequired,this.workTimings,this.completeAddress});
 
   factory Job.fromJson(Map<String,dynamic> json){
     return Job(
+      jobId: json['jobId'],
       companyName: json['companyName'],
       salary: json['salary'],
       payBasis: json['payBasis'],

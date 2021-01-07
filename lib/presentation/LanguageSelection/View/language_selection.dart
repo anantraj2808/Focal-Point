@@ -8,7 +8,10 @@ import 'package:focal_point/models/Users.dart';
 import 'package:focal_point/presentation/LanguageSelection/Widget/gender_box.dart';
 import 'package:focal_point/presentation/LanguageSelection/Widget/language_card.dart';
 import 'package:focal_point/presentation/ProfessionSelection/View/profession_selection.dart';
+import 'package:focal_point/services/app_localizations.dart';
+import 'package:focal_point/services/shared_preferences.dart';
 import 'package:provider/provider.dart';
+import 'package:easy_localization/easy_localization.dart';
 
 class LanguageSelectionScreen extends StatefulWidget {
 
@@ -83,8 +86,11 @@ class _LanguageSelectionScreenState extends State<LanguageSelectionScreen> {
                         ),
                         SizedBox(height: 100.0,),
                         InkWell(
-                          onTap: (){
+                          onTap: () async {
                             if (userProvider.language.isNotEmpty && userProvider.gender.isNotEmpty){
+                              await SharedPrefs.setLanguageSharedPrefs(userProvider.language);
+                              //var data = EasyLocalizationProvider.of(context).data;
+                              await AppLocalizations.of(context).load();
                               userProvider.setLocation(widget.user.city, widget.user.state);
                               Navigator.push(context, MaterialPageRoute(
                                   builder: (context) => ProfessionSelectionScreen()
