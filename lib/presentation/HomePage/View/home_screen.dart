@@ -5,7 +5,7 @@ import 'package:focal_point/constants/strings.dart';
 import 'package:focal_point/models/job.dart';
 import 'package:focal_point/presentation/HomePage/Widget/banner_carousel.dart';
 import 'package:focal_point/presentation/HomePage/Widget/jobs_list_view.dart';
-import 'package:focal_point/services/create_profile.dart';
+import 'package:translator/translator.dart';
 import 'package:focal_point/services/shared_prefs_ready_state.dart';
 import 'package:focal_point/styles/get_translated_text.dart';
 import 'package:focal_point/styles/text_styles.dart';
@@ -63,11 +63,15 @@ class _HomePageState extends State<HomePage> {
     carpenterJobList.add(carpenterJob);
   }
 
-//  getProfessionsList() {
-//    setState(()  {
-//      professionsList = sharedPrefsReadyState.professionsList;
-//    });
-//  }
+  convertText(String text) async {
+    String convertedText = "text";
+    final translator = GoogleTranslator();
+    await translator.translate(text,to: 'it').then((value){
+      convertedText = value.toString();
+      print("Translated text : "+convertedText);
+    });
+    return convertedText;
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -107,7 +111,10 @@ class _HomePageState extends State<HomePage> {
                     ),
                     child: Container(
                       alignment: Alignment.center,
-                      child: RegularTextReg(getTranslatedText("AppliedJobs",context),20.0,WHITE)),
+                      child: RegularTextReg(
+                        "Applied Jobs",
+                          //getTranslatedText("AppliedJobs",context),
+                          20.0,WHITE)),
                   ),
                 ),
                 userProvider.profession.contains("Plumber") && plumberJobList.isNotEmpty ? jobsListView(0,plumberJobList,++colorIndex,context) : Container(),

@@ -23,7 +23,8 @@ editDetails(BuildContext context) async {
     "occupations" : ['Carpenter'],
     "age" : userProvider.age,
     "gender" : userProvider.gender,
-    "name" : userProvider.fullName
+    "name" : userProvider.fullName,
+    "language" : userProvider.language
   };
 
   print(json.encode(map));

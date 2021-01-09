@@ -37,12 +37,3 @@ Widget jobsListView(int globalIndex, List<Job> jobList, int colorIndex, BuildCon
     )
   );
 }
-
-getTranslatedString(String text) async {
-
-  final translator = GoogleTranslator();
-
-  String convertedString = "";
-  convertedString = await translator.translate(text,to: 'mr').toString();
-  return convertedString;
-}
