@@ -11,6 +11,8 @@ Future createProfile(BuildContext context) async {
   Users userProvider = Provider.of<Users>(context,listen: false);
   String url = BASE_API + CREATE;
 
+//  var professionsList = jsonEncode(userProvider.profession.map((e) => e.toJson()).toList());
+
   Map <String,dynamic> map = {
     "contactNumber" : userProvider.phoneNumber,
     "age" : userProvider.age,
@@ -18,9 +20,8 @@ Future createProfile(BuildContext context) async {
     "name" : userProvider.fullName,
     "city" : userProvider.city,
     "state" : userProvider.state,
-    "occupations" :
-    ["Carpenter","Plumber"],
-    //jsonEncode(userProvider.profession),
+    "occupations" : ["Plumber"],
+    //jsonEncode(userProvider.profession.toList()),
     //professionsToJson(userProvider.profession),
     "language" : userProvider.language
   };

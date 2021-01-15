@@ -14,6 +14,7 @@ import 'package:focal_point/services/edit_details.dart';
 import 'package:focal_point/services/shared_preferences.dart';
 import 'package:focal_point/styles/get_translated_text.dart';
 import 'package:focal_point/styles/text_styles.dart';
+import 'package:focal_point/styles/waiting_screen.dart';
 import 'package:provider/provider.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 
@@ -25,6 +26,7 @@ class ProfilePage extends StatefulWidget {
 class _ProfilePageState extends State<ProfilePage>{
 
   final _formKey = GlobalKey<FormState>();
+  bool loading = false;
   bool isUserLoggedInBool = false;
   bool isEdited = false;
   bool isNameEdited = false;
@@ -76,60 +78,63 @@ class _ProfilePageState extends State<ProfilePage>{
               22.0,
               DARK_BLUE),
         ),
-        body: SafeArea(
-                child: Container(
-                  padding: EdgeInsets.symmetric(horizontal: 20.0),
-                  width: width,
-                  margin: EdgeInsets.only(top: 30.0),
-                  child: SingleChildScrollView(
-                    child: Form(
-                      key: _formKey,
-                      child: Column(
-                        children: [
-                          !isGenderEdited ? Stack(
-                            children: [
-                              Container(
-                                alignment: Alignment.center,
-                                height: 150.0,
-                                width: 150.0,
-                                decoration: BoxDecoration(
-                                    color: userProvider.gender == "Male" ? LIGHT_BLUE : LIGHT_PINK,
-                                    shape: BoxShape.circle
-                                ),
-                                child: Image.asset("assets/images/${userProvider.gender.toLowerCase()}.png"),
+        body: Stack(
+          children: [
+            Opacity(opacity: loading ? 0.3 : 1.0,
+            child: SafeArea(
+              child: Container(
+                padding: EdgeInsets.symmetric(horizontal: 20.0),
+                width: width,
+                margin: EdgeInsets.only(top: 30.0),
+                child: SingleChildScrollView(
+                  child: Form(
+                    key: _formKey,
+                    child: Column(
+                      children: [
+                        !isGenderEdited ? Stack(
+                          children: [
+                            Container(
+                              alignment: Alignment.center,
+                              height: 150.0,
+                              width: 150.0,
+                              decoration: BoxDecoration(
+                                  color: userProvider.gender == "Male" ? LIGHT_BLUE : LIGHT_PINK,
+                                  shape: BoxShape.circle
                               ),
-                              Positioned(
-                                left: 100.0,
-                                bottom: 100.0,
-                                child: Container(
-                                  margin: EdgeInsets.all(5.0),
-                                  height: 50.0,
-                                  width: 50.0,
-                                  decoration: BoxDecoration(
+                              child: Image.asset("assets/images/${userProvider.gender.toLowerCase()}.png"),
+                            ),
+                            Positioned(
+                              left: 100.0,
+                              bottom: 100.0,
+                              child: Container(
+                                margin: EdgeInsets.all(5.0),
+                                height: 50.0,
+                                width: 50.0,
+                                decoration: BoxDecoration(
                                     shape: BoxShape.circle,
                                     color: WHITE
-                                  ),
-                                  child: Container(
-                                    alignment: Alignment.center,
-                                    child: IconButton(
-                                      onPressed: (){
-                                        setState(() {
-                                          //isGenderEdited = true;
-                                        });
-                                      },
-                                      icon: Icon(Icons.edit,color: DARK_BLUE,),
-                                    ),
+                                ),
+                                child: Container(
+                                  alignment: Alignment.center,
+                                  child: IconButton(
+                                    onPressed: (){
+                                      setState(() {
+                                        //isGenderEdited = true;
+                                      });
+                                    },
+                                    icon: Icon(Icons.edit,color: DARK_BLUE,),
                                   ),
                                 ),
-                              )
-                            ],
-                          ) :
-                          Row(
-                            mainAxisAlignment: MainAxisAlignment.center,
-                            children: [],
-                          ),
-                          SizedBox(height: 20.0,),
-                          !isNameEdited ? Container(
+                              ),
+                            )
+                          ],
+                        ) :
+                        Row(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: [],
+                        ),
+                        SizedBox(height: 20.0,),
+                        !isNameEdited ? Container(
                             width: width,
                             child: ListTile(
                               leading: Container(
@@ -150,12 +155,204 @@ class _ProfilePageState extends State<ProfilePage>{
                                 icon: Icon(Icons.edit,size: 24.0,color: DARK_BLUE,),
                               ),
                             )
+                        ) :
+                        TextFormField(
+                          autofocus: true,
+                          controller: nameTEC,
+                          validator: (String value){
+                            if (value.isEmpty) return "Enter valid name";
+                            return null;
+                          },
+                          textInputAction: TextInputAction.next,
+                          keyboardType: TextInputType.text,
+                          style: TextStyle(
+                              color: Colors.black54,
+                              fontFamily: 'googlesansmed'),
+                          cursorColor: Colors.black,
+                          decoration: InputDecoration(
+                            border: OutlineInputBorder(
+                              borderRadius:
+                              new BorderRadius.circular(
+                                  7.0),
+                              borderSide: new BorderSide(),
+                            ),
+                            fillColor: Colors.black54,
+                            labelText: "Name",
+                            hintText: "Name",
+                            hintStyle: TextStyle(
+                                color: Colors.grey,
+                                fontFamily: 'googlesansreg',
+                                fontSize: 16),
+                          ),
+                        ),
+                        SizedBox(height: 20.0,),
+                        Container(
+                          width: width,
+                          child: Row(
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            children: [
+                              Container(
+                                height: 110.0,
+                                width: 110.0,
+                                child: Card(
+                                  elevation: 5.0,
+                                  shadowColor: GREY,
+                                  child: Column(
+                                    mainAxisAlignment: MainAxisAlignment.center,
+                                    children: [
+                                      RegularTextReg("Applied", 18.0, GREY),
+                                      SizedBox(height: 15.0,),
+                                      RegularTextMed("8", 24.0, DARK_BLUE),
+                                    ],
+                                  ),
+                                ),
+                              ),
+                              SizedBox(width: 25.0,),
+                              Container(
+                                height: 125.0,
+                                width: 125.0,
+                                child: Card(
+                                  elevation: 5.0,
+                                  shadowColor: GREY,
+                                  child: Column(
+                                    mainAxisAlignment: MainAxisAlignment.center,
+                                    children: [
+                                      RegularTextReg("In Review", 18.0, GREY),
+                                      SizedBox(height: 15.0,),
+                                      RegularTextMed("3", 24.0, DARK_BLUE),
+                                    ],
+                                  ),
+                                ),
+                              ),
+                            ],
+                          ),
+                        ),
+                        SizedBox(height: 7.5,),
+                        Divider(color: GREY,endIndent: 20.0,indent: 20.0,),
+                        SizedBox(height: 7.5,),
+                        Container(
+                            width: width,
+                            child: ListTile(
+                              title: Container(
+                                alignment: Alignment.centerLeft,
+                                child: RegularTextReg("Professions : ",22.0,DARK_BLUE),
+                              ),
+//                                trailing: IconButton(
+//                                  icon: Icon(Icons.add,size: 24.0,color: DARK_BLUE,),
+//                                ),
+                            )
+                        ),
+                        ListView.builder(
+                          physics: NeverScrollableScrollPhysics(),
+                          shrinkWrap: true,
+                          itemCount: PROFESSION_LIST.length,
+                          itemBuilder: (context,index){
+                            return Column(
+                              children: [
+                                GestureDetector(
+                                    onTap:(){
+                                      setState(() {
+                                        isEdited = true;
+                                      });
+                                      if (!professions.contains(PROFESSION_LIST[index])){
+                                        setState(() {
+                                          professions.add(PROFESSION_LIST[index]);
+                                          print("Professions : ");
+                                          print(professions.toString());
+                                        });
+                                      } else {
+                                        setState(() {
+                                          professions.remove(PROFESSION_LIST[index]);
+                                          print("Professions : ");
+                                          print(professions.toString());
+                                        });
+                                      }
+                                    },
+                                    child: professionBox(index,professions)
+                                ),
+                                SizedBox(height: 10.0,)
+                              ],
+                            );
+                          },
+                        ),
+                        Divider(color: GREY,endIndent: 20.0,indent: 20.0,),
+                        Container(
+                          padding: EdgeInsets.symmetric(horizontal: 10.0),
+                          child: !isAgeEdited ? Row(
+                            children: [
+                              RegularTextReg("Age : ", 20.0, DARK_BLUE),
+                              Spacer(),
+                              RegularTextMed(userProvider.age, 22.0, DARK_BLUE),
+                              Spacer(),
+                              IconButton(
+                                onPressed: (){
+                                  setState(() {
+                                    isEdited = true;
+                                    isAgeEdited = true;
+                                  });
+                                },
+                                icon: Icon(Icons.edit,size: 24.0,color: DARK_BLUE,),
+                              ),
+                            ],
                           ) :
                           TextFormField(
                             autofocus: true,
-                            controller: nameTEC,
+                            controller: ageTEC,
                             validator: (String value){
-                              if (value.isEmpty) return "Enter valid name";
+                              if (value.isEmpty) return "Enter valid age";
+                              return null;
+                            },
+                            onSaved: (String val){
+                              userProvider.setAge(val);
+                            },
+                            textInputAction: TextInputAction.next,
+                            keyboardType: TextInputType.number,
+                            style: TextStyle(
+                                color: Colors.black54,
+                                fontFamily: 'googlesansmed'),
+                            cursorColor: Colors.black,
+                            decoration: InputDecoration(
+                              border: OutlineInputBorder(
+                                borderRadius:
+                                new BorderRadius.circular(
+                                    7.0),
+                                borderSide: new BorderSide(),
+                              ),
+                              fillColor: Colors.black54,
+                              labelText: "Age",
+                              hintText: "Age",
+                              hintStyle: TextStyle(
+                                  color: GREY,
+                                  fontFamily: 'googlesansreg',
+                                  fontSize: 16),
+                            ),
+                          ),
+                        ),
+                        Divider(color: GREY,endIndent: 20.0,indent: 20.0,),
+                        Container(
+                          padding: EdgeInsets.symmetric(horizontal: 10.0),
+                          child: !isCityEdited ? Row(
+                            children: [
+                              RegularTextReg("City : ", 20.0, DARK_BLUE),
+                              Spacer(),
+                              RegularTextMed(userProvider.city, 22.0, DARK_BLUE),
+                              Spacer(),
+                              IconButton(
+                                onPressed: (){
+                                  setState(() {
+                                    isEdited = true;
+                                    isCityEdited = true;
+                                  });
+                                },
+                                icon: Icon(Icons.edit,size: 24.0,color: DARK_BLUE,),
+                              ),
+                            ],
+                          ) :
+                          TextFormField(
+                            autofocus: true,
+                            controller: cityTEC,
+                            validator: (String value){
+                              if (value.isEmpty) return "Enter valid city";
                               return null;
                             },
                             textInputAction: TextInputAction.next,
@@ -172,289 +369,112 @@ class _ProfilePageState extends State<ProfilePage>{
                                 borderSide: new BorderSide(),
                               ),
                               fillColor: Colors.black54,
-                              labelText: "Name",
-                              hintText: "Name",
+                              labelText: "City",
+                              hintText: "City",
                               hintStyle: TextStyle(
-                                  color: Colors.grey,
+                                  color: GREY,
                                   fontFamily: 'googlesansreg',
                                   fontSize: 16),
                             ),
                           ),
-                          SizedBox(height: 20.0,),
-                          Container(
-                            width: width,
-                            child: Row(
-                              mainAxisAlignment: MainAxisAlignment.center,
-                              children: [
-                                Container(
-                                  height: 110.0,
-                                  width: 110.0,
-                                  child: Card(
-                                    elevation: 5.0,
-                                    shadowColor: GREY,
-                                    child: Column(
-                                      mainAxisAlignment: MainAxisAlignment.center,
-                                      children: [
-                                        RegularTextReg("Applied", 18.0, GREY),
-                                        SizedBox(height: 15.0,),
-                                        RegularTextMed("8", 24.0, DARK_BLUE),
-                                      ],
-                                    ),
-                                  ),
-                                ),
-                                SizedBox(width: 25.0,),
-                                Container(
-                                  height: 125.0,
-                                  width: 125.0,
-                                  child: Card(
-                                    elevation: 5.0,
-                                    shadowColor: GREY,
-                                    child: Column(
-                                      mainAxisAlignment: MainAxisAlignment.center,
-                                      children: [
-                                        RegularTextReg("In Review", 18.0, GREY),
-                                        SizedBox(height: 15.0,),
-                                        RegularTextMed("3", 24.0, DARK_BLUE),
-                                      ],
-                                    ),
-                                  ),
-                                ),
-                              ],
-                            ),
-                          ),
-                          SizedBox(height: 7.5,),
-                          Divider(color: GREY,endIndent: 20.0,indent: 20.0,),
-                          SizedBox(height: 7.5,),
-                          Container(
-                              width: width,
-                              child: ListTile(
-                                title: Container(
-                                  alignment: Alignment.centerLeft,
-                                  child: RegularTextReg("Professions : ",22.0,DARK_BLUE),
-                                ),
-//                                trailing: IconButton(
-//                                  icon: Icon(Icons.add,size: 24.0,color: DARK_BLUE,),
-//                                ),
-                              )
-                          ),
-                          ListView.builder(
-                            physics: NeverScrollableScrollPhysics(),
-                            shrinkWrap: true,
-                            itemCount: PROFESSION_LIST.length,
-                            itemBuilder: (context,index){
-                              return Column(
-                                children: [
-                                  GestureDetector(
-                                    onTap:(){
-                                      if (!professions.contains(PROFESSION_LIST[index])){
-                                        setState(() {
-                                          professions.add(PROFESSION_LIST[index]);
-                                          print("Professions : ");
-                                          print(professions.toString());
-                                        });
-                                      } else {
-                                        setState(() {
-                                          professions.remove(PROFESSION_LIST[index]);
-                                          print("Professions : ");
-                                          print(professions.toString());
-                                        });
-                                      }
-                                    },
-                                    child: professionBox(index,professions)
-                                  ),
-                                  SizedBox(height: 10.0,)
-                                ],
-                              );
-                            },
-                          ),
-                          Divider(color: GREY,endIndent: 20.0,indent: 20.0,),
-                          Container(
-                            padding: EdgeInsets.symmetric(horizontal: 10.0),
-                            child: !isAgeEdited ? Row(
-                              children: [
-                                RegularTextReg("Age : ", 20.0, DARK_BLUE),
-                                Spacer(),
-                                RegularTextMed(userProvider.age, 22.0, DARK_BLUE),
-                                Spacer(),
-                                IconButton(
-                                  onPressed: (){
-                                    setState(() {
-                                      isEdited = true;
-                                      isAgeEdited = true;
-                                    });
-                                  },
-                                  icon: Icon(Icons.edit,size: 24.0,color: DARK_BLUE,),
-                                ),
-                              ],
-                            ) :
-                            TextFormField(
-                              autofocus: true,
-                              controller: ageTEC,
-                              validator: (String value){
-                                if (value.isEmpty) return "Enter valid age";
-                                return null;
-                              },
-                              textInputAction: TextInputAction.next,
-                              keyboardType: TextInputType.number,
-                              style: TextStyle(
-                                  color: Colors.black54,
-                                  fontFamily: 'googlesansmed'),
-                              cursorColor: Colors.black,
-                              decoration: InputDecoration(
-                                border: OutlineInputBorder(
-                                  borderRadius:
-                                  new BorderRadius.circular(
-                                      7.0),
-                                  borderSide: new BorderSide(),
-                                ),
-                                fillColor: Colors.black54,
-                                labelText: "Age",
-                                hintText: "Age",
-                                hintStyle: TextStyle(
-                                    color: GREY,
-                                    fontFamily: 'googlesansreg',
-                                    fontSize: 16),
-                              ),
-                            ),
-                          ),
-                          Divider(color: GREY,endIndent: 20.0,indent: 20.0,),
-                          Container(
-                            padding: EdgeInsets.symmetric(horizontal: 10.0),
-                            child: !isCityEdited ? Row(
-                              children: [
-                                RegularTextReg("City : ", 20.0, DARK_BLUE),
-                                Spacer(),
-                                RegularTextMed(userProvider.city, 22.0, DARK_BLUE),
-                                Spacer(),
-                                IconButton(
-                                  onPressed: (){
-                                    setState(() {
-                                      isEdited = true;
-                                      isCityEdited = true;
-                                    });
-                                  },
-                                  icon: Icon(Icons.edit,size: 24.0,color: DARK_BLUE,),
-                                ),
-                              ],
-                            ) :
-                            TextFormField(
-                              autofocus: true,
-                              controller: cityTEC,
-                              validator: (String value){
-                                if (value.isEmpty) return "Enter valid city";
-                                return null;
-                              },
-                              textInputAction: TextInputAction.next,
-                              keyboardType: TextInputType.text,
-                              style: TextStyle(
-                                  color: Colors.black54,
-                                  fontFamily: 'googlesansmed'),
-                              cursorColor: Colors.black,
-                              decoration: InputDecoration(
-                                border: OutlineInputBorder(
-                                  borderRadius:
-                                  new BorderRadius.circular(
-                                      7.0),
-                                  borderSide: new BorderSide(),
-                                ),
-                                fillColor: Colors.black54,
-                                labelText: "City",
-                                hintText: "City",
-                                hintStyle: TextStyle(
-                                    color: GREY,
-                                    fontFamily: 'googlesansreg',
-                                    fontSize: 16),
-                              ),
-                            ),
-                          ),
-                          Divider(color: GREY,endIndent: 20.0,indent: 20.0,),
-                          Container(
-                            padding: EdgeInsets.symmetric(horizontal: 10.0),
-                            child: !isStateEdited ? Row(
-                              children: [
-                                RegularTextReg("State : ", 20.0, DARK_BLUE),
-                                Spacer(),
-                                RegularTextMed(userProvider.state, 22.0, DARK_BLUE),
-                                Spacer(),
-                                IconButton(
-                                  onPressed: (){
-                                    setState(() {
-                                      isEdited = true;
-                                      isStateEdited = true;
-                                    });
-                                  },
-                                  icon: Icon(Icons.edit,size: 24.0,color: DARK_BLUE,),
-                                ),
-                              ],
-                            ) :
-                            TextFormField(
-                              autofocus: true,
-                              controller: stateTEC,
-                              validator: (String value){
-                                if (value.isEmpty) return "Enter valid state";
-                                return null;
-                              },
-                              textInputAction: TextInputAction.next,
-                              keyboardType: TextInputType.text,
-                              style: TextStyle(
-                                  color: Colors.black54,
-                                  fontFamily: 'googlesansmed'),
-                              cursorColor: Colors.black,
-                              decoration: InputDecoration(
-                                border: OutlineInputBorder(
-                                  borderRadius:
-                                  new BorderRadius.circular(
-                                      7.0),
-                                  borderSide: new BorderSide(),
-                                ),
-                                fillColor: Colors.black54,
-                                labelText: "State",
-                                hintText: "State",
-                                hintStyle: TextStyle(
-                                    color: GREY,
-                                    fontFamily: 'googlesansreg',
-                                    fontSize: 16),
-                              ),
-                            ),
-                          ),
-                          GestureDetector(
-                            onTap: () async {
-                              if(_formKey.currentState.validate() && isEdited){
-                                bool returnBool;
-                                saveDetailsToProvider(userProvider);
-                                returnBool = await editDetails(context);
-                                if(returnBool){
+                        ),
+                        Divider(color: GREY,endIndent: 20.0,indent: 20.0,),
+                        Container(
+                          padding: EdgeInsets.symmetric(horizontal: 10.0),
+                          child: !isStateEdited ? Row(
+                            children: [
+                              RegularTextReg("State : ", 20.0, DARK_BLUE),
+                              Spacer(),
+                              RegularTextMed(userProvider.state, 22.0, DARK_BLUE),
+                              Spacer(),
+                              IconButton(
+                                onPressed: (){
                                   setState(() {
-                                    isEdited = false;
-                                    isNameEdited = false;
-                                    isAgeEdited = false;
-                                    isCityEdited = false;
-                                    isStateEdited = false;
-                                    isGenderEdited = false;
+                                    isEdited = true;
+                                    isStateEdited = true;
                                   });
-                                }
-                                print("Return Bool : "+returnBool.toString());
-                              }
+                                },
+                                icon: Icon(Icons.edit,size: 24.0,color: DARK_BLUE,),
+                              ),
+                            ],
+                          ) :
+                          TextFormField(
+                            autofocus: true,
+                            controller: stateTEC,
+                            validator: (String value){
+                              if (value.isEmpty) return "Enter valid state";
+                              return null;
                             },
-                            child: Container(
-                              height: 50.0,
-                              margin: EdgeInsets.all(15.0),
-                              decoration: BoxDecoration(
-                                borderRadius: BorderRadius.circular(10.0),
-                                color: isEdited ? DARK_BLUE : GREY,
+                            textInputAction: TextInputAction.next,
+                            keyboardType: TextInputType.text,
+                            style: TextStyle(
+                                color: Colors.black54,
+                                fontFamily: 'googlesansmed'),
+                            cursorColor: Colors.black,
+                            decoration: InputDecoration(
+                              border: OutlineInputBorder(
+                                borderRadius:
+                                new BorderRadius.circular(
+                                    7.0),
+                                borderSide: new BorderSide(),
                               ),
-                              child: Container(
-                                alignment: Alignment.center,
-                                child: RegularTextReg(getTranslatedText("SaveDetails",context), 18.0, WHITE),
-                              ),
+                              fillColor: Colors.black54,
+                              labelText: "State",
+                              hintText: "State",
+                              hintStyle: TextStyle(
+                                  color: GREY,
+                                  fontFamily: 'googlesansreg',
+                                  fontSize: 16),
                             ),
-                          )
-                        ],
-                      ),
+                          ),
+                        ),
+                        GestureDetector(
+                          onTap: () async {
+                            if(_formKey.currentState.validate() && isEdited){
+                              setState(() {
+                                loading = true;
+                              });
+                              bool returnBool;
+                              saveDetailsToProvider(userProvider);
+                              returnBool = await editDetails(context);
+                              setState(() {
+                                loading = false;
+                              });
+                              if(returnBool){
+                                setState(() {
+                                  isEdited = false;
+                                  isNameEdited = false;
+                                  isAgeEdited = false;
+                                  isCityEdited = false;
+                                  isStateEdited = false;
+                                  isGenderEdited = false;
+                                });
+                              }
+                              print("Return Bool : "+returnBool.toString());
+                            }
+                          },
+                          child: Container(
+                            height: 50.0,
+                            margin: EdgeInsets.all(15.0),
+                            decoration: BoxDecoration(
+                              borderRadius: BorderRadius.circular(10.0),
+                              color: isEdited ? DARK_BLUE : GREY,
+                            ),
+                            child: Container(
+                              alignment: Alignment.center,
+                              child: RegularTextReg(getTranslatedText("SaveDetails",context), 18.0, WHITE),
+                            ),
+                          ),
+                        )
+                      ],
                     ),
                   ),
                 ),
-              )
+              ),
+            ),),
+            loading ? waitingObject() : Container()
+          ],
+        )
       ),
     );
   }

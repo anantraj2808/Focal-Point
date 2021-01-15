@@ -5,6 +5,8 @@ import 'package:focal_point/constants/strings.dart';
 import 'package:focal_point/models/job.dart';
 import 'package:focal_point/presentation/HomePage/Widget/banner_carousel.dart';
 import 'package:focal_point/presentation/HomePage/Widget/jobs_list_view.dart';
+import 'package:focal_point/presentation/ThankYouPage/View/thank_you_page.dart';
+import 'package:focal_point/styles/waiting_screen.dart';
 import 'package:translator/translator.dart';
 import 'package:focal_point/services/shared_prefs_ready_state.dart';
 import 'package:focal_point/styles/get_translated_text.dart';
@@ -34,7 +36,7 @@ class _HomePageState extends State<HomePage> {
   List<Job> sweeperJobList = [];
   bool isLoading = false;
 
-  Job plumberJob = Job(companyName: "XYZ Pvt. Ltd.",salary: "₹ 700" ,payBasis: "per Day",city: "Bareilly",state: "UP",professionType: "Plumber",dutyType: "Full-time",numberOfOpenings: "2",minimumQualification: "No education qualifications required",languageRequired: "English or Hindi",description: LOREM_IPSUM,experienceRequired: "Minimum 2 years of experience",workTimings: "9AM - 4PM",completeAddress: "14, Model Town, Near City Heart, Bareilly",jobId: "5ff720b0e614e400040a8562");
+  Job plumberJob = Job(companyName: "XYZ Pvt. Ltd.",salary: "₹ 700" ,payBasis: "per Day",city: "Bareilly",state: "UP",professionType: "Plumber",dutyType: "Full-time",numberOfOpenings: "2",minimumQualification: "No education qualifications required",languageRequired: "English or Hindi",description: LOREM_IPSUM,experienceRequired: "Minimum 2 years of experience",workTimings: "9AM - 4PM",completeAddress: "14, Model Town, Near City Heart, Bareilly",jobId: "6000743a238a50226c89c5b3");
   Job electricianJob = Job(companyName: "XYZ Pvt. Ltd.",salary: "₹ 800",payBasis: "per Day",city: "Bareilly",state: "UP",professionType: "Electrician",dutyType: "Full-time",numberOfOpenings: "1",minimumQualification: "B.Tech preferred",languageRequired: "English or Hindi",description: LOREM_IPSUM,experienceRequired: "Minimum 2 years of experience",workTimings: "9AM - 4PM",completeAddress: "14, Model Town, Near City Heart, Bareilly");
   Job driverJob = Job(companyName: "XYZ Pvt. Ltd.",salary: "₹ 500",payBasis: "per Day",city: "Bareilly",state: "UP",professionType: "Driver",dutyType: "Full-time",numberOfOpenings: "3",minimumQualification: "B.Tech preferred",languageRequired: "English or Hindi",description: LOREM_IPSUM,experienceRequired: "Minimum 2 years of experience",workTimings: "9AM - 4PM",completeAddress: "14, Model Town, Near City Heart, Bareilly");
   Job carpenterJob = Job(companyName: "XYZ Pvt. Ltd.",salary: "₹ 900",payBasis: "per Day",city: "Bareilly",state: "UP",professionType: "Carpenter",dutyType: "Full-time",numberOfOpenings: "1",minimumQualification: "B.Tech preferred",languageRequired: "English or Hindi",description: LOREM_IPSUM,experienceRequired: "Minimum 2 years of experience",workTimings: "9AM - 4PM",completeAddress: "14, Model Town, Near City Heart, Bareilly");
@@ -97,26 +99,28 @@ class _HomePageState extends State<HomePage> {
                   color: WHITE,
                   child: carouselContainer(),
                 ),
-                GestureDetector(
-                  onTap: (){
-                    //TODO
-                  },
-                  child: Container(
-                    height: 50.0,
-                    width: width,
-                    margin: EdgeInsets.only(left: 10.0,right: 10.0,bottom: 10.0),
-                    decoration: BoxDecoration(
-                      color: DARK_BLUE,
-                      borderRadius: BorderRadius.circular(10.0)
-                    ),
-                    child: Container(
-                      alignment: Alignment.center,
-                      child: RegularTextReg(
-                        "Applied Jobs",
-                          //getTranslatedText("AppliedJobs",context),
-                          20.0,WHITE)),
-                  ),
-                ),
+//                GestureDetector(
+//                  onTap: (){
+//                    Navigator.push(context, MaterialPageRoute(
+//                      builder: (context) => waitingObject(),
+//                    ));
+//                  },
+//                  child: Container(
+//                    height: 50.0,
+//                    width: width,
+//                    margin: EdgeInsets.only(left: 10.0,right: 10.0,bottom: 10.0),
+//                    decoration: BoxDecoration(
+//                      color: DARK_BLUE,
+//                      borderRadius: BorderRadius.circular(10.0)
+//                    ),
+//                    child: Container(
+//                      alignment: Alignment.center,
+//                      child: RegularTextReg(
+//                        "Applied Jobs",
+//                          //getTranslatedText("AppliedJobs",context),
+//                          20.0,WHITE)),
+//                  ),
+//                ),
                 userProvider.profession.contains("Plumber") && plumberJobList.isNotEmpty ? jobsListView(0,plumberJobList,++colorIndex,context) : Container(),
                 userProvider.profession.contains("Carpenter") && carpenterJobList.isNotEmpty ? jobsListView(1,carpenterJobList,++colorIndex,context) : Container(),
                 userProvider.profession.contains("Electrician") && electricianJobList.isNotEmpty ? jobsListView(2,electricianJobList,++colorIndex,context) : Container(),

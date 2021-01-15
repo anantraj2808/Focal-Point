@@ -20,7 +20,7 @@ editDetails(BuildContext context) async {
   Map <dynamic,dynamic> map = {
     "city" : userProvider.city,
     "state" : userProvider.state,
-    "occupations" : ['Carpenter'],
+    "occupations" : ["Plumber","Carpenter"],
     "age" : userProvider.age,
     "gender" : userProvider.gender,
     "name" : userProvider.fullName,

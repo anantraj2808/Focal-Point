@@ -5,6 +5,7 @@ import 'package:focal_point/presentation/search_page.dart';
 import 'package:focal_point/services/shared_preferences.dart';
 import 'package:focal_point/services/shared_prefs_ready_state.dart';
 import 'package:focal_point/services/user_authentication.dart';
+import 'package:focal_point/styles/waiting_screen.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 import 'HomePage/View/home_screen.dart';
@@ -20,6 +21,8 @@ class Home extends StatefulWidget {
 }
 
 class _HomeState extends State<Home> {
+
+  bool loading = false;
 
   List<Widget> _screens = [
     HomePage(),
@@ -46,19 +49,31 @@ class _HomeState extends State<Home> {
   }
 
   void setDetails() async {
+    setState(() {
+      loading = true;
+    });
     if(!widget.isNewUser){
       await setUserDetails(context, await SharedPrefs.getUserJWTSharedPrefs());
     }
+    setState(() {
+      loading = false;
+    });
   }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: PageView(
-        children: _screens,
-        controller: _pageController,
-        onPageChanged: _onPageChanged,
-        physics: NeverScrollableScrollPhysics(),
+      body: Stack(
+        children: [
+          Opacity(opacity: loading ? 0.3 : 1.0,
+          child: PageView(
+            children: _screens,
+            controller: _pageController,
+            onPageChanged: _onPageChanged,
+            physics: NeverScrollableScrollPhysics(),
+          ),),
+          loading ? waitingObject() : Container()
+        ],
       ),
       bottomNavigationBar: BottomNavigationBar(
         items: [

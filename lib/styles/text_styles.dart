@@ -9,3 +9,12 @@ Text RegularTextMed(String text,double size,Color color){
 Text RegularTextReg(String text,double size,Color color){
   return Text(text,style: TextStyle(fontSize: size,color: color,fontFamily: GOOGLE_SANS_REG),);
 }
+
+
+Text RegularTextMedCenter(String text,double size,Color color){
+  return Text(text,style: TextStyle(fontSize: size,color: color,fontFamily: GOOGLE_SANS_MED),textAlign: TextAlign.center,);
+}
+
+Text RegularTextRegCenter(String text,double size,Color color){
+  return Text(text,style: TextStyle(fontSize: size,color: color,fontFamily: GOOGLE_SANS_REG),textAlign: TextAlign.center,);
+}
