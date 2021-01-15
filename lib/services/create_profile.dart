@@ -37,7 +37,7 @@ Future createProfile(BuildContext context) async {
   );
   print("Create Profile Response Code : " + response.statusCode.toString());
   var responseBody = jsonDecode(response.body);
-  print("Create Profile Response Bodu : " + responseBody.toString());
+  print("Create Profile Response Body : " + responseBody.toString());
   if (responseBody['sucess']){
     userProvider.setJWT(responseBody['token']);
     await SharedPrefs.setUserJWTSharedPrefs(responseBody['token']);

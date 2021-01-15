@@ -6,11 +6,14 @@ import 'package:flutter/widgets.dart';
 import 'package:focal_point/constants/colors.dart';
 import 'package:focal_point/constants/strings.dart';
 import 'package:focal_point/models/Users.dart';
+import 'package:focal_point/models/applied_jobs.dart';
+import 'package:focal_point/presentation/AppliedJobs/View/applied_jobs_screen.dart';
 import 'package:focal_point/presentation/LanguageSelection/Widget/gender_box.dart';
 import 'package:focal_point/presentation/ProfilePage/Widget/profession_box.dart';
 import 'package:focal_point/presentation/location_fetching.dart';
 import 'package:focal_point/services/app_localizations.dart';
 import 'package:focal_point/services/edit_details.dart';
+import 'package:focal_point/services/get_applied_jobs.dart';
 import 'package:focal_point/services/shared_preferences.dart';
 import 'package:focal_point/styles/get_translated_text.dart';
 import 'package:focal_point/styles/text_styles.dart';
@@ -41,11 +44,25 @@ class _ProfilePageState extends State<ProfilePage>{
   TextEditingController cityTEC = TextEditingController();
   TextEditingController stateTEC = TextEditingController();
   TextEditingController ageTEC = TextEditingController();
-  SharedPrefs _sharedPrefs = SharedPrefs();
+  List<AppliedJob> appliedJobsList = [];
 
   @override
   void initState() {
     super.initState();
+    makeRequest();
+  }
+
+  makeRequest() async {
+    setState(() {
+      loading = true;
+    });
+    String jwt = await SharedPrefs.getUserJWTSharedPrefs();
+    await getAppliedJobs(jwt).then((val) {
+      setState(() {
+        appliedJobsList = val;
+        loading = false;
+      });
+    });
   }
 
   saveDetailsToProvider(Users userProvider){
@@ -60,7 +77,6 @@ class _ProfilePageState extends State<ProfilePage>{
     var data = EasyLocalizationProvider.of(context).data;
     Users userProvider = Provider.of<Users>(context);
     var width = MediaQuery.of(context).size.width;
-    var height = MediaQuery.of(context).size.height;
     professions = userProvider.profession;
     nameTEC.text = userProvider.fullName;
     phoneNoTEC.text = userProvider.phoneNumber;
@@ -208,19 +224,27 @@ class _ProfilePageState extends State<ProfilePage>{
                                 ),
                               ),
                               SizedBox(width: 25.0,),
-                              Container(
-                                height: 125.0,
-                                width: 125.0,
-                                child: Card(
-                                  elevation: 5.0,
-                                  shadowColor: GREY,
-                                  child: Column(
-                                    mainAxisAlignment: MainAxisAlignment.center,
-                                    children: [
-                                      RegularTextReg("In Review", 18.0, GREY),
-                                      SizedBox(height: 15.0,),
-                                      RegularTextMed("3", 24.0, DARK_BLUE),
-                                    ],
+                              GestureDetector(
+                                onTap: (){
+                                  Navigator.push(context,
+                                  MaterialPageRoute(
+                                      builder: (context) => AppliedJobsScreen(appliedJobsList: appliedJobsList,)
+                                  ));
+                                },
+                                child: Container(
+                                  height: 125.0,
+                                  width: 125.0,
+                                  child: Card(
+                                    elevation: 5.0,
+                                    shadowColor: GREY,
+                                    child: Column(
+                                      mainAxisAlignment: MainAxisAlignment.center,
+                                      children: [
+                                        RegularTextReg("In Review", 18.0, GREY),
+                                        SizedBox(height: 15.0,),
+                                        RegularTextMed("3", 24.0, DARK_BLUE),
+                                      ],
+                                    ),
                                   ),
                                 ),
                               ),
