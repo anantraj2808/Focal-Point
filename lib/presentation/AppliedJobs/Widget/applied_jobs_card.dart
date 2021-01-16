@@ -5,6 +5,7 @@ import 'package:focal_point/constants/colors.dart';
 import 'package:focal_point/constants/strings.dart';
 import 'package:focal_point/models/applied_jobs.dart';
 import 'package:focal_point/models/job.dart';
+import 'package:focal_point/styles/status_color.dart';
 import 'package:focal_point/styles/text_styles.dart';
 
 Widget appliedJobCard(AppliedJob appliedJob){
@@ -15,7 +16,7 @@ Widget appliedJobCard(AppliedJob appliedJob){
   Job job = appliedJob.job;
 
   return Container(
-    margin: EdgeInsets.only(bottom: 10.0),
+    margin: EdgeInsets.only(top: 5.0,bottom: 5.0),
     child: Card(
       elevation: 5.0,
       shadowColor: GREY,
@@ -33,17 +34,25 @@ Widget appliedJobCard(AppliedJob appliedJob){
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
                   RegularTextMed(job.professionType, 22.0, DARK_BLUE),
-                  RegularTextReg("\(" + job.dutyType + "\)", 18.0, DARK_BLUE)
+                  RegularTextReg("\(" + job.dutyType + "\)", 16.0, DARK_BLUE)
                 ],
               ),
               Container(
                 alignment: Alignment.centerLeft,
-                child: RegularTextReg(job.companyName, 18.0, DARK_BLUE)
+                child: RegularTextReg(job.companyName, 16.0, DARK_BLUE)
               ),
               SizedBox(height: 4.0,),
               Container(
                 alignment: Alignment.centerLeft,
-                child: RegularTextReg("₹ " + job.salary + "/" + job.payBasis,18.0,DARK_BLUE),
+                child: RegularTextReg("₹ " + job.salary + "/" + job.payBasis,16.0,DARK_BLUE),
+              ),
+              SizedBox(height: 4.0,),
+              Row(
+                mainAxisAlignment: MainAxisAlignment.start,
+                children: [
+                  RegularTextReg("Status : ", 16.0, DARK_BLUE),
+                  RegularTextMed(appliedJob.status, 16.0, getStatusColor(appliedJob.status))
+                ],
               ),
             ],
           ),

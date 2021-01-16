@@ -48,7 +48,7 @@ class _ProfessionSelectionScreenState extends State<ProfessionSelectionScreen> {
           return Stack(
             children: [
               Opacity(
-                opacity: loading ? 0.3 : 1.0,
+                opacity: loading ? 0.1 : 1.0,
                 child: SafeArea(
                   child: Stack(
                     children: [

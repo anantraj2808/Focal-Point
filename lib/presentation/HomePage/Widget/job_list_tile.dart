@@ -23,7 +23,8 @@ Widget jobListTile(Job job, int globalIndex, int colorIndex, BuildContext contex
           MaterialPageRoute(
               builder: (context) => JobDescription(
                     job: job,
-                  )));
+                  ))
+      );
     },
     child: Container(
       margin: EdgeInsets.all(5.0),
@@ -37,8 +38,8 @@ Widget jobListTile(Job job, int globalIndex, int colorIndex, BuildContext contex
             children: [
               Container(
                   alignment: Alignment.centerLeft,
-                  child: RegularTextMed(
-                      job.salary + " " + job.payBasis, 18.0, BLACK)),
+                  child: RegularTextMedOverflow(
+                      job.salary + " " + job.payBasis, 18.0, BLACK,1)),
               Container(
                 padding: EdgeInsets.symmetric(vertical: 5.0),
                 child: Row(

@@ -166,7 +166,7 @@ class _JobDescriptionState extends State<JobDescription> {
                           Navigator.pushReplacement(
                               context,
                               MaterialPageRoute(
-                                  builder: (context) => ThankYouPage()
+                                  builder: (context) => ThankYouPage(job: job,)
                               )
                           );
                         }

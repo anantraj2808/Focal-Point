@@ -100,55 +100,41 @@ class _HomePageState extends State<HomePage> {
         centerTitle: true,
         title: RegularTextReg(getTranslatedText("YourOpportunities",context), 22.0, BLACK),
       ),
-      body: SafeArea(
-        child: SingleChildScrollView(
-          child: Container(
-            color: WHITE,
-            padding: EdgeInsets.all(10.0),
-            child: Column(
-              children: [
-                Container(
-                  margin: EdgeInsets.only(left: 5.0,right: 5.0, top: 10.0,bottom: 15.0),
-                  height: height/6,
+      body: Stack(
+        children: [
+          Opacity(
+            opacity: loading ? 0.1 : 1.0,
+            child: SafeArea(
+              child: SingleChildScrollView(
+                child: Container(
                   color: WHITE,
-                  child: carouselContainer(),
+                  padding: EdgeInsets.all(10.0),
+                  child: Column(
+                    children: [
+                      Container(
+                        margin: EdgeInsets.only(left: 5.0,right: 5.0, top: 10.0,bottom: 15.0),
+                        height: height/6,
+                        color: WHITE,
+                        child: carouselContainer(),
+                      ),
+                      userProvider.profession.contains("Plumber") && plumberJobList.isNotEmpty ? jobsListView(0,plumberJobList,++colorIndex,context) : Container(),
+                      userProvider.profession.contains("Carpenter") && carpenterJobList.isNotEmpty ? jobsListView(1,carpenterJobList,++colorIndex,context) : Container(),
+                      userProvider.profession.contains("Electrician") && electricianJobList.isNotEmpty ? jobsListView(2,electricianJobList,++colorIndex,context) : Container(),
+                      userProvider.profession.contains("Mechanic") && mechanicJobList.isNotEmpty ? jobsListView(3,mechanicJobList,++colorIndex,context) : Container(),
+                      userProvider.profession.contains("Driver") && driverJobList.isNotEmpty ? jobsListView(4,driverJobList,++colorIndex,context) : Container(),
+                      userProvider.profession.contains("Washerman") && washermanJobList.isNotEmpty ? jobsListView(5,washermanJobList,++colorIndex,context) : Container(),
+                      userProvider.profession.contains("Homemaid") && maidJobList.isNotEmpty ? jobsListView(6,maidJobList,++colorIndex,context) : Container(),
+                      userProvider.profession.contains("Gatekeeper") && gatekeeperJobList.isNotEmpty ? jobsListView(7,gatekeeperJobList,++colorIndex,context) : Container(),
+                      userProvider.profession.contains("Sweeper") && sweeperJobList.isNotEmpty ? jobsListView(8,sweeperJobList,++colorIndex,context) : Container(),
+                    ],
+                  ),
                 ),
-//                GestureDetector(
-//                  onTap: (){
-//                    Navigator.push(context, MaterialPageRoute(
-//                      builder: (context) => waitingObject(),
-//                    ));
-//                  },
-//                  child: Container(
-//                    height: 50.0,
-//                    width: width,
-//                    margin: EdgeInsets.only(left: 10.0,right: 10.0,bottom: 10.0),
-//                    decoration: BoxDecoration(
-//                      color: DARK_BLUE,
-//                      borderRadius: BorderRadius.circular(10.0)
-//                    ),
-//                    child: Container(
-//                      alignment: Alignment.center,
-//                      child: RegularTextReg(
-//                        "Applied Jobs",
-//                          //getTranslatedText("AppliedJobs",context),
-//                          20.0,WHITE)),
-//                  ),
-//                ),
-                userProvider.profession.contains("Plumber") && plumberJobList.isNotEmpty ? jobsListView(0,plumberJobList,++colorIndex,context) : Container(),
-                userProvider.profession.contains("Carpenter") && carpenterJobList.isNotEmpty ? jobsListView(1,carpenterJobList,++colorIndex,context) : Container(),
-                userProvider.profession.contains("Electrician") && electricianJobList.isNotEmpty ? jobsListView(2,electricianJobList,++colorIndex,context) : Container(),
-                userProvider.profession.contains("Mechanic") && mechanicJobList.isNotEmpty ? jobsListView(3,mechanicJobList,++colorIndex,context) : Container(),
-                userProvider.profession.contains("Driver") && driverJobList.isNotEmpty ? jobsListView(4,driverJobList,++colorIndex,context) : Container(),
-                userProvider.profession.contains("Washerman") && washermanJobList.isNotEmpty ? jobsListView(5,washermanJobList,++colorIndex,context) : Container(),
-                userProvider.profession.contains("Homemaid") && maidJobList.isNotEmpty ? jobsListView(6,maidJobList,++colorIndex,context) : Container(),
-                userProvider.profession.contains("Gatekeeper") && gatekeeperJobList.isNotEmpty ? jobsListView(7,gatekeeperJobList,++colorIndex,context) : Container(),
-                userProvider.profession.contains("Sweeper") && sweeperJobList.isNotEmpty ? jobsListView(8,sweeperJobList,++colorIndex,context) : Container(),
-              ],
+              ),
             ),
           ),
-        ),
-      ),
+          loading ? waitingObject() : Container()
+        ],
+      )
     );
   }
 }

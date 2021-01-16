@@ -94,7 +94,7 @@ class _ProfilePageState extends State<ProfilePage>{
         ),
         body: Stack(
           children: [
-            Opacity(opacity: loading ? 0.3 : 1.0,
+            Opacity(opacity: loading ? 0.1 : 1.0,
             child: SafeArea(
               child: Container(
                 padding: EdgeInsets.symmetric(horizontal: 20.0),
