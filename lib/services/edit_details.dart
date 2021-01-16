@@ -20,14 +20,14 @@ editDetails(BuildContext context) async {
   Map <dynamic,dynamic> map = {
     "city" : userProvider.city,
     "state" : userProvider.state,
-    "occupations" : ["Plumber","Carpenter"],
+    "occupations" : userProvider.profession,
     "age" : userProvider.age,
     "gender" : userProvider.gender,
     "name" : userProvider.fullName,
     "language" : userProvider.language
   };
 
-  print(json.encode(map));
+  print("Edited jobs = "+json.encode(userProvider.profession));
 
   final http.Response response = await http.post(
       url,

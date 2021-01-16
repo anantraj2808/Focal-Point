@@ -6,6 +6,9 @@ import 'package:focal_point/models/job.dart';
 import 'package:focal_point/presentation/HomePage/Widget/banner_carousel.dart';
 import 'package:focal_point/presentation/HomePage/Widget/jobs_list_view.dart';
 import 'package:focal_point/presentation/ThankYouPage/View/thank_you_page.dart';
+import 'package:focal_point/services/get_home_screen_jobs.dart';
+import 'package:focal_point/services/shared_preferences.dart';
+import 'package:focal_point/services/user_authentication.dart';
 import 'package:focal_point/styles/waiting_screen.dart';
 import 'package:translator/translator.dart';
 import 'package:focal_point/services/shared_prefs_ready_state.dart';
@@ -25,6 +28,7 @@ class _HomePageState extends State<HomePage> {
 
   SharedPrefsReadyState _sharedPrefsReadyState = SharedPrefsReadyState();
   List<String> professionsList = [];
+  List<Job> jobsList = [];
   List<Job> plumberJobList = [];
   List<Job> carpenterJobList = [];
   List<Job> electricianJobList = [];
@@ -34,7 +38,7 @@ class _HomePageState extends State<HomePage> {
   List<Job> maidJobList = [];
   List<Job> gatekeeperJobList = [];
   List<Job> sweeperJobList = [];
-  bool isLoading = false;
+  bool loading = false;
 
   Job plumberJob = Job(companyName: "XYZ Pvt. Ltd.",salary: "₹ 700" ,payBasis: "per Day",city: "Bareilly",state: "UP",professionType: "Plumber",dutyType: "Full-time",numberOfOpenings: "2",minimumQualification: "No education qualifications required",languageRequired: "English or Hindi",description: LOREM_IPSUM,experienceRequired: "Minimum 2 years of experience",workTimings: "9AM - 4PM",completeAddress: "14, Model Town, Near City Heart, Bareilly",jobId: "6000743a238a50226c89c5b3");
   Job electricianJob = Job(companyName: "XYZ Pvt. Ltd.",salary: "₹ 800",payBasis: "per Day",city: "Bareilly",state: "UP",professionType: "Electrician",dutyType: "Full-time",numberOfOpenings: "1",minimumQualification: "B.Tech preferred",languageRequired: "English or Hindi",description: LOREM_IPSUM,experienceRequired: "Minimum 2 years of experience",workTimings: "9AM - 4PM",completeAddress: "14, Model Town, Near City Heart, Bareilly");
@@ -44,25 +48,34 @@ class _HomePageState extends State<HomePage> {
 
   @override
   void initState() {
-    isLoading = true;
     super.initState();
-    //getProfessionsList();
-    plumberJobList.add(plumberJob);
-    plumberJobList.add(plumberJob);
-    plumberJobList.add(plumberJob);
-    plumberJobList.add(plumberJob);
-    plumberJobList.add(plumberJob);
-    plumberJobList.add(plumberJob);
-    plumberJobList.add(plumberJob);
-    plumberJobList.add(plumberJob);
-    electricianJobList.add(electricianJob);
-    electricianJobList.add(electricianJob);
-    electricianJobList.add(electricianJob);
-    electricianJobList.add(electricianJob);
-    driverJobList.add(driverJob);
-    driverJobList.add(driverJob);
-    carpenterJobList.add(carpenterJob);
-    carpenterJobList.add(carpenterJob);
+    makeRequest();
+  }
+
+  makeRequest() async {
+    setState(() {
+      loading = true;
+    });
+    bool isUserDetailSet = await setUserDetails(context, await SharedPrefs.getUserJWTSharedPrefs());
+    if (isUserDetailSet){
+      await getHomeScreenJobs(context, await SharedPrefs.getUserJWTSharedPrefs()).then((val){
+        setState(() {
+          jobsList = val;
+          for (int i=0 ; i<jobsList.length ; i++){
+            if (jobsList[i].professionType == "Plumber") plumberJobList.add(jobsList[i]);
+            if (jobsList[i].professionType == "Carpenter") carpenterJobList.add(jobsList[i]);
+            if (jobsList[i].professionType == "Electrician") electricianJobList.add(jobsList[i]);
+            if (jobsList[i].professionType == "Mechanic") mechanicJobList.add(jobsList[i]);
+            if (jobsList[i].professionType == "Driver") driverJobList.add(jobsList[i]);
+            if (jobsList[i].professionType == "Washerman") washermanJobList.add(jobsList[i]);
+            if (jobsList[i].professionType == "Homemaid") maidJobList.add(jobsList[i]);
+            if (jobsList[i].professionType == "Gatekeeper") gatekeeperJobList.add(jobsList[i]);
+            if (jobsList[i].professionType == "Sweeper") sweeperJobList.add(jobsList[i]);
+          }
+          loading = false;
+        });
+      });
+    }
   }
 
   convertText(String text) async {
@@ -81,6 +94,7 @@ class _HomePageState extends State<HomePage> {
     var height = MediaQuery.of(context).size.height;
     var width = MediaQuery.of(context).size.width;
     return Scaffold(
+      backgroundColor: WHITE,
       appBar: AppBar(
         backgroundColor: WHITE,
         centerTitle: true,
@@ -124,10 +138,10 @@ class _HomePageState extends State<HomePage> {
                 userProvider.profession.contains("Plumber") && plumberJobList.isNotEmpty ? jobsListView(0,plumberJobList,++colorIndex,context) : Container(),
                 userProvider.profession.contains("Carpenter") && carpenterJobList.isNotEmpty ? jobsListView(1,carpenterJobList,++colorIndex,context) : Container(),
                 userProvider.profession.contains("Electrician") && electricianJobList.isNotEmpty ? jobsListView(2,electricianJobList,++colorIndex,context) : Container(),
-                userProvider.profession.contains("Motor Mechanic") && mechanicJobList.isNotEmpty ? jobsListView(3,mechanicJobList,++colorIndex,context) : Container(),
+                userProvider.profession.contains("Mechanic") && mechanicJobList.isNotEmpty ? jobsListView(3,mechanicJobList,++colorIndex,context) : Container(),
                 userProvider.profession.contains("Driver") && driverJobList.isNotEmpty ? jobsListView(4,driverJobList,++colorIndex,context) : Container(),
-                userProvider.profession.contains("Washer Man") && washermanJobList.isNotEmpty ? jobsListView(5,washermanJobList,++colorIndex,context) : Container(),
-                userProvider.profession.contains("Home Maid") && maidJobList.isNotEmpty ? jobsListView(6,maidJobList,++colorIndex,context) : Container(),
+                userProvider.profession.contains("Washerman") && washermanJobList.isNotEmpty ? jobsListView(5,washermanJobList,++colorIndex,context) : Container(),
+                userProvider.profession.contains("Homemaid") && maidJobList.isNotEmpty ? jobsListView(6,maidJobList,++colorIndex,context) : Container(),
                 userProvider.profession.contains("Gatekeeper") && gatekeeperJobList.isNotEmpty ? jobsListView(7,gatekeeperJobList,++colorIndex,context) : Container(),
                 userProvider.profession.contains("Sweeper") && sweeperJobList.isNotEmpty ? jobsListView(8,sweeperJobList,++colorIndex,context) : Container(),
               ],

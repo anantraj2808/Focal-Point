@@ -8,10 +8,7 @@ import 'package:focal_point/constants/strings.dart';
 import 'package:focal_point/models/Users.dart';
 import 'package:focal_point/models/applied_jobs.dart';
 import 'package:focal_point/presentation/AppliedJobs/View/applied_jobs_screen.dart';
-import 'package:focal_point/presentation/LanguageSelection/Widget/gender_box.dart';
 import 'package:focal_point/presentation/ProfilePage/Widget/profession_box.dart';
-import 'package:focal_point/presentation/location_fetching.dart';
-import 'package:focal_point/services/app_localizations.dart';
 import 'package:focal_point/services/edit_details.dart';
 import 'package:focal_point/services/get_applied_jobs.dart';
 import 'package:focal_point/services/shared_preferences.dart';
@@ -19,7 +16,6 @@ import 'package:focal_point/styles/get_translated_text.dart';
 import 'package:focal_point/styles/text_styles.dart';
 import 'package:focal_point/styles/waiting_screen.dart';
 import 'package:provider/provider.dart';
-import 'package:flutter_localizations/flutter_localizations.dart';
 
 class ProfilePage extends StatefulWidget {
   @override
@@ -39,6 +35,7 @@ class _ProfilePageState extends State<ProfilePage>{
   bool isGenderEdited = false;
   List professions = [];
   String gender = "";
+  String numberOfAppliedJobs = "0";
   TextEditingController nameTEC = TextEditingController();
   TextEditingController phoneNoTEC = TextEditingController();
   TextEditingController cityTEC = TextEditingController();
@@ -60,6 +57,7 @@ class _ProfilePageState extends State<ProfilePage>{
     await getAppliedJobs(jwt).then((val) {
       setState(() {
         appliedJobsList = val;
+        numberOfAppliedJobs = appliedJobsList.length.toString();
         loading = false;
       });
     });
@@ -207,44 +205,44 @@ class _ProfilePageState extends State<ProfilePage>{
                           child: Row(
                             mainAxisAlignment: MainAxisAlignment.center,
                             children: [
-                              Container(
-                                height: 110.0,
-                                width: 110.0,
-                                child: Card(
-                                  elevation: 5.0,
-                                  shadowColor: GREY,
-                                  child: Column(
-                                    mainAxisAlignment: MainAxisAlignment.center,
-                                    children: [
-                                      RegularTextReg("Applied", 18.0, GREY),
-                                      SizedBox(height: 15.0,),
-                                      RegularTextMed("8", 24.0, DARK_BLUE),
-                                    ],
-                                  ),
-                                ),
-                              ),
-                              SizedBox(width: 25.0,),
                               GestureDetector(
                                 onTap: (){
                                   Navigator.push(context,
-                                  MaterialPageRoute(
-                                      builder: (context) => AppliedJobsScreen(appliedJobsList: appliedJobsList,)
-                                  ));
+                                      MaterialPageRoute(
+                                          builder: (context) => AppliedJobsScreen(appliedJobsList: appliedJobsList,)
+                                      ));
                                 },
                                 child: Container(
-                                  height: 125.0,
-                                  width: 125.0,
+                                  height: 110.0,
+                                  width: 110.0,
                                   child: Card(
                                     elevation: 5.0,
                                     shadowColor: GREY,
                                     child: Column(
                                       mainAxisAlignment: MainAxisAlignment.center,
                                       children: [
-                                        RegularTextReg("In Review", 18.0, GREY),
+                                        RegularTextReg("Applied", 18.0, GREY),
                                         SizedBox(height: 15.0,),
-                                        RegularTextMed("3", 24.0, DARK_BLUE),
+                                        RegularTextMed(numberOfAppliedJobs, 24.0, DARK_BLUE),
                                       ],
                                     ),
+                                  ),
+                                ),
+                              ),
+                              SizedBox(width: 25.0,),
+                              Container(
+                                height: 125.0,
+                                width: 125.0,
+                                child: Card(
+                                  elevation: 5.0,
+                                  shadowColor: GREY,
+                                  child: Column(
+                                    mainAxisAlignment: MainAxisAlignment.center,
+                                    children: [
+                                      RegularTextReg("In Review", 18.0, GREY),
+                                      SizedBox(height: 15.0,),
+                                      RegularTextMed("3", 24.0, DARK_BLUE),
+                                    ],
                                   ),
                                 ),
                               ),

@@ -28,6 +28,7 @@ Future<bool> getUser(BuildContext context) async {
 
 //If user exists, set data into userProvider
 Future setUserDetails(BuildContext context, String jwt) async {
+  if (context == null) print("Context is null");
   Users userProvider = Provider.of<Users>(context,listen: false);
   String api = BASE_API + VIEW;
 
@@ -53,7 +54,9 @@ Future setUserDetails(BuildContext context, String jwt) async {
       professions(responseData),
       responseData['_id'],
   );
+  return true;
 }
+
 List<String> professions(responseData){
   List<String> professions = [];
   for (int i=0 ; i<responseData['occupations'].length ; i++){

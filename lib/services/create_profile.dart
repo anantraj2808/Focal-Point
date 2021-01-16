@@ -20,8 +20,9 @@ Future createProfile(BuildContext context) async {
     "name" : userProvider.fullName,
     "city" : userProvider.city,
     "state" : userProvider.state,
-    "occupations" : ["Plumber"],
-    //jsonEncode(userProvider.profession.toList()),
+    "occupations" :
+    //["Plumber"],
+    userProvider.profession,
     //professionsToJson(userProvider.profession),
     "language" : userProvider.language
   };

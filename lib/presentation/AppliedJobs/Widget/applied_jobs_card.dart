@@ -14,11 +14,11 @@ Widget appliedJobCard(AppliedJob appliedJob){
 
   Job job = appliedJob.job;
 
-  return Card(
-    elevation: 5.0,
-    shadowColor: GREY,
-    child: Container(
-      margin: EdgeInsets.only(bottom: 10.0),
+  return Container(
+    margin: EdgeInsets.only(bottom: 10.0),
+    child: Card(
+      elevation: 5.0,
+      shadowColor: GREY,
       child: ListTile(
         leading: Container(
           width: 30.0,

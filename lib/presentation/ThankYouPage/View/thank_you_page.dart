@@ -1,10 +1,15 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:focal_point/constants/colors.dart';
+import 'package:focal_point/models/job.dart';
 import 'package:focal_point/presentation/HomePage/View/home_screen.dart';
 import 'package:focal_point/styles/text_styles.dart';
 
 class ThankYouPage extends StatefulWidget {
+
+  final Job job;
+  ThankYouPage({this.job});
+
   @override
   _ThankYouPageState createState() => _ThankYouPageState();
 }
@@ -27,12 +32,12 @@ class _ThankYouPageState extends State<ThankYouPage> {
             ),
             Container(
               padding: EdgeInsets.symmetric(horizontal: 10.0,vertical: 5.0),
-              child: RegularTextMedCenter("Thanks for applying for the job post of a Plumber.", 22.0, DARK_BLUE),
+              child: RegularTextMedCenter("Thanks for applying for the job post of a " + widget.job.professionType, 22.0, DARK_BLUE),
             ),
             SizedBox(height: 15.0),
             Container(
               padding: EdgeInsets.symmetric(horizontal: 10.0,vertical: 5.0),
-              child: RegularTextMedCenter("XYZ Industries Pvt. Ltd. will contact you soon.", 22.0, DARK_BLUE),
+              child: RegularTextMedCenter(widget.job.companyName+" will contact you soon.", 22.0, DARK_BLUE),
             ),
             SizedBox(height: 50.0),
             Container(

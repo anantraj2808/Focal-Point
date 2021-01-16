@@ -30,12 +30,12 @@ class Job{
       professionType: json['professionType'],
       dutyType: json['type'],
       numberOfOpenings: json['openings'],
-      minimumQualification: json['minimumQualification'],
+      minimumQualification: json['minQualification'],
       languageRequired: json['language'],
-      description: json['description'],
+      description: json['jobDescription'],
       experienceRequired: json['minExperience'],
-      workTimings: json['workTimings'],
-      completeAddress: json['completeAddress'],
+      workTimings: json['timing'],
+      completeAddress: json['address'],
     );
   }
 }

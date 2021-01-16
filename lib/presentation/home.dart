@@ -2,6 +2,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:focal_point/constants/colors.dart';
 import 'package:focal_point/presentation/search_page.dart';
+import 'package:focal_point/services/get_home_screen_jobs.dart';
 import 'package:focal_point/services/shared_preferences.dart';
 import 'package:focal_point/services/shared_prefs_ready_state.dart';
 import 'package:focal_point/services/user_authentication.dart';
@@ -45,19 +46,6 @@ class _HomeState extends State<Home> {
   @override
   void initState() {
     super.initState();
-    setDetails();
-  }
-
-  void setDetails() async {
-    setState(() {
-      loading = true;
-    });
-    if(!widget.isNewUser){
-      await setUserDetails(context, await SharedPrefs.getUserJWTSharedPrefs());
-    }
-    setState(() {
-      loading = false;
-    });
   }
 
   @override
