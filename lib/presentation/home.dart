@@ -1,7 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:focal_point/constants/colors.dart';
-import 'package:focal_point/presentation/search_page.dart';
+import 'SearchScreen/search_page.dart';
 import 'package:focal_point/services/get_home_screen_jobs.dart';
 import 'package:focal_point/services/shared_preferences.dart';
 import 'package:focal_point/services/shared_prefs_ready_state.dart';
