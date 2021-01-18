@@ -6,6 +6,12 @@ import 'package:http/http.dart' as http;
 
 Future<List<Job>> searchJobs(List<String> professionList, String city, String state, String jwt) async {
   String url = BASE_API + SEARCH_JOBS;
+  if(city == "Select a city") city = "";
+  if(state == "Select a state") state = "";
+
+  print("City" + city);
+  print("State" + state);
+  print("Professions" + professionList.toString());
 
   List<Job> jobsList = [];
   
@@ -27,12 +33,12 @@ Future<List<Job>> searchJobs(List<String> professionList, String city, String st
     }
   );
 
-  print("Search Map = " + json.encode(map));
   print("Search Response code = " + response.statusCode.toString());
 
   if(response.statusCode == 200) {
     var responseBody = jsonDecode(response.body);
     var data = responseBody['data'];
+    print("Search Data = " + data.toString());
     for (int i=0 ; i<data.length ; i++){
       for (int j=0 ; j<data[i].length ; j++){
         jobsList.add(Job.fromJson(data[i][j]));

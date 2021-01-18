@@ -1,6 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:flutter/widgets.dart';
 import 'package:focal_point/constants/colors.dart';
 import 'package:focal_point/constants/strings.dart';
 import 'package:focal_point/presentation/PersonalDetailsForm/Widget/custom_dialog_otp.dart';
@@ -24,21 +25,14 @@ class _PersonalDetailsFormState extends State<PersonalDetailsForm> {
   bool checkedStatus = false;
   bool buttonClicked = false;
   String termsAndConditionsText = LOREM_IPSUM;
+  RangeLabels labels = RangeLabels('0', "20000");
+  RangeValues values = RangeValues(0, 20000);
 
   @override
   void initState() {
     super.initState();
     buttonClicked = false;
   }
-
-//  sendOTP(BuildContext context){
-//    //TODO
-//    showDialog(context: context,
-//        builder: (context){
-//          return OTPDialog(fullNameTEC.text,ageTEC.text,phoneNumberTEC.text);
-//        }
-//    );
-//  }
 
   @override
   Widget build(BuildContext context) {
@@ -58,7 +52,7 @@ class _PersonalDetailsFormState extends State<PersonalDetailsForm> {
             child: Container(
               padding: EdgeInsets.symmetric(horizontal: 20.0),
               width: width,
-              margin: EdgeInsets.only(top: 50.0),
+              margin: EdgeInsets.only(top: 20.0),
               child: Form(
                 key: _formKey,
                 child: SingleChildScrollView(
@@ -74,7 +68,7 @@ class _PersonalDetailsFormState extends State<PersonalDetailsForm> {
                         ),
                         child: Image.asset("assets/images/circular_logo.png"),
                       ),
-                      SizedBox(height: 30.0,),
+                      SizedBox(height: 20.0,),
                       TextFormField(
                         validator: (String value){
                           if (value.length <= 2) return "Enter a valid name";
@@ -104,7 +98,7 @@ class _PersonalDetailsFormState extends State<PersonalDetailsForm> {
                               fontSize: 16),
                         ),
                       ),
-                      SizedBox(height: 20.0,),
+                      SizedBox(height: 15.0,),
                       TextFormField(
                         validator: (String value){
                           if (value.length != 2) return "Enter a valid age";
@@ -134,11 +128,63 @@ class _PersonalDetailsFormState extends State<PersonalDetailsForm> {
                               fontSize: 16),
                         ),
                       ),
+                      SizedBox(height: 10.0,),
+                      Divider(color: DARK_BLUE,indent: 5.0,endIndent: 5.0,),
+                      SizedBox(height: 10.0,),
+                      RegularTextRegCenter("Preferred Salary Range (Per month)", 20.0, DARK_BLUE),
+                      RegularTextMedCenter("पसंदीदा वेतन सीमा (प्रति माह)", 20.0, DARK_BLUE),
+                      SizedBox(height: 10.0,),
+                      RangeSlider(
+                          divisions: 4,
+                          activeColor: DARK_BLUE,
+                          inactiveColor: GREY,
+                          min: 0,
+                          max: 20000,
+                          values: values,
+                          labels: labels,
+                          onChanged: (value){
+                            print("START: ${value.start}, End: ${value.end}");
+                            setState(() {
+                              values = value;
+                              labels = RangeLabels("₹ ${value.start.toInt().toString()}", "₹ ${value.end.toInt().toString()}");
+                            });
+                          }
+                      ),
+                      SizedBox(height: 10.0,),
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: [
+                          Container(
+                            decoration: BoxDecoration(
+                              borderRadius: BorderRadius.circular(5.0),
+                              border: Border.all(color: DARK_BLUE),
+                              color: WHITE,
+                            ),
+                            height: 40.0,
+                            width: 100.0,
+                            child: Container(alignment: Alignment.center,child: RegularTextReg("₹ ${values.start.toInt().toString()}", 18.0, DARK_BLUE,)),
+                          ),
+                          SizedBox(width: 7,),
+                          RegularTextReg("\-", 20.0, DARK_BLUE),
+                          SizedBox(width: 7,),
+                          Container(
+                            decoration: BoxDecoration(
+                              borderRadius: BorderRadius.circular(5.0),
+                              border: Border.all(color: DARK_BLUE),
+                              color: WHITE,
+                            ),
+                            height: 40.0,
+                            width: 100.0,
+                            child: Container(alignment: Alignment.center,child: RegularTextReg("₹ ${values.end.toInt().toString()}", 18.0, DARK_BLUE,)),
+                          ),
+                        ],
+                      ),
                       SizedBox(height: 60.0,),
                       InkWell(
                         onTap: (){
                           userProvider.setFullName(fullNameTEC.text);
                           userProvider.setAge(ageTEC.text);
+                          userProvider.setSalaryRange("${values.start.toInt().toString()}-${values.end.toInt().toString()}");
                           Navigator.push(context, MaterialPageRoute(
                               builder: (context) => LocationFetchingScreen()));
                         },

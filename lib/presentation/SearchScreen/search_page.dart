@@ -156,19 +156,20 @@ class _SearchPageState extends State<SearchPage> {
                         ],
                       ),
                       SizedBox(height: 15.0,),
-                      Container(
-                        child: Row(
-                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                          children: [
-                            Text("Select Professions",style: TextStyle(fontSize: 15.0),),
-                            IconButton(
-                                icon: Icon(!isProfessionRegionExpanded ? Icons.arrow_drop_down : Icons.arrow_drop_up,),
-                                onPressed: (){
-                                  setState(() {
-                                    isProfessionRegionExpanded = !isProfessionRegionExpanded;
-                                  });
-                                })
-                          ],
+                      GestureDetector(
+                        onTap: (){
+                          setState(() {
+                            isProfessionRegionExpanded = !isProfessionRegionExpanded;
+                          });
+                        },
+                        child: Container(
+                          child: Row(
+                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                            children: [
+                              Text("Select Professions",style: TextStyle(fontSize: 15.0),),
+                              Icon(!isProfessionRegionExpanded ? Icons.arrow_drop_down : Icons.arrow_drop_up,),
+                            ],
+                          ),
                         ),
                       ),
                       isProfessionRegionExpanded ? Container(
@@ -177,7 +178,9 @@ class _SearchPageState extends State<SearchPage> {
                             children: professionChips(),
                           )
                       ) : Container(),
-                      SizedBox(height: 10.0,),
+                      SizedBox(height: 5.0,),
+                      Divider(color: DARK_BLUE,indent: 10.0,endIndent: 10.0,),
+                      SizedBox(height: 5.0,),
                       jobsList.isNotEmpty ? RegularTextMed("Search Results", 20.0, DARK_BLUE) : Container(),
                       SizedBox(height: 10.0,),
                       plumberJobList.isNotEmpty ? jobsListView(0,plumberJobList,++colorIndex,context) : Container(),
@@ -201,7 +204,7 @@ class _SearchPageState extends State<SearchPage> {
       floatingActionButtonLocation: FloatingActionButtonLocation.centerFloat,
         floatingActionButton: FloatingActionButton(
             elevation: 0.0,
-            child: Icon(Icons.search,color: WHITE,),
+            child: Icon(Icons.send,color: WHITE,),
             backgroundColor: DARK_BLUE,
             onPressed: (){
               setState(() {

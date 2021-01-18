@@ -53,6 +53,7 @@ Future setUserDetails(BuildContext context, String jwt) async {
       responseData['age'],
       professions(responseData),
       responseData['_id'],
+      responseData['salaryRange'],
   );
   return true;
 }

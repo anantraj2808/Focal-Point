@@ -3,6 +3,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter/widgets.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 import 'package:focal_point/constants/colors.dart';
 import 'package:focal_point/constants/strings.dart';
 import 'package:focal_point/models/Users.dart';
@@ -117,30 +118,6 @@ class _ProfilePageState extends State<ProfilePage>{
                               ),
                               child: Image.asset("assets/images/${userProvider.gender.toLowerCase()}.png"),
                             ),
-                            Positioned(
-                              left: 100.0,
-                              bottom: 100.0,
-                              child: Container(
-                                margin: EdgeInsets.all(5.0),
-                                height: 50.0,
-                                width: 50.0,
-                                decoration: BoxDecoration(
-                                    shape: BoxShape.circle,
-                                    color: WHITE
-                                ),
-                                child: Container(
-                                  alignment: Alignment.center,
-                                  child: IconButton(
-                                    onPressed: (){
-                                      setState(() {
-                                        //isGenderEdited = true;
-                                      });
-                                    },
-                                    icon: Icon(Icons.edit,color: DARK_BLUE,),
-                                  ),
-                                ),
-                              ),
-                            )
                           ],
                         ) :
                         Row(
@@ -199,7 +176,21 @@ class _ProfilePageState extends State<ProfilePage>{
                                 fontSize: 16),
                           ),
                         ),
-                        SizedBox(height: 20.0,),
+                        Container(
+                          alignment: Alignment.center,
+                          child: Row(
+                            mainAxisSize: MainAxisSize.min,
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            children: [
+                              Icon(Icons.phone_in_talk,color: DARK_BLUE,),
+                              SizedBox(width: 10.0,),
+                              Container(
+                                alignment: Alignment.center,
+                                child: RegularTextMed(userProvider.phoneNumber, 20.0, DARK_BLUE)),
+                            ],
+                          ),
+                        ),
+                        SizedBox(height: 10.0,),
                         Container(
                           width: width,
                           child: Row(
@@ -230,19 +221,32 @@ class _ProfilePageState extends State<ProfilePage>{
                                 ),
                               ),
                               SizedBox(width: 25.0,),
-                              Container(
-                                height: 125.0,
-                                width: 125.0,
-                                child: Card(
-                                  elevation: 5.0,
-                                  shadowColor: GREY,
-                                  child: Column(
-                                    mainAxisAlignment: MainAxisAlignment.center,
-                                    children: [
-                                      RegularTextReg("In Review", 18.0, GREY),
-                                      SizedBox(height: 15.0,),
-                                      RegularTextMed("3", 24.0, DARK_BLUE),
-                                    ],
+                              GestureDetector(
+                                onTap: (){
+                                  Fluttertoast.showToast(
+                                      msg: "No application in review",
+                                      toastLength: Toast.LENGTH_SHORT,
+                                      gravity: ToastGravity.BOTTOM,
+                                      timeInSecForIosWeb: 1,
+                                      backgroundColor: DARK_BLUE,
+                                      textColor: WHITE,
+                                      fontSize: 16.0
+                                  );
+                                },
+                                child: Container(
+                                  height: 125.0,
+                                  width: 125.0,
+                                  child: Card(
+                                    elevation: 5.0,
+                                    shadowColor: GREY,
+                                    child: Column(
+                                      mainAxisAlignment: MainAxisAlignment.center,
+                                      children: [
+                                        RegularTextReg("In Review", 18.0, GREY),
+                                        SizedBox(height: 15.0,),
+                                        RegularTextMed("0", 24.0, DARK_BLUE),
+                                      ],
+                                    ),
                                   ),
                                 ),
                               ),
