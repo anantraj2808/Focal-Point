@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/painting.dart';
 import 'package:flutter/rendering.dart';
 import 'package:flutter/widgets.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 import 'package:focal_point/constants/colors.dart';
 import 'package:focal_point/constants/strings.dart';
 import 'package:focal_point/models/Users.dart';
@@ -168,6 +169,17 @@ class _JobDescriptionState extends State<JobDescription> {
                               MaterialPageRoute(
                                   builder: (context) => ThankYouPage(job: job,)
                               )
+                          );
+                        }
+                        else{
+                          Fluttertoast.showToast(
+                              msg: "Something went wrong. Try Again!",
+                              toastLength: Toast.LENGTH_SHORT,
+                              gravity: ToastGravity.BOTTOM,
+                              timeInSecForIosWeb: 1,
+                              backgroundColor: WHITE,
+                              textColor: DARK_BLUE,
+                              fontSize: 16.0
                           );
                         }
                       },

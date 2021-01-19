@@ -3,6 +3,7 @@ import 'dart:ui';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 import 'package:focal_point/constants/colors.dart';
 import 'package:focal_point/constants/strings.dart';
 import 'package:focal_point/icons/custom_icons.dart';
@@ -114,6 +115,17 @@ class _ProfessionSelectionScreenState extends State<ProfessionSelectionScreen> {
                                     SharedPrefs.setGenderSharedPrefs(userProvider.gender);
                                     Navigator.of(context).pushAndRemoveUntil(MaterialPageRoute(builder: (context) =>
                                         Home(isNewUser: true,)), (Route<dynamic> route) => false);
+                                  }
+                                  else{
+                                    Fluttertoast.showToast(
+                                        msg: "Something went wrong. Try Again!",
+                                        toastLength: Toast.LENGTH_SHORT,
+                                        gravity: ToastGravity.BOTTOM,
+                                        timeInSecForIosWeb: 1,
+                                        backgroundColor: WHITE,
+                                        textColor: DARK_BLUE,
+                                        fontSize: 16.0
+                                    );
                                   }
                                 }
                                 else {

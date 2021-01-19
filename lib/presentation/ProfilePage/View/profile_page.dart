@@ -200,12 +200,12 @@ class _ProfilePageState extends State<ProfilePage>{
                                 onTap: (){
                                   Navigator.push(context,
                                       MaterialPageRoute(
-                                          builder: (context) => AppliedJobsScreen(appliedJobsList: appliedJobsList,)
+                                          builder: (context) => AppliedJobsScreen(appliedJobsList: appliedJobsList,title: "Applied Jobs",)
                                       ));
                                 },
                                 child: Container(
-                                  height: 110.0,
-                                  width: 110.0,
+                                  height: 115.0,
+                                  width: 115.0,
                                   child: Card(
                                     elevation: 5.0,
                                     shadowColor: GREY,
@@ -223,19 +223,14 @@ class _ProfilePageState extends State<ProfilePage>{
                               SizedBox(width: 25.0,),
                               GestureDetector(
                                 onTap: (){
-                                  Fluttertoast.showToast(
-                                      msg: "No application in review",
-                                      toastLength: Toast.LENGTH_SHORT,
-                                      gravity: ToastGravity.BOTTOM,
-                                      timeInSecForIosWeb: 1,
-                                      backgroundColor: DARK_BLUE,
-                                      textColor: WHITE,
-                                      fontSize: 16.0
-                                  );
+                                  Navigator.push(context,
+                                      MaterialPageRoute(
+                                          builder: (context) => AppliedJobsScreen(appliedJobsList: appliedJobsList,title: "In-Review Jobs",)
+                                      ));
                                 },
                                 child: Container(
-                                  height: 125.0,
-                                  width: 125.0,
+                                  height: 115.0,
+                                  width: 115.0,
                                   child: Card(
                                     elevation: 5.0,
                                     shadowColor: GREY,
@@ -475,6 +470,26 @@ class _ProfilePageState extends State<ProfilePage>{
                                   isStateEdited = false;
                                   isGenderEdited = false;
                                 });
+                                Fluttertoast.showToast(
+                                    msg: "Details saved!",
+                                    toastLength: Toast.LENGTH_SHORT,
+                                    gravity: ToastGravity.BOTTOM,
+                                    timeInSecForIosWeb: 1,
+                                    backgroundColor: WHITE,
+                                    textColor: DARK_BLUE,
+                                    fontSize: 16.0
+                                );
+                              }
+                              else{
+                                Fluttertoast.showToast(
+                                    msg: "Something went wrong. Try Again!",
+                                    toastLength: Toast.LENGTH_SHORT,
+                                    gravity: ToastGravity.BOTTOM,
+                                    timeInSecForIosWeb: 1,
+                                    backgroundColor: WHITE,
+                                    textColor: DARK_BLUE,
+                                    fontSize: 16.0
+                                );
                               }
                               print("Return Bool : "+returnBool.toString());
                             }
