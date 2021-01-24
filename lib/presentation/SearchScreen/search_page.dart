@@ -7,6 +7,7 @@ import 'package:focal_point/presentation/HomePage/Widget/jobs_list_view.dart';
 import 'package:focal_point/services/search_jobs.dart';
 import 'package:focal_point/services/shared_preferences.dart';
 import 'package:focal_point/styles/get_translated_text.dart';
+import 'package:focal_point/styles/no_job_found.dart';
 import 'package:focal_point/styles/text_styles.dart';
 import 'package:focal_point/styles/waiting_screen.dart';
 
@@ -181,17 +182,21 @@ class _SearchPageState extends State<SearchPage> {
                       SizedBox(height: 5.0,),
                       Divider(color: DARK_BLUE,indent: 10.0,endIndent: 10.0,),
                       SizedBox(height: 5.0,),
-                      jobsList.isNotEmpty ? RegularTextMed("Search Results", 20.0, DARK_BLUE) : Container(),
-                      SizedBox(height: 10.0,),
-                      plumberJobList.isNotEmpty ? jobsListView(0,plumberJobList,++colorIndex,context) : Container(),
-                      carpenterJobList.isNotEmpty ? jobsListView(1,carpenterJobList,++colorIndex,context) : Container(),
-                      electricianJobList.isNotEmpty ? jobsListView(2,electricianJobList,++colorIndex,context) : Container(),
-                      mechanicJobList.isNotEmpty ? jobsListView(3,mechanicJobList,++colorIndex,context) : Container(),
-                      driverJobList.isNotEmpty ? jobsListView(4,driverJobList,++colorIndex,context) : Container(),
-                      washermanJobList.isNotEmpty ? jobsListView(5,washermanJobList,++colorIndex,context) : Container(),
-                      maidJobList.isNotEmpty ? jobsListView(6,maidJobList,++colorIndex,context) : Container(),
-                      gatekeeperJobList.isNotEmpty ? jobsListView(7,gatekeeperJobList,++colorIndex,context) : Container(),
-                      sweeperJobList.isNotEmpty ? jobsListView(8,sweeperJobList,++colorIndex,context) : Container(),
+                      Column(
+                        children: [
+                          jobsList.isNotEmpty ? RegularTextMed("Search Results", 20.0, DARK_BLUE) : Container(),
+                          SizedBox(height: 10.0,),
+                          plumberJobList.isNotEmpty ? jobsListView(0,plumberJobList,++colorIndex,context) : Container(),
+                          carpenterJobList.isNotEmpty ? jobsListView(1,carpenterJobList,++colorIndex,context) : Container(),
+                          electricianJobList.isNotEmpty ? jobsListView(2,electricianJobList,++colorIndex,context) : Container(),
+                          mechanicJobList.isNotEmpty ? jobsListView(3,mechanicJobList,++colorIndex,context) : Container(),
+                          driverJobList.isNotEmpty ? jobsListView(4,driverJobList,++colorIndex,context) : Container(),
+                          washermanJobList.isNotEmpty ? jobsListView(5,washermanJobList,++colorIndex,context) : Container(),
+                          maidJobList.isNotEmpty ? jobsListView(6,maidJobList,++colorIndex,context) : Container(),
+                          gatekeeperJobList.isNotEmpty ? jobsListView(7,gatekeeperJobList,++colorIndex,context) : Container(),
+                          sweeperJobList.isNotEmpty ? jobsListView(8,sweeperJobList,++colorIndex,context) : Container(),
+                        ],
+                      ),
                     ],
                   ),
                 ),

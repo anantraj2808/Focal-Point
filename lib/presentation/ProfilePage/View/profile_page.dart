@@ -43,6 +43,9 @@ class _ProfilePageState extends State<ProfilePage>{
   TextEditingController stateTEC = TextEditingController();
   TextEditingController ageTEC = TextEditingController();
   List<AppliedJob> appliedJobsList = [];
+  String salaryStart = "0";
+  String salaryEnd = "0";
+  String range = "";
 
   @override
   void initState() {
@@ -82,6 +85,9 @@ class _ProfilePageState extends State<ProfilePage>{
     cityTEC.text = userProvider.city;
     stateTEC.text = userProvider.state;
     ageTEC.text = userProvider.age;
+    range = userProvider.salaryRange;
+    print(range);
+    int dashIndex = range.indexOf('-');
     return EasyLocalizationProvider(
       data: data,
       child: Scaffold(
@@ -190,7 +196,36 @@ class _ProfilePageState extends State<ProfilePage>{
                             ],
                           ),
                         ),
-                        SizedBox(height: 10.0,),
+                        SizedBox(height: 15.0,),
+                        Row(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: [
+                            Container(
+                              decoration: BoxDecoration(
+                                borderRadius: BorderRadius.circular(5.0),
+                                border: Border.all(color: DARK_BLUE),
+                                color: WHITE,
+                              ),
+                              height: 40.0,
+                              width: 100.0,
+                              child: Container(alignment: Alignment.center,child: RegularTextReg("₹ ${range.substring(0,dashIndex)}", 18.0, DARK_BLUE,)),
+                            ),
+                            SizedBox(width: 7,),
+                            RegularTextReg("\-", 20.0, DARK_BLUE),
+                            SizedBox(width: 7,),
+                            Container(
+                              decoration: BoxDecoration(
+                                borderRadius: BorderRadius.circular(5.0),
+                                border: Border.all(color: DARK_BLUE),
+                                color: WHITE,
+                              ),
+                              height: 40.0,
+                              width: 100.0,
+                              child: Container(alignment: Alignment.center,child: RegularTextReg("₹ ${range.substring(dashIndex+1)}", 18.0, DARK_BLUE,)),
+                            ),
+                          ],
+                        ),
+                        SizedBox(height: 15.0,),
                         Container(
                           width: width,
                           child: Row(
