@@ -14,11 +14,10 @@ Future<List<Job>> getHomeScreenJobs(BuildContext context, String jwt) async {
   Users userProvider = Provider.of<Users>(context,listen: false);
   String url = BASE_API + GET_HOME_JOBS;
 
+  print("Sending profession = " + convertToCamelCase(userProvider.profession).toString());
   List<Job> jobsList = [];
-
-
   Map<String,dynamic> map = {
-    "professionType" : userProvider.profession
+    "professionType" : convertToCamelCase(userProvider.profession.toSet().toList())
   };
 
   final http.Response response = await http.post(
@@ -41,6 +40,12 @@ Future<List<Job>> getHomeScreenJobs(BuildContext context, String jwt) async {
       jobsList.add(Job.fromJson(data[i][j]));
     }
   }
-
   return jobsList;
+}
+
+convertToCamelCase(List<String> list){
+  for (int i=0 ; i<list.length ; i++){
+    list[i] = list[i].substring(0,1).toUpperCase() + list[i].substring(1);
+  }
+  return list;
 }

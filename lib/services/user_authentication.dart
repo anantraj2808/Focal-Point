@@ -20,7 +20,7 @@ Future<bool> getUser(BuildContext context) async {
     userProvider.setJWT(responseData['token']);
     setUserDetails(context, responseData['token']);
     return true;
-  } else{
+  } else {
     return false;
   }
 }
@@ -63,5 +63,6 @@ List<String> professions(responseData){
   for (int i=0 ; i<responseData['occupations'].length ; i++){
     professions.add(responseData['occupations'][i]['occupation']);
   }
+  print("User Professions = " + professions.toString());
   return professions;
 }

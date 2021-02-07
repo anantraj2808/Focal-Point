@@ -15,6 +15,7 @@ editDetails(BuildContext context) async {
   Users userProvider = Provider.of<Users>(context,listen: false);
 
   String jwt = await SharedPrefs.getUserJWTSharedPrefs();
+  print("JWT = " + jwt);
   String url = BASE_API + EDIT;
 
   Map <dynamic,dynamic> map = {

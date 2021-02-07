@@ -13,6 +13,8 @@ Future createProfile(BuildContext context) async {
 
 //  var professionsList = jsonEncode(userProvider.profession.map((e) => e.toJson()).toList());
 
+  print("Creating profession = " + userProvider.profession.toSet().toList().toString());
+
   Map <String,dynamic> map = {
     "contactNumber" : userProvider.phoneNumber,
     "age" : userProvider.age,
@@ -22,13 +24,11 @@ Future createProfile(BuildContext context) async {
     "state" : userProvider.state,
     "occupations" :
     //["Plumber"],
-    userProvider.profession,
+    userProvider.profession.toSet().toList(),
     //professionsToJson(userProvider.profession),
     "language" : userProvider.language,
     "salaryRange" : userProvider.salaryRange
   };
-
-  print(jsonEncode(userProvider.profession));
 
   final http.Response response = await http.post(
     url,
