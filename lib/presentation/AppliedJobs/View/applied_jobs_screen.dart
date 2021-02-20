@@ -25,9 +25,9 @@ class _AppliedJobsScreenState extends State<AppliedJobsScreen> {
   @override
   void initState() {
     super.initState();
-    if(widget.title == "In-Review Jobs"){
+    if(widget.title == "Accepted Jobs"){
       for (int i=0 ; i<widget.appliedJobsList.length ; i++){
-        if (widget.appliedJobsList[i].status == "inReview"){
+        if (widget.appliedJobsList[i].status == "Accepted"){
           jobsList.add(widget.appliedJobsList[i]);
         }
       }

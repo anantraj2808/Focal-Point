@@ -13,25 +13,33 @@ Widget jobsListView(int globalIndex, List<Job> jobList, int colorIndex, BuildCon
     child:Column(
       mainAxisSize: MainAxisSize.min,
       children: [
+        Row(
+          children: [
+            Container(
+                padding: EdgeInsets.only(left: 10.0),
+                alignment: Alignment.centerLeft,
+                child: Icon(PROFESSION_ICON_LIST[globalIndex])),
+            Container(
+                padding: EdgeInsets.only(left: 15.0),
+                alignment: Alignment.centerLeft,
+                child: Text(PROFESSION_LIST[globalIndex],style: TextStyle(fontSize: 25.0,fontFamily: GOOGLE_SANS_MED),)),
+          ],
+        ),
+        SizedBox(height: 8.0,),
         Container(
-          padding: EdgeInsets.only(left: 10.0),
-          alignment: Alignment.centerLeft,
-            child: Text(PROFESSION_LIST[globalIndex],style: TextStyle(fontSize: 25.0,fontFamily: GOOGLE_SANS_MED),)),
-        //SizedBox(height: 8.0,),
-        Container(
-          child: GridView.count(
-            physics: NeverScrollableScrollPhysics(),
-            shrinkWrap: true,
-            scrollDirection: Axis.vertical,
-            childAspectRatio: 1,
-            crossAxisCount: 2,
-            children: List.generate(jobList.length, (index){
-              return jobListTile(jobList[index],globalIndex,colorIndex,context);
-            }),
+          height: 175,
+          child: ListView.builder(
+            itemCount: jobList.length,
+            scrollDirection: Axis.horizontal,
+            itemBuilder: (context, index){
+              return Container(
+                  margin: EdgeInsets.only(left: 8.0,right: 8.0),
+                child: jobListTile(jobList[index],globalIndex,colorIndex,context));
+            },
           ),
         ),
         SizedBox(height: 5.0,),
-        Divider(color: DARK_GREY,endIndent: 5.0,indent: 5.0,),
+//        Divider(color: GREY,endIndent: 5.0,indent: 5.0,),
         SizedBox(height: 5.0,),
       ],
     )

@@ -37,12 +37,14 @@ class _ProfilePageState extends State<ProfilePage>{
   List professions = [];
   String gender = "";
   String numberOfAppliedJobs = "0";
+  int numberOfAcceptedJobs = 0;
   TextEditingController nameTEC = TextEditingController();
   TextEditingController phoneNoTEC = TextEditingController();
   TextEditingController cityTEC = TextEditingController();
   TextEditingController stateTEC = TextEditingController();
   TextEditingController ageTEC = TextEditingController();
   List<AppliedJob> appliedJobsList = [];
+  List<AppliedJob> acceptedJobsList = [];
   String salaryStart = "0";
   String salaryEnd = "0";
   String range = "";
@@ -62,6 +64,12 @@ class _ProfilePageState extends State<ProfilePage>{
       setState(() {
         appliedJobsList = val;
         numberOfAppliedJobs = appliedJobsList.length.toString();
+        for (int i=0 ; i<appliedJobsList.length ; i++){
+          if(appliedJobsList[i].status == "Accepted"){
+            numberOfAcceptedJobs++;
+            acceptedJobsList.add(appliedJobsList[i]);
+          }
+        }
         loading = false;
       });
     });
@@ -260,7 +268,7 @@ class _ProfilePageState extends State<ProfilePage>{
                                 onTap: (){
                                   Navigator.push(context,
                                       MaterialPageRoute(
-                                          builder: (context) => AppliedJobsScreen(appliedJobsList: appliedJobsList,title: "In-Review Jobs",)
+                                          builder: (context) => AppliedJobsScreen(appliedJobsList: appliedJobsList,title: "Accepted Jobs",)
                                       ));
                                 },
                                 child: Container(
@@ -272,9 +280,9 @@ class _ProfilePageState extends State<ProfilePage>{
                                     child: Column(
                                       mainAxisAlignment: MainAxisAlignment.center,
                                       children: [
-                                        RegularTextReg("In Review", 18.0, GREY),
+                                        RegularTextReg("Accepted", 18.0, GREY),
                                         SizedBox(height: 15.0,),
-                                        RegularTextMed("0", 24.0, DARK_BLUE),
+                                        RegularTextMed(numberOfAcceptedJobs.toString(), 24.0, DARK_BLUE),
                                       ],
                                     ),
                                   ),

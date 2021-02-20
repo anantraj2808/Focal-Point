@@ -14,10 +14,11 @@ class Job{
   String experienceRequired;
   String workTimings;
   String completeAddress;
+  String adminPhone;
 
   Job({this.jobId,this.companyName,this.salary,this.payBasis,this.city,this.state,this.professionType,this.dutyType,
         this.numberOfOpenings,this.minimumQualification,this.languageRequired,this.description,
-        this.experienceRequired,this.workTimings,this.completeAddress});
+        this.experienceRequired,this.workTimings,this.completeAddress,this.adminPhone});
 
   factory Job.fromJson(Map<String,dynamic> json){
     return Job(
@@ -36,6 +37,7 @@ class Job{
       experienceRequired: json['minExperience'],
       workTimings: json['timing'],
       completeAddress: json['address'],
+      adminPhone: json['adminPhone']
     );
   }
 }

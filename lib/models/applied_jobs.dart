@@ -9,7 +9,7 @@ class AppliedJob{
   factory AppliedJob.fromJson(Map<String,dynamic> json){
     return AppliedJob(
       job: json['job'] as Job,
-      status: json['status'],
+      status: json['status']
     );
   }
 }

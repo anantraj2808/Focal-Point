@@ -7,6 +7,7 @@ import 'package:focal_point/models/applied_jobs.dart';
 import 'package:focal_point/models/job.dart';
 import 'package:focal_point/styles/status_color.dart';
 import 'package:focal_point/styles/text_styles.dart';
+import 'package:url_launcher/url_launcher.dart';
 
 Widget appliedJobCard(AppliedJob appliedJob){
 
@@ -57,7 +58,32 @@ Widget appliedJobCard(AppliedJob appliedJob){
             ],
           ),
         ),
+        trailing: appliedJob.status == "Accepted" ? GestureDetector(
+          onTap: (){
+            print("Admin Phone No. = ${appliedJob.job.adminPhone}");
+            _callNumber(appliedJob.job.adminPhone);
+          },
+          child: Container(
+            decoration: BoxDecoration(
+              shape: BoxShape.circle,
+              color: LIGHT_SHADY_BLUE
+            ),
+            transform: Matrix4.translationValues(0, 10, 0),
+            width: 45.0,
+            height: 45.0,
+            child: Icon(Icons.phone_outlined,size: 26.0,color: DARK_BLUE,),
+          ),
+        ) : Container(height: 0,width: 45,),
       ),
     ),
   );
+}
+
+_callNumber(String phoneNumber) async{
+  String telScheme = 'tel:+91-$phoneNumber}';
+  if (await canLaunch(telScheme)) {
+    await launch(telScheme);
+  } else {
+    throw 'Could not launch $telScheme';
+  }
 }

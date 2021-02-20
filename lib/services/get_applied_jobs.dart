@@ -9,6 +9,7 @@ import 'dart:convert';
 Future<List<AppliedJob>> getAppliedJobs(String jwt) async {
   String url = BASE_API + APPLIED_JOBS;
   List<AppliedJob> appliedJobsList = [];
+  print("JWT = $jwt");
 
   http.Response response = await http.get(
       url,
