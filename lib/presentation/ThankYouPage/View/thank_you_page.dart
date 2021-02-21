@@ -5,6 +5,8 @@ import 'package:focal_point/models/job.dart';
 import 'package:focal_point/presentation/HomePage/View/home_screen.dart';
 import 'package:focal_point/styles/text_styles.dart';
 
+import 'package:focal_point/presentation/home.dart';
+
 class ThankYouPage extends StatefulWidget {
 
   final Job job;
@@ -47,7 +49,9 @@ class _ThankYouPageState extends State<ThankYouPage> {
             SizedBox(height: 15.0),
             GestureDetector(
               onTap: (){
-                Navigator.pop(context);
+                Navigator.pushAndRemoveUntil(context, MaterialPageRoute(
+                  builder: (context) => Home(isNewUser: false,)
+                ), (route) => false);
               },
               child: Container(
                 height: 50.0,

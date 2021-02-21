@@ -88,6 +88,19 @@ class _HomePageState extends State<HomePage> {
     return convertedText;
   }
 
+  checkForEmptyScreen(List<String> list){
+    if(list.contains("Plumber") && plumberJobList.isNotEmpty) return false;
+    if(list.contains("Carpenter") && carpenterJobList.isNotEmpty) return false;
+    if(list.contains("Electrician") && electricianJobList.isNotEmpty) return false;
+    if(list.contains("Mechanic") && mechanicJobList.isNotEmpty) return false;
+    if(list.contains("Driver") && driverJobList.isNotEmpty) return false;
+    if(list.contains("Washerman") && washermanJobList.isNotEmpty) return false;
+    if(list.contains("Homemaid") && maidJobList.isNotEmpty) return false;
+    if(list.contains("Gatekeeper") && gatekeeperJobList.isNotEmpty) return false;
+    if(list.contains("Sweeper") && sweeperJobList.isNotEmpty) return false;
+    return true;
+  }
+
   @override
   Widget build(BuildContext context) {
     Users userProvider = Provider.of(context);
@@ -117,6 +130,20 @@ class _HomePageState extends State<HomePage> {
                         color: WHITE,
                         child: carouselContainer(),
                       ),
+                      checkForEmptyScreen(userProvider.profession) ? Container(
+                        child: Center(
+                          child: !loading ? Column(
+                            children: [
+                              Container(
+                                margin: EdgeInsets.only(top: 50.0),
+                                  height: 200.0,
+                                  width: 200.0,
+                                  child: Image.asset("assets/images/no_job_found.png")),
+                              RegularTextRegCenter("No suitable job found", 24, DARK_BLUE)
+                            ],
+                          ) : Container(),
+                        ),
+                      ) : Container(),
                       userProvider.profession.contains("Plumber") && plumberJobList.isNotEmpty ? jobsListView(0,plumberJobList,++colorIndex,context) : Container(),
                       userProvider.profession.contains("Carpenter") && carpenterJobList.isNotEmpty ? jobsListView(1,carpenterJobList,++colorIndex,context) : Container(),
                       userProvider.profession.contains("Electrician") && electricianJobList.isNotEmpty ? jobsListView(2,electricianJobList,++colorIndex,context) : Container(),
